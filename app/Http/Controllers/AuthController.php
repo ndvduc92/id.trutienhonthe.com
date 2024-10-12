@@ -46,7 +46,7 @@ class AuthController extends Controller
         ]);
         sleep(0.5);
         $gameEmail = $request->login . "." . time() . "@gmail.com";
-        $content = $this->callGameApi("POST", "/html/reg.php", [
+        $content = $this->callGameApi("POST", "/api/reg.php", [
             "login" => strtolower($request->login),
             "passwd" => $request->passwd,
             "repasswd" => $request->passwd,
