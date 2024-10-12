@@ -561,15 +561,15 @@
                                     tabindex="-1" role="menu" aria-orientation="vertical"
                                     aria-label="User menu">
                                     <a class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
-                                        role="menuitem" href="http://localhost:9000/user/profile">Profile</a>
+                                        role="menuitem" href="/user/profile">Profile</a>
                                     <a class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
                                         role="menuitem"
                                         href="http://localhost:9000/dashboard/donate/history">Transaction History</a>
-                                    <form method="POST" action="http://localhost:9000/logout">
+                                    <form method="POST" action="/logout">
                                         <input type="hidden" name="_token"
                                             value="HVG6814FIcyJTCy07iujNAKPrsNv4gJ18Xg6Ourt"> <a
                                             class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
-                                            role="menuitem" href="http://localhost:9000/logout"
+                                            role="menuitem" href="/logout"
                                             onclick="event.preventDefault();
                                                 this.closest('form').submit();">Log
                                             Out</a>
