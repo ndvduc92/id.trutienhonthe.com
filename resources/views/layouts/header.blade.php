@@ -30,6 +30,12 @@
         </button>
         <!-- Desktop Right buttons -->
         <nav aria-label="Secondary" class="hidden space-x-2 md:flex md:items-center">
+            <button aria-hidden="true" class="relative focus:outline-none" x-cloak @click="toggleTheme">
+                <span
+                    class="inline-block px-2 py-px text-xs text-{{ youOnline() ? 'green' : 'red' }}-500 bg-{{ youOnline() ? 'green' : 'red' }}-100 font-semibold rounded-md">
+                    {{ youOnline() ? 'Online' : 'Offline' }}
+                </span>
+            </button>
             <!-- Toggle dark theme button -->
             <button aria-hidden="true" class="relative focus:outline-none" x-cloak @click="toggleTheme">
                 <div class="w-12 h-6 transition rounded-full outline-none bg-primary-100 dark:bg-primary-lighter">

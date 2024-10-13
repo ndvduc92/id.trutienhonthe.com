@@ -1,4 +1,5 @@
 <?php
+use hrace009\PerfectWorldAPI\API;
 
 function getAcc($userid) {
     $user = \App\Models\User::where("userid", $userid)->first();
@@ -42,3 +43,15 @@ function isOnline() {
   $res = gameApi("GET", "/api/on.php");
   return $res["status"] == "online";
 }
+
+
+function youOnline() {
+  $api = new API;
+  return $api->checkRoleOnline(Auth::user()->main_id);
+}
+
+function getOnlineList() {
+  $api = new API;
+  return $api->getOnlineList();
+}
+
