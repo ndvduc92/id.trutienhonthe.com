@@ -26,7 +26,7 @@ class KnbController extends Controller
         }
         try {
             DB::beginTransaction();
-            $this->callGameApi("POST", "/html/knb.php", [
+            $this->callGameApi("POST", "/api/knb.php", [
                 "userid" => $user->userid,
                 "cash" => intval($xu / 10) * $ratio,
             ]);

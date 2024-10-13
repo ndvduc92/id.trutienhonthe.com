@@ -93,7 +93,7 @@
                 <button @click="open = !open; $nextTick(() => { if(open){ $refs.characterMenu.focus() } })"
                     type="button" aria-haspopup="true" :aria-expanded="open ? 'true' : 'false'"
                     class="inline-flex p-2 transition-colors duration-200 rounded-full text-primary-lighter bg-primary-50 hover:text-primary hover:bg-primary-100 dark:hover:text-light dark:hover:bg-primary-dark dark:bg-dark focus:outline-none focus:bg-primary-100 dark:focus:bg-primary-dark focus:ring-primary-darker">
-                    {{ Auth::user()->main_id ? Auth::user()->getMain() : "Chọn nhân vật" }}
+                    {{ Auth::user()->main_id ? Auth::user()->getMain() : 'Chọn nhân vật' }}
                     <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
                             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -112,9 +112,9 @@
                     tabindex="-1" role="menu" aria-orientation="vertical" aria-label="Character menu">
                     @if ($api->online)
                         @foreach (Auth::user()->chars() as $item)
-                            <a role="menuitem" href="/set_main_char/{{$item->char_id}}"
+                            <a role="menuitem" href="/set_main_char/{{ $item->char_id }}"
                                 class="block px-4 active py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
-                                {{ $item->getName() }} ({{ $item->char_id }})
+                                {{ $item->getName() }} (ID: {{ $item->char_id }})
                             </a>
                         @endforeach
                     @else
@@ -129,7 +129,7 @@
                 <span
                     class="p-2 transition-colors duration-200 rounded-full text-primary-lighter hover:text-primary dark:hover:text-light focus:outline-none focus:bg-primary-100">
                     <a href="#">Xu
-                        : {{number_format(Auth::user()->balance)}}</a>
+                        : {{ number_format(Auth::user()->balance) }}</a>
                 </span>
                 {{-- <span
                     class="p-2 transition-colors duration-200 rounded-full text-primary-lighter hover:text-primary dark:hover:text-light focus:outline-none focus:bg-primary-100">

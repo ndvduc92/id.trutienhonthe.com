@@ -1,116 +1,67 @@
 @extends('layouts.master')
 @section('content')
-<div class="container-xl">
-    <div class="row g-3 mb-4 align-items-center justify-content-between">
-        <div class="col-auto">
-            <h1 class="app-page-title mb-0">Lịch sử giao dịch</h1>
-        </div>
-    </div>
-    @if(Session::has('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <small>{{ Session::get('error') }}</small>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
-    @if(Session::has('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <small>{{ Session::get('success') }}</small>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
-    @php
-        function getSum($data) {
-            $sum = 0;
-            foreach ($data as $item) {
-                $sum = $sum + $item->shop->price * $item->shop_quantity;
-            }
-            return $sum;
-        }
-        @endphp
-    <div class="">
-        <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-            <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab"
-                href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">Chuyển đổi KNB ({{ number_format($knbs->sum('knb_amount'))  }})</a>
-            <a class="flex-sm-fill text-sm-center nav-link" id="orders-paid-tab" data-bs-toggle="tab"
-                href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Shop vật phẩm ({{ number_format(getSum($shops))  }})</a>
-        </nav>
-        
+    <div class="col-span-3">
+        <div class="mx-auto rounded max-w-3xl xl:-mx-4">
+            <!-- Tabs -->
+            <ul id="tabs"
+                class="flex inline-flex w-full list-none px-1 pt-2 bg-transparent border rounded-t dark:border-primary-darker">
+                <li
+                    class="flex flex-1 justify-center px-4 py-2 font-semibold dark:border-primary border-b -mb-px opacity-100 border-l border-t border-r rounded-t bg-gray-50 dark:bg-primary">
+                    <a id="default-tab" href="#ingame">Đổi KNB</a>
+                </li>
+                <li class="flex flex-1 justify-center px-4 py-2 font-semibold"><a href="#paymentwall">Web Shop (Coming Soon)</a></li>
+            </ul>
 
-        <div class="tab-content" id="orders-table-tab-content">
-            <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-                <div class="app-card app-card-orders-table shadow-sm mb-5">
-                    <div class="app-card-body">
-                        <div class="table-responsive">
-                            <table class="table app-table-hover mb-0 text-left">
-                                <thead>
-                                    <tr>
-                                        <th class="cell">#</th>
-                                        <th class="cell">Số xu</th>
-                                        <th class="cell">KNB nhận được</th>
-                                        <th class="cell">Ngày đổi</th>
+            <!-- Tab Contents -->
+            <div id="tab-contents"
+                class="ml-4 w-full px-1 pt-2 bg-transparent border-l border-r border-b dark:border-primary-darker">
+                <div id="ingame" class="p-4 mx-auto">
+                    @if( count($knbs) )
+                            <div
+                                class="bg-white dark:bg-primary shadow-md rounded border border-gray-300 dark:border-primary-light justify-items-center">
+                                <table class="w-full table-auto">
+                                    <thead>
+                                    <tr class="bg-gray-200 dark:bg-primary dark:text-light text-gray-600 uppercase text-xs leading-normal">
+                                        <th class="py-3 px-6 text-left">#</th>
+                                        <th class="py-3 px-6 text-left">Số xu</th>
+                                        <th class="py-3 px-6 text-left">KNB nhận được</th>
+                                        <th class="py-3 px-6 text-left">Ngày đổi</th>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($knbs as $item)
-                                    <tr>
-                                        <td class="cell">{{ $loop->index + 1 }}</td>
-                                        <td class="cell">{{ $item->knb_amount }}</td>
-                                        <td class="cell">{{ $item->knb_amount * 3 / 1000 }}</td>
-                                        <td class="cell">{{ \Carbon\Carbon::parse($item->created_at)->format("d/m/Y H:i:s") }}</td>
-                                    </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <!--//table-responsive-->
-
-                    </div>
-                    <!--//app-card-body-->
+                                    </thead>
+                                    <tbody class="text-gray-600 text-xs dark:text-light">
+                                        @foreach( $knbs as $item )
+                                            <tr class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100 dark:border-primary dark:bg-darker dark:hover:bg-primary-dark">
+                                                <td class="py-3 px-6 text-left">
+                                                    <div class="flex items-center">
+                                                        <span>{{ $loop->index + 1 }}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="py-3 px-6 text-left">
+                                                    <div class="flex items-center">
+                                                        <span>{{ $item->knb_amount }}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="py-3 px-6 text-left">
+                                                    <div class="flex items-center">
+                                                        <span>{{ $item->knb_amount * 3 / 1000 }}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="py-3 px-6 text-left">
+                                                    <div class="flex items-center">
+                                                        <span>{{ \Carbon\Carbon::parse($item->created_at)->format("d/m/Y H:i:s") }}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                        You not made any transaction yet!
+                        @endif
+                    
                 </div>
-
-            </div>
-
-            <div class="tab-pane fade" id="orders-paid" role="tabpanel" aria-labelledby="orders-paid-tab">
-                <div class="app-card app-card-orders-table mb-5">
-                    <div class="app-card-body">
-                        <div class="table-responsive">
-
-                            <table class="table mb-0 text-left">
-                                <thead>
-                                    <tr>
-                                        <th class="cell">#</th>
-                                        <th class="cell">Vật phẩm</th>
-                                        <th class="cell">Số lượng</th>
-                                        <th class="cell">Tổng tiền</th>
-                                        <th class="cell">Ngày mua</th>
-                                        <th class="cell">Nhân vật mua</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($shops as $item)
-                                    <tr>
-                                        <td class="cell">{{ $loop->index + 1}}</td>
-                                        <td class="cell">{{ $item->shop->name }}</td>
-                                        <td class="cell">{{ $item->shop_quantity }}</td>
-                                        <td class="cell">{{ number_format($item->shop_quantity * $item->shop->price) }}</td>
-                                        <td class="cell">{{ \Carbon\Carbon::parse($item->created_at)->format("d/m/Y H:i:s") }}</td>
-                                        <td class="cell">{{ $item->getCharName() }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <!--//table-responsive-->
-                    </div>
-                    <!--//app-card-body-->
-                </div>
-                <!--//app-card-->
             </div>
         </div>
-
-
-
     </div>
-</div>
 @endsection

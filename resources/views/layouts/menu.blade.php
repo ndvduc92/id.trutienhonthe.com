@@ -1,14 +1,13 @@
 <aside class="flex-shrink-0 hidden w-64 bg-white border-r dark:border-primary-darker dark:bg-darker md:block">
+    @php
+        $currentRoute = Route::currentRouteName();
+    @endphp
     <div class="flex flex-col h-full">
-        <!-- Sidebar links -->
         <nav aria-label="Main" class="flex-1 px-2 py-4 space-y-2 overflow-y-hidden hover:overflow-y-auto">
-            <!-- Dashboards links -->
-            <div x-data="{ isActive: true, open: true }">
-                <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
+            <div>
                 <a href="/"
-                    class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
-                    :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button" aria-haspopup="true"
-                    :aria-expanded="(open || isActive) ? 'true' : 'false'">
+                    class="{{ $currentRoute == 'home' ? 'bg-primary-100 dark:bg-primary' : null }} flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
+                    role="button" aria-haspopup="true" aria-expanded="false">
                     <span aria-hidden="true">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -19,13 +18,11 @@
                     <span class="ml-2 text-sm"> Dashboard </span>
                 </a>
             </div>
-            <!-- Shop links -->
-            <div x-data="{ isActive: false }">
-                <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
-                <a href="/shop"
+
+            <div>
+                <a href="/shops"
                     class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
-                    :class="bg-primary-100 dark:bg-primary" role="button" aria-haspopup="true"
-                    :aria-expanded="(open || isActive) ? 'true' : 'false'">
+                    role="button" aria-haspopup="true" aria-expanded="false">
                     <span aria-hidden="true">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -37,13 +34,10 @@
                 </a>
             </div>
 
-            <!-- Shop links -->
-            <div x-data="{ isActive: false, open: false }">
-                <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
+            <div x-data="{ open: false }">
                 <a href="#" @click="$event.preventDefault(); open = !open"
-                    class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
-                    :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button"
-                    aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'">
+                    class="{{ $currentRoute == 'payment' ? 'bg-primary-100 dark:bg-primary' : null }} flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
+                    role="button" aria-haspopup="true" aria-expanded="false">
                     <span aria-hidden="true">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -53,18 +47,13 @@
                     </span>
                     <span class="ml-2 text-sm"> Nạp Tiền </span>
                     <span class="ml-auto" aria-hidden="true">
-                        <!-- active class 'rotate-180' -->
                         <svg class="w-4 h-4 transition-transform transform" :class="{ 'rotate-180': open }"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 9l-7 7-7-7" />
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </span>
                 </a>
                 <div role="menu" x-show="open" class="mt-2 space-y-2 px-7" aria-label="TopUp">
-                    <!-- active & hover classes 'text-gray-700 dark:text-light' -->
-                    <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
                     <a href="/nap-tien" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
                         Nạp tiền
@@ -76,49 +65,52 @@
                 </div>
             </div>
 
-            <!-- Dashboards links -->
-            {{-- <div x-data="{ isActive: false, open: false }">
-                <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
-                <a href="/dashboard/vote"
-                    class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
-                    :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button"
-                    aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'">
-                    <span aria-hidden="true">
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 3c.552 0 1 .448 1 1v14c0 .552-.448 1-1 1H6.455L2 22.5V4c0-.552.448-1 1-1h18zm-8 4h-2v8h2V7zm4 2h-2v6h2V9zm-8 2H7v4h2v-4z" />
-                        </svg>
-                    </span>
-                    <span class="ml-2 text-sm"> Vote </span>
+            <div>
+                <a href="/knb"
+                    class="{{ $currentRoute == 'knb' ? 'bg-primary-100 dark:bg-primary' : null }} flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
+                    role="button" aria-haspopup="true" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-gem" viewBox="0 0 16 16">
+                        <path
+                            d="M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6zm11.386 3.785-1.806-2.41-.776 2.413zm-3.633.004.961-2.989H4.186l.963 2.995zM5.47 5.495 8 13.366l2.532-7.876zm-1.371-.999-.78-2.422-1.818 2.425zM1.499 5.5l5.113 6.817-2.192-6.82zm7.889 6.817 5.123-6.83-2.928.002z" />
+                    </svg>
+                    <span class="ml-2 text-sm"> Chuyển KNB </span>
                 </a>
-            </div> --}}
+            </div>
+
+            <div>
+                <a href="/transactions"
+                    class="{{ $currentRoute == 'transactions' ? 'bg-primary-100 dark:bg-primary' : null }} flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
+                    role="button" aria-haspopup="true" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-exchange" viewBox="0 0 16 16">
+                        <path d="M0 5a5 5 0 0 0 4.027 4.905 6.5 6.5 0 0 1 .544-2.073C3.695 7.536 3.132 6.864 3 5.91h-.5v-.426h.466V5.05q-.001-.07.004-.135H2.5v-.427h.511C3.236 3.24 4.213 2.5 5.681 2.5c.316 0 .59.031.819.085v.733a3.5 3.5 0 0 0-.815-.082c-.919 0-1.538.466-1.734 1.252h1.917v.427h-1.98q-.004.07-.003.147v.422h1.983v.427H3.93c.118.602.468 1.03 1.005 1.229a6.5 6.5 0 0 1 4.97-3.113A5.002 5.002 0 0 0 0 5m16 5.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0m-7.75 1.322c.069.835.746 1.485 1.964 1.562V14h.54v-.62c1.259-.086 1.996-.74 1.996-1.69 0-.865-.563-1.31-1.57-1.54l-.426-.1V8.374c.54.06.884.347.966.745h.948c-.07-.804-.779-1.433-1.914-1.502V7h-.54v.629c-1.076.103-1.808.732-1.808 1.622 0 .787.544 1.288 1.45 1.493l.358.085v1.78c-.554-.08-.92-.376-1.003-.787zm1.96-1.895c-.532-.12-.82-.364-.82-.732 0-.41.311-.719.824-.809v1.54h-.005zm.622 1.044c.645.145.943.38.943.796 0 .474-.37.8-1.02.86v-1.674z"/>
+                      </svg>
+                    <span class="ml-2 text-sm"> Lịch sử giao dịch </span>
+                </a>
+            </div>
+
             
 
-            <!-- Dashboards links -->
-            <div x-data="{ isActive: false, open: false }">
-                <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
+            <div>
                 <a href="/giftcodes"
-                    class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
-                    :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button"
-                    aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'">
+                    class="{{ $currentRoute == 'giftcodes' ? 'bg-primary-100 dark:bg-primary' : null }} flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
+                    role="button" aria-haspopup="true" aria-expanded="false">
                     <span aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gift-fill" viewBox="0 0 16 16">
-                            <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A3 3 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43zM9 3h2.932l.023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0zm6 4v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9z"/>
-                          </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-gift-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A3 3 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43zM9 3h2.932l.023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0zm6 4v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9z" />
+                        </svg>
                     </span>
                     <span class="ml-2 text-sm"> Giftcode </span>
                 </a>
             </div>
 
-
-            <!-- Dashboards links -->
             <div x-data="{ isActive: false, open: false }">
-                <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
                 <a href="/dashboard/services"
                     class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
-                    :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button"
-                    aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'">
+                    :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button" aria-haspopup="true"
+                    aria-expanded="false">
                     <span aria-hidden="true">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -130,13 +122,11 @@
                 </a>
             </div>
 
-            <!-- Members links -->
             <div x-data="{ isActive: false, open: false }">
-                <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
                 <a href="#" @click="$event.preventDefault(); open = !open"
                     class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
                     :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button"
-                    aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'">
+                    aria-haspopup="true" aria-expanded="false">
                     <span aria-hidden="true">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -156,8 +146,6 @@
                     </span>
                 </a>
                 <div role="menu" x-show="open" class="mt-2 space-y-2 px-7" aria-label="Ranking">
-                    <!-- active & hover classes 'text-gray-700 dark:text-light' -->
-                    <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
                     <a href="/dashboard/ranking/player/level" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
                         Players Rank

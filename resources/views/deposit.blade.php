@@ -104,11 +104,6 @@ NẠP TIỀN - DONATE
                                 ơn!</em></p>
                     </td>
                 </tr>
-                <tr align="center" valign="middle" style="text-align: center">
-                    <td colspan="2" style="text-align: center">
-                        <hr>
-                    </td>
-                </tr>
 
                 <tr>
                     <td colspan="2" style="padding: 5px 0px;">&nbsp;</td>

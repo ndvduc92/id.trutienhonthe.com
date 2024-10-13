@@ -18,6 +18,7 @@ class RankingController extends Controller
             set_time_limit(0);
             do {
                 $raw_info = $api->getRaw('factioninfo', $handler);
+                return $api->getUserFaction(1232);
                 if (isset($raw_info['Raw']) || count($raw_info['Raw']) > 1) {
                     foreach ($raw_info['Raw'] as $i => $iValue) {
                         if (empty($iValue['key']) || empty($iValue['value'])) {

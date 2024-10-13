@@ -16,7 +16,17 @@
 
     <!-- Scripts -->
     <script src="/fe/js/app.js" defer></script>
+    <style>
+        .alert .error {
+            color: red;
+        }
 
+        .alert .success {
+            color: rgb(34 173 87);
+        }
+
+        
+    </style>
 
 </head>
 
@@ -29,7 +39,6 @@
                 Loading...
             </div>
 
-            <!-- Sidebar -->
             @include('layouts.menu')
 
             <div class="flex flex-col flex-1 h-full overflow-x-hidden overflow-y-auto">
@@ -57,9 +66,6 @@
                 <!-- Main footer -->
                 @include('layouts.footer')
             </div>
-            <!-- Panels -->
-            <!-- Settings Panel -->
-            <!-- Backdrop -->
             @include('layouts.setting')
         </div>
     </div>
@@ -177,9 +183,6 @@
             }
         })();
     </script>
-    <script src="http://localhost:9000/vendor/laravel-popper/popper-hrace009.min.js"></script>
-
-    <script src="http://localhost:9000/vendor/laravel-popper/tippy-hrace009.min.js"></script>
 </body>
 
 </html>
