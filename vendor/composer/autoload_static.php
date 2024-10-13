@@ -46,6 +46,10 @@ class ComposerStaticInit08bc534956feddf6a115342e67780ffd
         array (
             'voku\\' => 5,
         ),
+        'h' => 
+        array (
+            'hrace009\\ConfigWriter\\' => 22,
+        ),
         'W' => 
         array (
             'Whoops\\' => 7,
@@ -187,6 +191,10 @@ class ComposerStaticInit08bc534956feddf6a115342e67780ffd
         'voku\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
+        ),
+        'hrace009\\ConfigWriter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hrace009/config-writer/src',
         ),
         'Whoops\\' => 
         array (
@@ -546,13 +554,28 @@ class ComposerStaticInit08bc534956feddf6a115342e67780ffd
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'h' => 
+        array (
+            'hrace009\\PerfectWorldAPI' => 
+            array (
+                0 => __DIR__ . '/..' . '/hrace009/perfect-world-api/src',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
+        'App\\Http\\Controllers\\ApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiController.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\GiftcodeController' => __DIR__ . '/../..' . '/app/Http/Controllers/GiftcodeController.php',
+        'App\\Http\\Controllers\\GuildController' => __DIR__ . '/../..' . '/app/Http/Controllers/GuildController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\KnbController' => __DIR__ . '/../..' . '/app/Http/Controllers/KnbController.php',
+        'App\\Http\\Controllers\\ShopController' => __DIR__ . '/../..' . '/app/Http/Controllers/ShopController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -566,7 +589,11 @@ class ComposerStaticInit08bc534956feddf6a115342e67780ffd
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Models\\Char' => __DIR__ . '/../..' . '/app/Models/Char.php',
         'App\\Models\\ChatLog' => __DIR__ . '/../..' . '/app/Models/ChatLog.php',
+        'App\\Models\\Clan' => __DIR__ . '/../..' . '/app/Models/Clan.php',
         'App\\Models\\Deposit' => __DIR__ . '/../..' . '/app/Models/Deposit.php',
+        'App\\Models\\Exchange' => __DIR__ . '/../..' . '/app/Models/Exchange.php',
+        'App\\Models\\Family' => __DIR__ . '/../..' . '/app/Models/Family.php',
+        'App\\Models\\FamilyUser' => __DIR__ . '/../..' . '/app/Models/FamilyUser.php',
         'App\\Models\\Giftcode' => __DIR__ . '/../..' . '/app/Models/Giftcode.php',
         'App\\Models\\GiftcodeUser' => __DIR__ . '/../..' . '/app/Models/GiftcodeUser.php',
         'App\\Models\\Promotion' => __DIR__ . '/../..' . '/app/Models/Promotion.php',
@@ -6830,6 +6857,13 @@ class ComposerStaticInit08bc534956feddf6a115342e67780ffd
         'Whoops\\Util\\Misc' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/Misc.php',
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
+        'hrace009\\ConfigWriter\\DataWriter\\FileWriter' => __DIR__ . '/..' . '/hrace009/config-writer/src/DataWriter/FileWriter.php',
+        'hrace009\\ConfigWriter\\DataWriter\\Rewrite' => __DIR__ . '/..' . '/hrace009/config-writer/src/DataWriter/Rewrite.php',
+        'hrace009\\ConfigWriter\\Repository' => __DIR__ . '/..' . '/hrace009/config-writer/src/Repository.php',
+        'hrace009\\ConfigWriter\\ServiceProvider' => __DIR__ . '/..' . '/hrace009/config-writer/src/ServiceProvider.php',
+        'hrace009\\PerfectWorldAPI\\API' => __DIR__ . '/..' . '/hrace009/perfect-world-api/src/hrace009/PerfectWorldAPI/API.php',
+        'hrace009\\PerfectWorldAPI\\Gamed' => __DIR__ . '/..' . '/hrace009/perfect-world-api/src/hrace009/PerfectWorldAPI/Gamed.php',
+        'hrace009\\PerfectWorldAPI\\ServiceProvider' => __DIR__ . '/..' . '/hrace009/perfect-world-api/src/hrace009/PerfectWorldAPI/ServiceProvider.php',
         'voku\\helper\\ASCII' => __DIR__ . '/..' . '/voku/portable-ascii/src/voku/helper/ASCII.php',
     );
 
@@ -6838,6 +6872,7 @@ class ComposerStaticInit08bc534956feddf6a115342e67780ffd
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit08bc534956feddf6a115342e67780ffd::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit08bc534956feddf6a115342e67780ffd::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit08bc534956feddf6a115342e67780ffd::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit08bc534956feddf6a115342e67780ffd::$classMap;
 
         }, null, ClassLoader::class);

@@ -6,6 +6,7 @@ use App\Http\Controllers\GuildController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\KnbController;
 use App\Http\Controllers\GiftcodeController;
+use App\Http\Controllers\RankingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,4 +62,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/bang-hoi', [GuildController::class, 'getGuild'])->name("guild");
     Route::post('/bang-hoi', [GuildController::class, 'postGuild'])->name("guild");
     Route::post('/buy/chat', [AuthController::class, 'buyChat']);
+
+    Route::get('/rank', [RankingController::class, 'handle'])->name("guild");
 });

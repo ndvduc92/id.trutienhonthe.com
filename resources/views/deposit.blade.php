@@ -1,33 +1,123 @@
 @extends('layouts.master')
+@section('heading')
+NẠP TIỀN - DONATE
+@endsection
 @section('content')
-<div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
-    <div class="inner">
-        <div class="app-card-body p-3 p-lg-4">
-            <div class="col-auto">
-                <h1 class="app-page-title mb-0">Nạp xu vào tài khoản</h1><small style="color:green">*Lưu ý: Tuyệt đối không thay
-                    đổi nội dung giao dịch để quá trình thanh toán tự động được thực hiện</small>
-                <p><small style="color:green">*Chuyển khoản xong, đợi từ 1p-3p, số xu sẽ được cập nhật vào tài khoản</small></p>
-            </div>
-        </div>
+    <div class="col-span-3">
+        <table style="width: 100%; height: auto; padding: 2px 0 0 0;">
 
-    </div>
-</div>
-<div class="row g-4 settings-section text-center">
-    <div class="col-12 col-md-12">
-        <h3 class="section-title">Quét mã QR bên dưới</h3>
-        <div class="section-intro">
-            <img width="300" src="{{$img}}" alt="">
-        </div>
-        <br>
-        <strong style="color:green">*Tỉ lệ: 1000đ = 1000 (xu) khi không có khuyến mãi</strong>
-        <br>
-        @if($currentPromotion)
-        <strong style="color:blue">Khuyến mãi hiện tại: {{$currentPromotion->type == "double" ?
-            "x".$currentPromotion->amount : $currentPromotion->amount."%" }}</strong>
-        @else
-        <strong style="color:blue">Khuyến mãi hiện tại: Không có</strong>
-        @endif
-    </div>
-</div>
 
+
+            <tbody>
+                <tr align="center" valign="middle" style="text-align: CENTER">
+                    <td colspan="2">
+                        <p><strong style="font-size: 20px;">CHUYỂN KHOẢN NGÂN HÀNG TỰ ĐỘNG
+                            </strong>
+                        </p>
+                    </td>
+                </tr>
+
+                <tr align="center" valign="middle" style="text-align: center">
+
+
+                    <td colspan="2" style="text-align: center">
+                        <img
+                            style="display: inline"
+                            src="https://img.vietqr.io/image/mbbank-7071727379-compact.jpg?&amp;addInfo=DNT TV2217&amp;accountName=dangvanquy"
+                            alt="" width="30%" id="chuyenkhoanmbbank">
+                        </td>
+
+                    <!-- <td style="text-align: center" ><font color="red"> MB-BANK ĐANG BẢO TRÌ... </font></td> -->
+
+
+                </tr>
+                <tr align="center" valign="middle" style="text-align: left">
+                    <td colspan="2">
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center" valign="middle" style="text-align: center">
+                    <td colspan="2" style="text-align: center">
+
+
+                        <div style="display: flex; justify-content: center;">
+                            <div class="coolinput">
+                                <label for="input" class="text">Tỉ lệ nạp (chưa bao gồm khuyến mãi): 1000 VNĐ = 1000
+                                    XU</label>
+                            </div>
+
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr align="center" valign="middle" style="text-align: center">
+                    <td colspan="2" style="text-align: center">
+
+
+                        <div style="display: flex; justify-content: center;">
+                            <div class="coolinput">
+                                <label for="input" class="text">Chương trình khuyến mãi: 50%</label>
+                            </div>
+
+                        </div>
+
+                    </td>
+                </tr>
+                <tr align="center" valign="middle" style="text-align: left">
+                    <td colspan="2">
+                        <br>
+                    </td>
+                </tr>
+                <tr align="center" valign="middle" style="text-align: left">
+                    <td colspan="2">
+                        <hr>
+                    </td>
+                </tr>
+
+
+                <tr align="center" valign="middle" style="text-align: left">
+                    <td colspan="2">
+                        <p><strong>HƯỚNG DẪN:</strong> </p>
+                        <p><em>1. Dùng App Ngân Hàng để quét QR ngân hàng MBBANK ở trên sẽ tự động điền nội dung chuyển
+                                tiền. </em></p>
+                        <p><em>2. <font color="red">Tuyệt đối không thay đổi</font> nội dung giao dịch để quá trình thanh toán tự động được thực hiện.</em></p>
+                        <p><em>3. Chuyển khoản xong, đợi từ 1p-3p, số xu sẽ được cập nhật vào tài khoản. </em><strong>
+                    </td>
+                </tr>
+
+                <tr align="center" valign="middle" style="text-align: center">
+                    <td colspan="2" style="text-align: left">
+                        <hr>
+                    </td>
+                </tr>
+                <tr align="center" valign="middle" style="text-align: center">
+                    <td colspan="2" style="text-align: left"><strong>THỎA THUẬN VÀ CHÍNH SÁCH NẠP XU:</strong></td>
+                </tr>
+                <tr align="center" valign="middle" style="text-align: center">
+                    <td colspan="2" style="text-align: left">
+                        <p><em>1. Hãy tìm hiểu kĩ về game và thông tin tại trang chủ và diễn đàn trước khi vào game.</em>
+                        </p>
+                        <p><em>3. Một khi đã nạp sẽ không hoàn trả. Vì vậy hãy vào game tìm hiểu, trải nghiệm trước khi
+                                nạp.</em></p>
+                        <p><em>4. Nếu bạn không đồng ý các thỏa thuận trên thì vui lòng không nạp tiền.</em><em>Xin cảm
+                                ơn!</em></p>
+                    </td>
+                </tr>
+                <tr align="center" valign="middle" style="text-align: center">
+                    <td colspan="2" style="text-align: center">
+                        <hr>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" style="padding: 5px 0px;">&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+
+    </style>
 @endsection

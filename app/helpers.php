@@ -29,3 +29,11 @@ function getNv($char) {
   $char = \App\Models\Char::where("char_id", $char)->first();
   return $char ?? null;
 }
+
+function gameApi($method, $path, $params=null) {
+  $client = new \GuzzleHttp\Client();
+  $gameApi = env('GAME_API_ENDPOINT', '');
+  $response = $client->request($method, $gameApi . $path, ["form_params" => $params]);
+  $response = json_decode($response->getBody()->getContents(), true);
+  return $response;
+}

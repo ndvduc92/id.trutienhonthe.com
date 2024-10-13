@@ -132,26 +132,28 @@ class AuthController extends Controller
 
     private function charUpdate()
     {
-        $response = $this->callGameApi("get", "/html/char_update.php", []);
+        $response = $this->callGameApi("get", "/api/update_chars.php", []);
         $data = $response["data"];
         $chars = [];
         foreach ($data as $user) {
             $item = User::where("userid", $user["akkid"])->first();
-            if (!$item->main_id) {
-                $item->main_id = $user["id"];
-                $item->save();
+            if ($item) {
+                if (!$item->main_id) {
+                    $item->main_id = $user["id"];
+                    $item->save();
+                }
+                array_push($chars, [
+                    "userid" => $user["akkid"],
+                    "char_id" => $user["id"],
+                    "name" => $user["name"],
+                    "gender" => $user["gender"] == "0" ? "Nam" : "Nữ",
+                    "pk_value" => $user["pkvalue"],
+                    "class" => $user["occupation"],
+                    "level" => $user["level"],
+                    "reputation" => $user["reputation"],
+                    "pre_name" => $user["name"],
+                ]);
             }
-            array_push($chars, [
-                "userid" => $user["akkid"],
-                "char_id" => $user["id"],
-                "name" => $user["name"],
-                "gender" => $user["gender"] == "0" ? "Nam" : "Nữ",
-                "pk_value" => $user["pkvalue"],
-                "class" => $user["occupation"],
-                "level" => $user["level"],
-                "reputation" => $user["reputation"],
-                "pre_name" => $user["name"],
-            ]);
         }
         Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level", "reputation"]);
         return $data;
