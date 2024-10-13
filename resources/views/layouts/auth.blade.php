@@ -7,12 +7,9 @@
     <meta name="csrf-token" content="38isBOrZH2WZT8wwWJ6Ix4UrSxv0HBnNpEWvfCLG">
     <title>Age of Chaos - Đăng Nhập</title>
 
-    <link rel="shortcut icon" href="/fe/img/logo/logo.png" />
+    <link rel="shortcut icon" href="/fe/img/logo.png" />
     <link rel="apple-touch-icon" sizes="76x76" href="/fe/img/logo.png" />
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap"
-        rel="stylesheet" />
     <!-- Styles -->
     <link rel="stylesheet" href="/fe/css/app.css">
 

@@ -7,8 +7,8 @@
     <meta name="csrf-token" content="HVG6814FIcyJTCy07iujNAKPrsNv4gJ18Xg6Ourt">
     <title>Age of Chaos - Dashboard</title>
 
-    <link rel="shortcut icon" href="/fe/img/logo/logo.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="/fe/img/logo/logo.png" />
+    <link rel="shortcut icon" href="/fe/img/logo.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/fe/img/logo.png" />
 
     <!-- Fonts -->
     <!-- Styles -->
