@@ -14,7 +14,7 @@ return [
     'encryption_type' => 'md5',
     'level_up_cap' => '105',
     'logo' => 'img/logo/logo-512.png',
-    'server_ip' => '127.0.0.1',
+    'server_ip' => '103.57.221.103',
     'server_name' => 'PW API',
     'server_version' => '156',
     'teleport_world_tag' => 1,

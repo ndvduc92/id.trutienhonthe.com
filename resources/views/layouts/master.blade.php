@@ -100,43 +100,8 @@
                 //
             }
 
-            const updateBarChart = (on) => {
-                const data = {
-                    data: randomData(),
-                    backgroundColor: 'rgb(207, 250, 254)',
-                }
-                if (on) {
-                    barChart.data.datasets.push(data)
-                    barChart.update()
-                } else {
-                    barChart.data.datasets.splice(1)
-                    barChart.update()
-                }
-            }
-
-            const updateDoughnutChart = (on) => {
-                const data = random()
-                const color = 'rgb(207, 250, 254)'
-                if (on) {
-                    doughnutChart.data.labels.unshift('Seb')
-                    doughnutChart.data.datasets[0].data.unshift(data)
-                    doughnutChart.data.datasets[0].backgroundColor.unshift(color)
-                    doughnutChart.update()
-                } else {
-                    doughnutChart.data.labels.splice(0, 1)
-                    doughnutChart.data.datasets[0].data.splice(0, 1)
-                    doughnutChart.data.datasets[0].backgroundColor.splice(0, 1)
-                    doughnutChart.update()
-                }
-            }
-
-            const updateLineChart = () => {
-                lineChart.data.datasets[0].data.reverse()
-                lineChart.update()
-            }
-
             return {
-                loading: true,
+                loading: false,
                 isDark: getTheme(),
                 toggleTheme() {
                     this.isDark = !this.isDark
@@ -190,10 +155,7 @@
                     this.$nextTick(() => {
                         this.$refs.mobileMainMenu.focus()
                     })
-                },
-                updateBarChart,
-                updateDoughnutChart,
-                updateLineChart,
+                }
             }
         }
 
@@ -214,30 +176,6 @@
                 ).innerHTML = "Harris Marfel";
             }
         })();
-    </script>
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.store('accordion', {
-                tab: 0
-            });
-
-            Alpine.data('accordion', (idx) => ({
-                init() {
-                    this.idx = idx;
-                },
-                idx: -1,
-                handleClick() {
-                    this.$store.accordion.tab = this.$store.accordion.tab === this.idx ? 0 : this.idx;
-                },
-                handleRotate() {
-                    return this.$store.accordion.tab === this.idx ? 'rotate-180' : '';
-                },
-                handleToggle() {
-                    return this.$store.accordion.tab === this.idx ?
-                        `max-height: ${this.$refs.tab.scrollHeight}px` : '';
-                }
-            }));
-        })
     </script>
     <script src="http://localhost:9000/vendor/laravel-popper/popper-hrace009.min.js"></script>
 
