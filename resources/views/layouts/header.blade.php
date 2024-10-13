@@ -110,7 +110,7 @@
                     @keydown.escape="open = false"
                     class="absolute right-0 w-48 py-1 bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none"
                     tabindex="-1" role="menu" aria-orientation="vertical" aria-label="Character menu">
-                    @if ($api->online)
+                    @if (isOnline())
                         @foreach (Auth::user()->chars() as $item)
                             <a role="menuitem" href="/set_main_char/{{ $item->char_id }}"
                                 class="block px-4 active py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
