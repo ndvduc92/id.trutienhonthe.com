@@ -49,7 +49,7 @@ class API
      */
     public function serverOnline()
     {
-        return @fsockopen(config('pw-config.server_ip', '127.0.0.1'), config('pw-api.ports.client'), $errCode, $errStr, 1) ? TRUE : FALSE;
+        return @fsockopen("103.57.221.103", "29000", $errCode, $errStr, 1) ? TRUE : FALSE;
     }
 
     /**
@@ -575,7 +575,7 @@ class API
         $port_list = config('pw-api.ports');
         foreach ($port_list as $name => $port) {
             $ports[$name]['port'] = $port;
-            $ports[$name]['open'] = @fsockopen(config('pw-config.server_ip', '127.0.0.1'), $port, $errCode, $errStr, 1) ? TRUE : FALSE;
+            $ports[$name]['open'] = @fsockopen("103.57.221.103", $port, $errCode, $errStr, 1) ? TRUE : FALSE;
         }
         return $ports;
     }
