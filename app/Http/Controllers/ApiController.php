@@ -28,12 +28,9 @@ class ApiController extends Controller
 
             $trans = new Deposit;
             $trans->user_id = $user->id ?? null;
-            $trans->sepay_tran_id = $request->id;
             $trans->amount = $amount;
             $trans->status = "success";
             $trans->processing_time = $processing_time;
-            $trans->bank = $bank;
-            $trans->account_number = $request->accountNumber;
 
             $currentPromotion = $this->getCurrentPromotion();
             if ($currentPromotion) {
@@ -48,12 +45,11 @@ class ApiController extends Controller
             $trans->save();
             $user->save();
             $msg = "Người chơi " . $username . " đã nạp " . number_format($amount) . "";
-            $this->sendMessage($msg);
+            //$this->sendMessage($msg);
 
             return response()->json("ok", 200);
         } catch (\Throwable $th) {
             throw $th;
-            return view("chat", ["chat" => []]);
         }
     }
 
