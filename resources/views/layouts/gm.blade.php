@@ -92,12 +92,12 @@
                         Trạng thái máy chủ
                     </h6>
                     <span
-                        class="inline-block px-2 py-px text-xs text-{{ $api->online ? 'green' : 'red' }}-500 bg-{{ $api->online ? 'green' : 'red' }}-100 font-semibold rounded-md">
-                        {{ $api->online ? 'Online' : 'Offline' }}
+                        class="inline-block px-2 py-px text-xs text-{{ isOnline() ? 'green' : 'red' }}-500 bg-{{ isOnline() ? 'green' : 'red' }}-100 font-semibold rounded-md">
+                        {{ isOnline() ? 'Online' : 'Offline' }}
                     </span>
                 </div>
                 <div>
-                    @if (!$api->online)
+                    @if (!isOnline())
                         <span>
                             <svg class="w-12 h-12 text-gray-300 dark:text-red-500" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">

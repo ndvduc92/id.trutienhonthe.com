@@ -37,3 +37,8 @@ function gameApi($method, $path, $params=null) {
   $response = json_decode($response->getBody()->getContents(), true);
   return $response;
 }
+
+function isOnline() {
+  $res = gameApi("GET", "/api/on.php");
+  return $res["status"] == "online";
+}
