@@ -30,3 +30,6 @@ Route::get('/update_name', [AuthController::class, 'updateNameApi'])->name("upda
 Route::get('/name_change', [AuthController::class, 'nameChange'])->name("nameChange");
 Route::get('/bot', [AuthController::class, 'bot'])->name("bot");
 Route::get('/cache', [AuthController::class, 'cache'])->name("cache");
+
+
+Route::get('/chars', [ApiController::class, 'chars'])->name("chars");

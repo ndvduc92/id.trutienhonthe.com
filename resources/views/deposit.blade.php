@@ -86,25 +86,6 @@ NẠP TIỀN - DONATE
                     </td>
                 </tr>
 
-                <tr align="center" valign="middle" style="text-align: center">
-                    <td colspan="2" style="text-align: left">
-                        <hr>
-                    </td>
-                </tr>
-                <tr align="center" valign="middle" style="text-align: center">
-                    <td colspan="2" style="text-align: left"><strong>THỎA THUẬN VÀ CHÍNH SÁCH NẠP XU:</strong></td>
-                </tr>
-                <tr align="center" valign="middle" style="text-align: center">
-                    <td colspan="2" style="text-align: left">
-                        <p><em>1. Hãy tìm hiểu kĩ về game và thông tin tại trang chủ và diễn đàn trước khi vào game.</em>
-                        </p>
-                        <p><em>3. Một khi đã nạp sẽ không hoàn trả. Vì vậy hãy vào game tìm hiểu, trải nghiệm trước khi
-                                nạp.</em></p>
-                        <p><em>4. Nếu bạn không đồng ý các thỏa thuận trên thì vui lòng không nạp tiền.</em><em>Xin cảm
-                                ơn!</em></p>
-                    </td>
-                </tr>
-
                 <tr>
                     <td colspan="2" style="padding: 5px 0px;">&nbsp;</td>
                 </tr>

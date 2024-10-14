@@ -5,21 +5,36 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use hrace009\PerfectWorldAPI\API;
 use hrace009\PerfectWorldAPI\Gamed;
+use App\Models\Player;
 
 class RankingController extends Controller
 {
+    protected function getFactionStat($fid, $stat, int $total = 0)
+    {
+        $players = Player::where('faction_id', $fid)->get();
+        foreach ($players as $k => $v) {
+            if ($v[$stat] > 0) {
+                $total += $v[$stat];
+            }
+        }
+        return $total;
+    }
 
     public function handle()
     {
         $gamed = new Gamed();
         $api = new API();
         $handler = NULL;
+        $clans = [];
         if ($api->online) {
             set_time_limit(0);
             do {
-                $raw_info = $api->getRaw('factioninfo', $handler);
-                return $api->getUserFaction(1232);
-                if (isset($raw_info['Raw']) || count($raw_info['Raw']) > 1) {
+                $raw_info = $api->getRaw('faction', $handler);
+                if (!isset($raw_info['Raw'])) {
+                    break; 
+                }
+                if ( isset($raw_info['Raw']) || count($raw_info['Raw']) > 1) {
+                   
                     foreach ($raw_info['Raw'] as $i => $iValue) {
                         if (empty($iValue['key']) || empty($iValue['value'])) {
                             unset($raw_info['Raw'][$i]);
@@ -35,20 +50,23 @@ class RankingController extends Controller
                                 'name' => $faction['name'],
                                 'level' => $faction['level'] + 1,
                                 'master' => $faction['master']['roleid'],
-                                'master_name' => $user_faction['name'],
+                                //'master_name' => $user_faction['name'],
+                                'master_name' => "fdsfdsf",
                                 'members' => count($faction['member']),
-                                'reputation' => ($this->getFactionStat($faction['fid'], 'reputation') > 0) ? $this->getFactionStat($faction['fid'], 'reputation') : 0,
-                                'time_used' => ($this->getFactionStat($faction['fid'], 'time_used') > 0) ? $this->getFactionStat($faction['fid'], 'time_used') : 0,
-                                'pk_count' => ($this->getFactionStat($faction['fid'], 'pk_count') > 0) ? $this->getFactionStat($faction['fid'], 'pk_count') : 0,
+                                // 'reputation' => ($this->getFactionStat($faction['fid'], 'reputation') > 0) ? $this->getFactionStat($faction['fid'], 'reputation') : 0,
+                                // 'time_used' => ($this->getFactionStat($faction['fid'], 'time_used') > 0) ? $this->getFactionStat($faction['fid'], 'time_used') : 0,
+                                // 'pk_count' => ($this->getFactionStat($faction['fid'], 'pk_count') > 0) ? $this->getFactionStat($faction['fid'], 'pk_count') : 0,
                                 'announce' => $faction['announce'],
-                                'territories' => Territories::where('owner', $faction['fid'])->count(),
+                                //'territories' => Territories::where('owner', $faction['fid'])->count(),
                             ];
 
-                            if ($faction = Faction::find($faction_info['id'])) {
-                                $faction->update($faction_info);
-                            } else {
-                                Faction::create($faction_info);
-                            }
+                            array_push($clans, $faction_info);
+
+                            // if ($faction = Faction::find($faction_info['id'])) {
+                            //     $faction->update($faction_info);
+                            // } else {
+                            //     Faction::create($faction_info);
+                            // }
                         }
                         unset($id, $faction, $user_faction, $iValue['value']);
                     }
@@ -60,7 +78,7 @@ class RankingController extends Controller
                 };
             } while (TRUE);
         }
-        return 0;
+        return $clans;
     }
     /**
      * Display a listing of the resource.

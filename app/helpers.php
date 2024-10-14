@@ -47,6 +47,7 @@ function isOnline() {
 
 function youOnline() {
   $api = new API;
+  if (!Auth::user()->main_id) return false;
   return $api->checkRoleOnline(intval(Auth::user()->main_id));
 }
 
