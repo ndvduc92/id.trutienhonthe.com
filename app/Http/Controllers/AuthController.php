@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Char;
 use App\Models\Exchange;
 use App\Models\User;
+use App\Models\Password;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
+use App\Mail\ChangePassword;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -336,6 +339,18 @@ class AuthController extends Controller
         return $data;
     }
 
+    private function getOtp($n) { 
+        $generator = "0123456789"; 
+    
+        $result = ""; 
+      
+        for ($i = 1; $i <= $n; $i++) { 
+            $result .= substr($generator, (rand()%(strlen($generator))), 1); 
+        } 
+      
+        return $result; 
+    } 
+
     public function updateCharApi()
     {
         $data = $this->charUpdate();
@@ -357,12 +372,31 @@ class AuthController extends Controller
         return view("password");
     }
 
+    public function sendOtp()
+    {
+        $pass = Password::where("user_id", Auth::user()->id)->first();
+        if ($pass) {
+            $pass->otp = $this->getOtp(8);
+            $pass->expired = \Carbon\Carbon::now()->addHours(1)->format("Y-m-d H:i:s");
+            $pass->save();
+        } else {
+            $pass = new Password;
+            $pass->otp = $this->getOtp(8);
+            $pass->user_id = Auth::user()->id;
+            $pass->expired = \Carbon\Carbon::now()->addHours(1)->format("Y-m-d H:i:s");
+            $pass->save();
+        }
+        Mail::to(Auth::user()->email2)->send(new ChangePassword($pass, Auth::user()));
+        return response()->json(null, 200);
+    }
+
     public function postPassword(Request $request)
     {
         $validated = $request->validate([
             'old' => 'bail|required',
             'new' => 'bail|required|min:4|max:10|alpha_num',
             'newcf' => 'bail|required|same:new',
+            'otp' => 'bail|required',
         ], [
             "new.min" => "Mật khẩu chỉ được chứa từ 3 - 10 kí tự",
             "new.max" => "Mật khẩu chỉ được chứa từ 3 - 10 kí tự",
@@ -371,9 +405,13 @@ class AuthController extends Controller
         ]);
         $user = \Auth::user();
         if ($request->old == $user->password2) {
+            $pass = Password::where("user_id", Auth::user()->id)->where("otp", $request->otp)->first();
+            if (!$pass || ($pass && \Carbon\Carbon::now()->greaterThan($pass->expired))) {
+                return back()->with("error", "Mã OTP không đúng hoặc hết hạn!");
+            }
             try {
                 DB::beginTransaction();
-                $this->callGameApi("POST", "/html/passwdapi.php", [
+                $this->callGameApi("POST", "/api/passwd.php", [
                     "login" => $user->username,
                     "passwd" => $request->new,
                 ]);

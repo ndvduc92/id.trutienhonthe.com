@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/transactions', [HomeController::class, 'transactions'])->name("transactions");
 
     Route::get('/doi-mat-khau', [AuthController::class, 'getPassword'])->name("password");
+    Route::post('/otp', [AuthController::class, 'sendOtp'])->name("otp");
     Route::post('/doi-mat-khau', [AuthController::class, 'postPassword']);
 
     Route::get('/online', [HomeController::class, 'online'])->name("online");

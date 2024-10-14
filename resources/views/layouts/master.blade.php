@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/fe/img/logo.png" />
     <link rel="apple-touch-icon" sizes="76x76" href="/fe/img/logo.png" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Fonts -->
     <!-- Styles -->
     <link rel="stylesheet" href="/fe/css/app.css">

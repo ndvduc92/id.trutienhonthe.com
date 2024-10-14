@@ -130,8 +130,11 @@
                             @endforeach
                         @else
                         <div
-                            class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
-                            Không thấy nhân vật? <a href="/chars">Cập nhật</a>
+                            class="inline-block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                            Không thấy nhân vật? <a href="/chars"
+                        class="inline-block px-2 py-px text-xs text-green-500 bg-green-100 font-semibold rounded-md">
+                        Cập nhật
+                            </a>
                         </div>
                         @endif
                     @else
@@ -186,7 +189,7 @@
                     class="absolute right-0 w-48 py-1 bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none"
                     tabindex="-1" role="menu" aria-orientation="vertical" aria-label="User menu">
                     <a class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
-                        role="menuitem" href="/user/profile">Cá nhân</a>
+                        role="menuitem" href="/doi-mat-khau">Đổi mật khẩu</a>
                     <a class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
                         role="menuitem" href="http://localhost:9000/dashboard/donate/history">Transaction History</a>
                     <div>
