@@ -64,4 +64,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/buy/chat', [AuthController::class, 'buyChat']);
 
     Route::get('/rank', [RankingController::class, 'handle'])->name("guild");
+    //Route::get('/online', [HomeController::class, 'online'])->name("online");
 });

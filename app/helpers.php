@@ -50,8 +50,21 @@ function youOnline() {
   return $api->checkRoleOnline(intval(Auth::user()->main_id));
 }
 
+function roleOnline($id) {
+  $api = new API;
+  return $api->checkRoleOnline(intval($id));
+}
+
 function getOnlineList() {
   $api = new API;
   return $api->getOnlineList();
+}
+
+function getOnlines() {
+  $api = new API;
+  $response = $api->getOnlineList();
+  $onlines = collect($response)->pluck('roleid')->all();
+  $chars = \App\Models\Char::whereIn("char_id", $onlines)->inRandomOrder()->limit(10)->get();
+  return $chars;
 }
 

@@ -6,6 +6,7 @@ use App\Models\Deposit;
 use App\Models\Promotion;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Char;
 use Auth;
 use \Carbon\Carbon;
 use hrace009\PerfectWorldAPI\API;
@@ -37,11 +38,10 @@ class HomeController extends Controller
 
     public function online()
     {
-
-        $response = $this->callGameApi("get", "/html/online1.php", []);
-        $data = $response["data"];
-        $onlines = collect($data)->pluck('uid')->all();
-        $chars = User::whereIn("userid", $onlines)->get();
+        $api = new API;
+        $response = $api->getOnlineList();
+        $onlines = collect($response)->pluck('roleid')->all();
+        $chars = Char::whereIn("char_id", $onlines)->get();
         return $chars;
     }
     

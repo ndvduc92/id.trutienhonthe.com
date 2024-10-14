@@ -7,6 +7,12 @@
 
         <form method="POST" action="" class="space-y-6">
             @csrf
+            @if ($errors->any())
+            <div class="alert p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                    role="alert">
+                    <span class="error font-medium">{{ $errors->first() }}</span>
+                </div>
+            @endif
             @if (Session::has('error'))
                 <div class="alert p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
                     role="alert">

@@ -9,6 +9,8 @@ class Char extends Model
 {
     use HasFactory;
 
+    protected $appends = ['class_name'];
+
     public const CLASSES = [
         [
             "class" => "0",
@@ -131,6 +133,13 @@ class Char extends Model
     ];
 
     public function getClass() {
+        $item = collect(self::CLASSES)->first(function ($value, int $key) {
+            return in_array($this->class, explode(",",$value["class"]));
+        });
+        return $item ? $item["name"] : "Chưa cập nhật";
+    }
+
+    public function getClassNameAttribute() {
         $item = collect(self::CLASSES)->first(function ($value, int $key) {
             return in_array($this->class, explode(",",$value["class"]));
         });

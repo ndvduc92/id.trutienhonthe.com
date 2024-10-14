@@ -11,8 +11,8 @@
             <div class="flex align-middle items-center">
                 <div class="flex flex-col mx-2 my-2 w-full rounded" role="alert">
                     <a class="font-bold" href="https://www.messenger.com/t/zhuxian.AOC" target="_blank">
-                        <svg style="display:inline" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" viewBox="0 0 48 48">
+                        <svg style="display:inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 48 48">
                             <path fill="#448AFF"
                                 d="M24,4C13.5,4,5,12.1,5,22c0,5.2,2.3,9.8,6,13.1V44l7.8-4.7c1.6,0.4,3.4,0.7,5.2,0.7c10.5,0,19-8.1,19-18C43,12.1,34.5,4,24,4z">
                             </path>

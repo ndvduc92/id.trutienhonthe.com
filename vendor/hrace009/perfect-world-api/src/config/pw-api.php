@@ -33,7 +33,7 @@ return [
      *
      * @var int
      */
-    'game_version' => '07',
+    'game_version' => '156',
 
     'maxbuffer' => 65536,
 
