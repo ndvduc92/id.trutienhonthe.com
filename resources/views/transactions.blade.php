@@ -57,7 +57,7 @@
                                 </table>
                             </div>
                         @else
-                        You not made any transaction yet!
+                        Chưa có giao dịch nào!
                         @endif
                     
                 </div>

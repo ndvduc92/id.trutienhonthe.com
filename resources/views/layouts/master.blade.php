@@ -108,7 +108,7 @@
 
             return {
                 loading: false,
-                isDark: true,
+                isDark: getTheme(),
                 toggleTheme() {
                     this.isDark = !this.isDark
                     setTheme(this.isDark)

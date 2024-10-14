@@ -19,7 +19,7 @@
                             <path fill="#FFF" d="M12 28L22 17 27 22 36 17 26 28 21 23z"></path>
                         </svg> Messenger
 
-                        <a class="font-bold" href="https://zalo.me/0332141485" target="_blank">
+                        <a class="font-bold" href="https://zalo.me/123456789" target="_blank">
                             <svg style="display:inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 48 48">
                                 <path fill="#2962ff"
@@ -38,7 +38,7 @@
                                 <path fill="#2962ff"
                                     d="M21.25,18h-8v1.5h5.321L13,26h0.026c-0.163,0.211-0.276,0.463-0.276,0.75V27h7.5	c0.276,0,0.5-0.224,0.5-0.5v-1h-5.321L21,19h-0.026c0.163-0.211,0.276-0.463,0.276-0.75V18z">
                                 </path>
-                            </svg> Zalo 1 (0332.141485)
+                            </svg> Zalo 1 (123456789)
                             <a class="font-bold" href="https://www.messenger.com/t/zhuxian.AOC" target="_blank">
                                 <svg style="display:inline" xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 48 48">
@@ -58,7 +58,7 @@
                                     <path fill="#2962ff"
                                         d="M21.25,18h-8v1.5h5.321L13,26h0.026c-0.163,0.211-0.276,0.463-0.276,0.75V27h7.5	c0.276,0,0.5-0.224,0.5-0.5v-1h-5.321L21,19h-0.026c0.163-0.211,0.276-0.463,0.276-0.75V18z">
                                     </path>
-                                </svg> Zalo 2 (0332.141485)
+                                </svg> Zalo 2 (123456789)
 
 
                 </div>
