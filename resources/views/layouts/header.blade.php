@@ -12,7 +12,7 @@
             </span>
         </button>
         <!-- Brand -->
-        <a href="http://localhost:9000/dashboard"
+        <a href="/"
             class="inline-block text-2xl font-bold tracking-wider uppercase text-primary-dark dark:text-light">
             Age of Chaos
         </a>
