@@ -40,8 +40,8 @@ function gameApi($method, $path, $params=null) {
 }
 
 function isOnline() {
-  $res = gameApi("GET", "/api/on.php");
-  return $res["status"] == "online";
+  $api = new API;
+  return $api->online;
 }
 
 
