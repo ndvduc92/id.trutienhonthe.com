@@ -10,4 +10,9 @@ class Spin extends Model
     use HasFactory;
 
     protected $table = 'spins';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

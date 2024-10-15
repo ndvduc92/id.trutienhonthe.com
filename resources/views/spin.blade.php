@@ -139,6 +139,7 @@
                                     <table id="spin_history_table" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th>Thành viên</th>
                                                 <th>Giải thưởng</th>
                                                 <th>Thời gian</th>
                                             </tr>
@@ -255,6 +256,7 @@
         },
         order: [],
         "columns":[
+            {"data": "user.username" },
             {"data": "reward" },
             {"data": "created_at", class: 'text-center' },
         ]
@@ -279,7 +281,7 @@
                     $('#btnSpin').html('<i class="fas fa-play mr-1"></i>QUAY NGAY').prop('disabled', false);
                     return false;
                 }
-                var audio = new Audio("/spin/audio/roulette.mp3");
+                var audio = new Audio("/spin/audio/spin.mp3");
                 var audio1 = new Audio("/spin/audio/congratulation.mp3");
                 var out = response.location;
                 var countLoop = 0;

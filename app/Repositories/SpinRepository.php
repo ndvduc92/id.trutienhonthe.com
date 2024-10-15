@@ -18,7 +18,7 @@ class SpinRepository
 
     public function getAll()
     {
-        return Spin::orderBy('created_at', 'desc');
+        return Spin::with("user")->orderBy('created_at', 'desc');
     }
 
     public function getSpin()
@@ -41,6 +41,7 @@ class SpinRepository
     {
         $spin_history = new Spin();
         $spin_history->reward = $content;
+        $spin_history->user_id = \Auth::user()->id;
         $spin_history->save();
     }
 
