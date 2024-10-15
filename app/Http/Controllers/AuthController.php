@@ -377,13 +377,13 @@ class AuthController extends Controller
         $pass = Password::where("user_id", Auth::user()->id)->first();
         if ($pass) {
             $pass->otp = $this->getOtp(8);
-            $pass->expired = \Carbon\Carbon::now()->addHours(1)->format("Y-m-d H:i:s");
+            $pass->expired = \Carbon\Carbon::now()->addMinutes(5)->format("Y-m-d H:i:s");
             $pass->save();
         } else {
             $pass = new Password;
             $pass->otp = $this->getOtp(8);
             $pass->user_id = Auth::user()->id;
-            $pass->expired = \Carbon\Carbon::now()->addHours(1)->format("Y-m-d H:i:s");
+            $pass->expired = \Carbon\Carbon::now()->addMinutes(5)->format("Y-m-d H:i:s");
             $pass->save();
         }
         Mail::to(Auth::user()->email2)->send(new ChangePassword($pass, Auth::user()));
