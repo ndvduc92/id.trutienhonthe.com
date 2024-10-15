@@ -130,7 +130,7 @@ class SpinController extends Controller
         $rate = [];
         $reward = [];
         foreach ($spins as $spin) {
-            $label[] = 'Xin chúc mừng, bạn đã nhận được giải thưởng' .' ('.$spin->name.')';
+            $label[] = $spin->name;
             $rate[] = $spin->rate;
             $reward[] = $spin->reward;
         }
