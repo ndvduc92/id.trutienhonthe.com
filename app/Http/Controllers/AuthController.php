@@ -196,14 +196,18 @@ class AuthController extends Controller
                     "name" => $user["name"],
                     "gender" => $user["gender"] == "0" ? "Nam" : "Nữ",
                     "pk_value" => $user["pkvalue"],
+                    "posx" => $user["posx"],
+                    "posy" => $user["posy"],
+                    "posz" => $user["posz"],
+                    "worldtag" => $user["worldtag"],
                     "class" => $user["occupation"],
                     "level" => $user["level"],
                     "reputation" => $user["reputation"]
                 ]);
             }
         }
-        Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level", "reputation"]);
-        return back();
+        Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level", "reputation", "posx", "posy", "posz", "worldtag"]);
+        return $chars;
 
     }
 

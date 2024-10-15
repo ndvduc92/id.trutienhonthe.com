@@ -86,7 +86,7 @@
                         @if (count(Auth::user()->chars()))
                             @foreach (Auth::user()->chars() as $item)
                                 <a role="menuitem" href="/set_main_char/{{ $item->char_id }}"
-                                    class="block px-4 active py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                                    class="block {{Auth::user()->main_id == $item->char_id ? 'bg-primary' : ''}} px-4 active py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
                                     {{ $item->getName() }} ({{ $item->char_id }} - {{ $item->class_name }}) 
                                 </span>
                                 </a>
@@ -247,7 +247,7 @@
                     @if (isOnline())
                         @foreach (Auth::user()->chars() as $item)
                             <a role="menuitem" href="/set_main_char/{{ $item->char_id }}"
-                                class="block px-4 active py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                                class="block {{Auth::user()->main_id == $item->char_id ? 'bg-primary' : ''}} px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
                                 {{ $item->getName() }} ({{ $item->char_id }} - {{ $item->class_name }}) 
                             </span>
                             </a>

@@ -503,7 +503,6 @@ class API
         $pack = $this->gamed->createHeader($this->data['code']['getFactionInfo'], $pack);
         $send = $this->gamed->SendToGamedBD($pack);
         $data = $this->gamed->deleteHeader($send);
-        return $data;
         return $this->gamed->unmarshal($data, $this->data['FactionInfo']);
     }
 

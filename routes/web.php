@@ -9,6 +9,8 @@ use App\Http\Controllers\GiftcodeController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\RankingController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ManagerSpinController;
+use App\Http\Controllers\SpinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,4 +70,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/rank', [RankingController::class, 'handle'])->name("guild");
     //Route::get('/online', [HomeController::class, 'online'])->name("online");
     Route::get('/chars', [AuthController::class, 'chars'])->name("chars");
+
+
+    Route::resource('manager-spins', ManagerSpinController::class);
+
+    Route::post('/post-spin',[SpinController::class,'postSpin'])->name('post.spin');
+    Route::get('/vong-quay',[SpinController::class,'index'])->name('spin');
 });

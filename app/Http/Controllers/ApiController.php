@@ -189,7 +189,6 @@ class ApiController extends Controller
                 $start = $start+1;
                 for($i = 0; $i<$rolescount[1]; $i++)
                 {
-                    Log::info($buf);
                     $roleid = unpack( "N", substr( $buf, $start, 4 ) );
                     $start = $start+4;
                     $namelarge = unpack( "c*", substr( $buf, $start, 1 ) );
@@ -285,6 +284,7 @@ class ApiController extends Controller
 		{
 			die(socket_strerror(socket_last_error()));
 		}
+        return $players;
 
         $chars = [];
 
@@ -301,13 +301,17 @@ class ApiController extends Controller
                     "name" => $user["name"],
                     "gender" => $user["gender"] == "0" ? "Nam" : "Nữ",
                     "pk_value" => $user["pkvalue"],
+                    "posx" => $user["posx"],
+                    "posy" => $user["posy"],
+                    "posz" => $user["posz"],
+                    "worldtag" => $user["worldtag"],
                     "class" => $user["occupation"],
                     "level" => $user["level"],
                     "reputation" => $user["reputation"]
                 ]);
             }
         }
-        Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level", "reputation"]);
+        Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level", "reputation", "posx", "posy", "posz", "worldtag"]);
         return $chars;
 
 }
