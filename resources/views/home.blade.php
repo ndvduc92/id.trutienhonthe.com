@@ -32,7 +32,7 @@
                     <label
                         class="absolute text-sm text-gray-500 dark:text-cyan-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-600 peer-focus:dark:text-cyan-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         for="server_name">
-                        Tên đăng nhập
+                        Tên đăng nhập 
                     </label>
                 </div>
                 <div class="relative z-0 mb-6 w-full group">
@@ -43,7 +43,7 @@
                     <label
                         class="absolute text-sm text-gray-500 dark:text-cyan-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-600 peer-focus:dark:text-cyan-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         for="discord">
-                        Email
+                        Email <a class="inline-block px-2 py-px text-xs text-red-500 bg-red-100 font-semibold rounded-md" href="/doi-mat-khau"><strong role="button">Thay đổi</strong></a>
                     </label>
                 </div>
                 <div class="relative z-0 mb-6 w-full group">
@@ -76,7 +76,7 @@
                     <label
                         class="absolute text-sm text-gray-500 dark:text-cyan-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-600 peer-focus:dark:text-cyan-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         for="gmwa">
-                        Mật khẩu
+                        Mật khẩu <a class="inline-block px-2 py-px text-xs text-red-500 bg-red-100 font-semibold rounded-md" href="/doi-mat-khau"><strong role="button">Thay đổi</strong></a>
                     </label>
                 </div>
             </form>
