@@ -30,7 +30,7 @@ class Controller extends BaseController
     public function sendMessage($msg)
     {
         Telegram::sendMessage([
-            'chat_id' => "-1002153831153",
+            'chat_id' => "-4523337725",
             'parse_mode' => 'HTML',
             'text' => $msg,
         ]);

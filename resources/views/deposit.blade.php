@@ -57,7 +57,7 @@ NẠP TIỀN - DONATE
 
                         <div style="display: flex; justify-content: center;">
                             <div class="coolinput">
-                                <label for="input" class="text">Chương trình khuyến mãi: 50%</label>
+                                <label for="input" class="text">Chương trình khuyến mãi: {{$currentPromotion->type == "double" ? "x".$currentPromotion->amount : $currentPromotion->amount."%"}}</label>
                             </div>
 
                         </div>
@@ -81,7 +81,7 @@ NẠP TIỀN - DONATE
                         <p><strong>HƯỚNG DẪN:</strong> </p>
                         <p><em>1. Dùng App Ngân Hàng để quét QR ngân hàng MBBANK ở trên sẽ tự động điền nội dung chuyển
                                 tiền. </em></p>
-                        <p><em>2. <font color="red">Tuyệt đối không thay đổi</font> nội dung giao dịch để quá trình thanh toán tự động được thực hiện.</em></p>
+                        <p><em>2. <font color="red">Tuyệt đối không thay đổi</font> nội dung giao dịch để quá trình thanh toán tự động được thực hiện. Cú pháp AOC[Tên tài khoản]</em></p>
                         <p><em>3. Chuyển khoản xong, đợi từ 1p-3p, số xu sẽ được cập nhật vào tài khoản. </em><strong>
                     </td>
                 </tr>
