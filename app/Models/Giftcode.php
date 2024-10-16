@@ -11,6 +11,12 @@ class Giftcode extends Model
 {
     use HasFactory;
 
+    public const TYPES = [
+        'account' => "Theo tài khoản",
+        'all' => "Tất cả",
+        'vip' => "VIP only"
+    ];
+
     public function beUsedByUser()
     {
         $used = GiftcodeUser::where(["char_id" => Auth::user()->main_id, "giftcode_id" => $this->id])->first();
@@ -20,5 +26,14 @@ class Giftcode extends Model
     public function items()
     {
         return $this->hasMany(GiftcodeItem::class);
+    }
+
+
+    public function users() {
+        return $this->hasMany(GiftcodeUser::class);
+    }
+
+    public function only_users() {
+        return $this->hasMany(GiftcodeOnlyUser::class);
     }
 }

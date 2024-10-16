@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Giftcode;
 use App\Models\GiftcodeUser;
+use App\Models\GiftcodeItem;
+use App\Models\GiftcodeOnlyUser;
 use App\Models\User;
 use Auth;
 use DB;
@@ -15,7 +17,13 @@ class GiftcodeController extends Controller
 
     public function getGiftcode()
     {
-        $giftcodes = Giftcode::whereDate('expired', '>=', Carbon::now())->get();
+        $user = Auth::user();
+        $code_all = Giftcode::where("type", "all")->whereDate('expired', '>=', Carbon::now())->pluck("id")->toArray();
+        $only_users = GiftcodeOnlyUser::where("user_id", $user->id)->pluck("giftcode_id")->toArray();
+        $total = array_merge($code_all, $only_users);
+        $code_vip = Giftcode::where("type", "vip")->where("viplevel", "<=", $user->viplevel)->pluck("id")->toArray();
+        $all = array_merge($total, $code_vip);
+        $giftcodes = Giftcode::with("items")->whereIn("id", $all)->get();
         return view("giftcodes", ["giftcodes" => $giftcodes]);
     }
 
@@ -40,35 +48,14 @@ class GiftcodeController extends Controller
             $code->count = $code->count + 1;
             $code->save();
 
-            if ($code->giftcode == "FREEKHAM8") {
-                $ids = ["81816", "81822", "81828", "81834"];
-                foreach ($ids as $it) {
-                    $this->callGameApi("post", "/html/send2.php", [
-                        "receiver" => $user->main_id,
-                        "itemid" => $it,
-                        "count" => 2,
-                    ]);
-                }
-                
-            
-            }else if ($code->giftcode == "KHUON14X") {
-                $ids = ["40649","40648","40650","40651","40990","40997","40995","40973","40974","40975","40976","40989","40996","40994","40991","43514","43516","43515","43517"];
-                foreach ($ids as $it) {
-                    $this->callGameApi("post", "/html/send2.php", [
-                        "receiver" => $user->main_id,
-                        "itemid" => $it,
-                        "count" => 1,
-                    ]);
-                }
-                
-
-            } else {
-                $this->callGameApi("post", "/html/send2.php", [
+            foreach ($code->items as $item) {
+                $this->callGameApi("post", "/api/mail.php", [
                     "receiver" => $user->main_id,
-                    "itemid" => $code->itemid,
-                    "count" => $code->quantity,
+                    "itemid" => $item->itemid,
+                    "count" => $item->quantity,
+                    "proctype"=> $item->bind,
+                    "msg" => "Giftcode ".$code->giftcode
                 ]);
-
             }
 
             DB::commit();
