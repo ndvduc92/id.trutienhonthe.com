@@ -207,7 +207,7 @@ class AuthController extends Controller
             }
         }
         Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level", "reputation", "posx", "posy", "posz", "worldtag"]);
-        return $chars;
+        return back();
 
     }
 
