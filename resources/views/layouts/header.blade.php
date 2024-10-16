@@ -114,11 +114,11 @@
                     <a href="#">Xu
                         : {{ number_format(Auth::user()->balance) }}</a>
                 </span>
-                {{-- <span
+                <span
                     class="p-2 transition-colors duration-200 rounded-full text-primary-lighter hover:text-primary dark:hover:text-light focus:outline-none focus:bg-primary-100">
-                    <a href="#">Point
-                        : 0 Point</a>
-                </span> --}}
+                    <a href="#">VIP
+                        : {{Auth::user()->viplevel}}</a>
+                </span>
             </div>
             <!-- Settings button -->
             <button onclick="window.location.href='https://trutienhonthe.com'" title="Retrun to Main Site"

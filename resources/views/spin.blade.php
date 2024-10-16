@@ -6,6 +6,8 @@
   <title>Vòng quay may mắn</title>
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="shortcut icon" href="/fe/img/logo.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/fe/img/logo.png" />
   <!-- Google Font: Source Sans Pro -->
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/spin/AdminLTE-3.1.0/plugins/fontawesome-free/css/all.min.css">

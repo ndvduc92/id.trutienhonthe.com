@@ -16,4 +16,9 @@ class Giftcode extends Model
         $used = GiftcodeUser::where(["char_id" => Auth::user()->main_id, "giftcode_id" => $this->id])->first();
         return $used ? true : false;
     }
+
+    public function items()
+    {
+        return $this->hasMany(GiftcodeItem::class);
+    }
 }
