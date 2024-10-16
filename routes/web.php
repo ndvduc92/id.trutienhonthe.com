@@ -11,6 +11,7 @@ use App\Http\Controllers\RankingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManagerSpinController;
 use App\Http\Controllers\SpinController;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,4 +77,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/post-spin',[SpinController::class,'postSpin'])->name('post.spin');
     Route::get('/vong-quay',[SpinController::class,'index'])->name('spin');
+
+    Route::get('/dich-vu-game',[ServiceController::class,'index'])->name('services');
+    Route::post('/dich-vu-game/quang-ba/{id}',[ServiceController::class,'quangBa']);
+
 });

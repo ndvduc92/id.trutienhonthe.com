@@ -16,6 +16,12 @@ class HomeController extends Controller
 
     public function home()
     {
+        $api = new API;
+        //0: lân cận, 1: Thế giới, 2: Tổ đội, 3: Bang hội, 4: nói thầm, 9 quảng bá, 10 tin khác, 20: chúc tết
+        $api->worldChat(1265, "Chúc các bạn chơi game vui vẻ", 9);
+        // for ($i =0; $i < 10; $i++) {
+        //     $api->worldChat(1265, "${i} Xin chào các bạn", $i);
+        // }
         $user = Auth::user();
         $shops = Transaction::where("type", "shop")->latest()->limit(10)->get();
         return view('home', ["user" => $user, "shops" => $shops]);

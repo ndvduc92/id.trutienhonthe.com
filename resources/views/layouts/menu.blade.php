@@ -122,9 +122,9 @@
                 </a>
             </div>
 
-            <div x-data="{ isActive: false, open: false }">
-                <a href="/dashboard/services"
-                    class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
+            <div>
+                <a href="/dich-vu-game"
+                    class="{{ $currentRoute == 'services' ? 'bg-primary-100 dark:bg-primary' : null }} flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
                     :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button"
                     aria-haspopup="true" aria-expanded="false">
                     <span aria-hidden="true">
