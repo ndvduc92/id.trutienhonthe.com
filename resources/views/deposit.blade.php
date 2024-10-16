@@ -23,7 +23,7 @@ NẠP TIỀN - DONATE
                     <td colspan="2" style="text-align: center">
                         <img
                             style="display: inline"
-                            src="https://img.vietqr.io/image/mbbank-7071727379-compact.jpg?&amp;addInfo=DNT TV2217&amp;accountName=dangvanquy"
+                            src="{{$img}}"
                             alt="" width="30%" id="chuyenkhoanmbbank">
                         </td>
 
