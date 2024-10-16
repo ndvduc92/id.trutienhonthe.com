@@ -274,7 +274,7 @@ class AuthController extends Controller
             }
             try {
                 $user = Auth::user();
-                $response = $this->callGameApi("get", "/html/vip.php", []);
+                $response = $this->callGameApi("get", "/api/vip.php", []);
                 $data = $response["data"];
                 $vip = current(array_filter($data, function ($e) use ($user) {
                     return $e["userid"] == $user->userid;
@@ -528,7 +528,7 @@ class AuthController extends Controller
     public function updateVip()
     {
         try {
-            $response = $this->callGameApi("get", "/html/vip.php", []);
+            $response = $this->callGameApi("get", "/api/vip.php", []);
             $data = $response["data"];
             foreach ($data as $value) {
                 $user = User::where("userid", $value["userid"])->first();
