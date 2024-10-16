@@ -25,7 +25,7 @@ class HomeController extends Controller
     {
         $now = Carbon::now();
         $currentPromotion = Promotion::where('start_time', '<=', $now)->where('end_time', '>=', $now)->first();
-        $img = "https://img.vietqr.io/image/mbbank-0975832648-compact2.jpg?addInfo=TT" . strtoupper(Auth::user()->username) . "&accountName=Tru%20Tien%20Viet%20Nam";
+        $img = "https://img.vietqr.io/image/mbbank-ZhuxianAoC-compact2.jpg?addInfo=AOC" . strtoupper(Auth::user()->username) . "&accountName=NGUYEN%20THI%20THUY%20TRANG";
         return view("deposit", ["currentPromotion" => $currentPromotion, "img" => $img]);
     }
 
