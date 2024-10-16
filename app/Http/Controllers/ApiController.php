@@ -20,7 +20,7 @@ class ApiController extends Controller
     {
         try {
             $code = $request->code;
-            $username = strtolower(substr($code, 2));
+            $username = strtolower(substr($code, 3));
             $user = User::where("username", $username)->first();
             $amount = $request->transferAmount;
             $amount_promotion = $amount;
