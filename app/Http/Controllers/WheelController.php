@@ -204,7 +204,7 @@ class WheelController extends Controller
         $wheel_item = [];
         foreach ($spins as $spin) {
             $wheel_item[] = $spin->id;
-            $label[] = $spin->name;
+            $label[] = $spin->name. " x".$spin->quantity;
             $rate[] = $spin->ratio;
             $reward[] = $spin->name;
         }
