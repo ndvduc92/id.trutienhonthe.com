@@ -13,7 +13,7 @@
                     <div class="p-2">
                         <p>Sẽ có 3 loại vòng quay may mắn: Vòng quay hàng ngày, Vòng quay dành cho VIP và vòng quay tốn Xu
                         </p>
-                        <code>* * * * * Click vào link bên dưới để tham gia</code>
+                        <code>* * * * * Vui lòng chọn đúng nhân vật trước khi tham gia</code>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                                     class="w-full px-4 py-2 font-medium text-center text-white transition-colors duration-200 rounded-md bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-darker w-auto"
                                     data-tippy="Execute the request!" data-tippy-arrow="true" data-tippy-size="large"
                                     data-tippy-trigger="mouseenter" data-tippy-animation="fade">
-                                    Tham Gia (còn {{ $daily->num_of_times - $vip->usedTimes() }} lần)
+                                    Tham Gia (còn {{ $vip->num_of_times - $vip->usedTimes() }} lần)
                                 </a>
                             </form>
                         </div>
@@ -77,7 +77,7 @@
                                     class="w-full px-4 py-2 font-medium text-center text-white transition-colors duration-200 rounded-md bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-darker w-auto"
                                     data-tippy="Execute the request!" data-tippy-arrow="true" data-tippy-size="large"
                                     data-tippy-trigger="mouseenter" data-tippy-animation="fade">
-                                    Tham Gia (còn {{ $daily->num_of_times - $coin->usedTimes() }} lần)
+                                    Tham Gia (còn {{ $coin->num_of_times - $coin->usedTimes() }} lần)
                                 </a>
                             </form>
                         </div>

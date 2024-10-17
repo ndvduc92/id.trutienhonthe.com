@@ -99,6 +99,15 @@ class WheelController extends Controller
             $user->save();
         }
 
+        $item = WheelItem::find($id);
+        $this->callGameApi("post", "/api/mail.php", [
+            "receiver" => Auth::user()->main_id,
+            "itemid" => $item->itemid,
+            "count" => $item->quantity,
+            "proctype"=> $item->bind,
+            "msg" => $wheel->name
+        ]);
+
     }
 
     public function timeAgo($time_ago)
