@@ -107,9 +107,8 @@
             </div>
 
             <div>
-                <a href="/vong-quay"
-                    target="_blank"
-                    class="{{ $currentRoute == 'vong-quay' ? 'bg-primary-100 dark:bg-primary' : null }} flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
+                <a href="/vong-quay-may-man"
+                    class="{{ $currentRoute == 'vong-quay-may-man' ? 'bg-primary-100 dark:bg-primary' : null }} flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
                     role="button" aria-haspopup="true" aria-expanded="false">
                     <span aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

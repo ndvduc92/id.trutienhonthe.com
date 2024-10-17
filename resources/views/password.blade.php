@@ -13,19 +13,7 @@
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                     <div class="mt-5 md:mt-0 md:col-span-2 ">
                         <form action="" method="POST">
-                          @csrf
-                          @if (Session::has('error'))
-                    <div class="alert p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                        role="alert">
-                        <span class="error font-medium">{{ Session::get('error') }}</span>
-                    </div>
-                @endif
-                @if (Session::has('success'))
-                    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
-                        role="alert">
-                        <span class="success font-medium">{{ Session::get('success') }}</span>
-                    </div>
-                @endif
+                            @csrf
                             <div class="px-4 py-5 bg-white sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md dark:bg-darker">
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-4">
@@ -57,14 +45,15 @@
                                                     vào ĐÂY</strong> lấy OTP về email)</span>
                                         </label>
                                         <input class="{{ $inputClass }}" name="otp" required>
-                                        
+
                                     </div>
                                     <div class="col-span-6 sm:col-span-4" id="optsuccess" style="display: none">
-                                      <label style="color:green" class="block font-medium text-sm text-red-700 dark:text-light">
-                                        *Vui lòng kiểm tra email để lấy mã OTP.
-                                      </label>
-                                      
-                                  </div>
+                                        <label style="color:green"
+                                            class="block font-medium text-sm text-red-700 dark:text-light">
+                                            *Vui lòng kiểm tra email để lấy mã OTP.
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
 
@@ -90,8 +79,8 @@
     <script>
         $("#otp").click(function() {
             $.LoadingOverlay("show", {
-                image       : "",
-                text        : "Chờ một chút..."
+                image: "",
+                text: "Chờ một chút..."
             })
             $("#optsuccess").css("display", "none")
             var base_url = '/otp'
@@ -105,11 +94,11 @@
                 },
                 type: "POST"
             }).done(function() {
-              $.LoadingOverlay("hide")
-              $("#optsuccess").css("display", "block")
-            }).fail(function(data){
-              $.LoadingOverlay("hide")
-              alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+                $.LoadingOverlay("hide")
+                $("#optsuccess").css("display", "block")
+            }).fail(function(data) {
+                $.LoadingOverlay("hide")
+                alert("Có lỗi xảy ra, vui lòng thử lại sau!");
             });;
         })
     </script>

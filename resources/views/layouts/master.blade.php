@@ -24,8 +24,6 @@
         .alert .success {
             color: rgb(34 173 87);
         }
-
-        
     </style>
 
 </head>
@@ -52,6 +50,18 @@
                     <div
                         class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
                         <h1 class="text-2xl font-semibold">@yield('heading')</h1>
+                        @if (Session::has('error'))
+                            <div class="alert p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                                role="alert">
+                                <span class="error font-medium">{{ Session::get('error') }}</span>
+                            </div>
+                        @endif
+                        @if (Session::has('success'))
+                            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                                role="alert">
+                                <span class="success font-medium">{{ Session::get('success') }}</span>
+                            </div>
+                        @endif
                     </div>
                     <!-- Content -->
                     <div class="mt-2 pb-16">

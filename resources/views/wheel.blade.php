@@ -110,7 +110,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="group-btn text-right">
-                                <a href="/" class="btn btn-primary"><i class="fas fa-home"></i> Về lại trang chủ</a>
+                                <a href="/" class="btn btn-success btn-block"><i class="fas fa-diamond"></i> {{ $wheel->name }} (Lượt quay còn lại : <span id="times">{{ $wheel->num_of_times - $wheel->usedTimes() }}</span> lượt)</a>
                             </div>
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
@@ -118,7 +118,7 @@
                                         <h5 class="card-title">Lịch sử quay</h5>
                                     </div>
                                 </div>
-                            <!-- /.card-header -->
+                                <br>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="input-group col-lg-12">
@@ -240,7 +240,7 @@
             },
         },
         ajax: {
-            url: "{{ route('spin') }}",
+            url: "/vong-quay-may-man/{{ request()->route('id') }}",
             data: function(d) {
                 var start = '';
                 var end = '';
@@ -259,7 +259,7 @@
         order: [],
         "columns":[
             {"data": "user.username" },
-            {"data": "reward" },
+            {"data": "msg" },
             {"data": "created_at", class: 'text-center' },
         ]
     });
@@ -274,7 +274,7 @@
     function StartSpin() {
         $('#btnSpin').html('<i class="fa fa-spinner fa-spin"></i> Chờ kết quả...').prop('disabled',true);
         $.ajax({
-            url: "{{ route('post.spin') }}",
+            url: "/post-spin/{{ request()->route('id') }}",
             method: "POST",
             dataType: 'json',
             success: function(response) {
@@ -283,7 +283,7 @@
                     $('#btnSpin').html('<i class="fas fa-play mr-1"></i>QUAY NGAY').prop('disabled', false);
                     return false;
                 }
-                var audio = new Audio("/spin/audio/spin.mp3");
+                var audio = new Audio("/spin/audio/roulette.mp3");
                 var audio1 = new Audio("/spin/audio/congratulation.mp3");
                 var out = response.location;
                 var countLoop = 0;
@@ -301,6 +301,8 @@
                         setTimeout(() => {
                             $('#btnSpin').html('<i class="fas fa-play mr-1"></i>QUAY NGAY').prop('disabled', false);
                             spin_history_table.ajax.reload();
+                            const times = parseInt($("#times").text())
+                            $("#times").text(times - 1)
                         }, 4000);
                     } else {
                         if (x >= 360) {

@@ -12,18 +12,6 @@
                     <span class="block sm:inline">{{ Auth::user()->balance }}</span>
                 </div>
                 @csrf
-                @if (Session::has('error'))
-                    <div class="alert p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                        role="alert">
-                        <span class="error font-medium">{{ Session::get('error') }}</span>
-                    </div>
-                @endif
-                @if (Session::has('success'))
-                    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
-                        role="alert">
-                        <span class="success font-medium">{{ Session::get('success') }}</span>
-                    </div>
-                @endif
                 <div class="flex flex-row z-0 mb-6 w-full group">
                     <span class="my-4 mx-4"> Xu </span>
                     <input
