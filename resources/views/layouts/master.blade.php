@@ -13,9 +13,11 @@
     <!-- Fonts -->
     <!-- Styles -->
     <link rel="stylesheet" href="/fe/css/app.css">
-
+    <link rel="stylesheet" href="/spin/AdminLTE-3.1.0/plugins/toastr/toastr.min.css">
     <!-- Scripts -->
     <script src="/fe/js/app.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/spin/AdminLTE-3.1.0/plugins/toastr/toastr.min.js"></script>
     <style>
         .alert .error {
             color: red;
@@ -50,18 +52,6 @@
                     <div
                         class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
                         <h1 class="text-2xl font-semibold">@yield('heading')</h1>
-                        @if (Session::has('error'))
-                            <div class="alert p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                                role="alert">
-                                <span class="error font-medium">{{ Session::get('error') }}</span>
-                            </div>
-                        @endif
-                        @if (Session::has('success'))
-                            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
-                                role="alert">
-                                <span class="success font-medium">{{ Session::get('success') }}</span>
-                            </div>
-                        @endif
                     </div>
                     <!-- Content -->
                     <div class="mt-2 pb-16">
@@ -194,5 +184,15 @@
         })();
     </script>
 </body>
-
+<script>
+    const error = "{{ Session::has('error') }}"
+    const success = "{{ Session::has('success') }}"
+    if (error) {
+        toastr.error("{{ Session::get('error') }}");
+    }
+    if (success) {
+        toastr.success("{{ Session::get('success') }}");
+    }
+    
+</script>
 </html>
