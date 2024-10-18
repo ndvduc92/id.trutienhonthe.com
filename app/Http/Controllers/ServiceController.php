@@ -20,6 +20,9 @@ class ServiceController extends Controller
     public function message()
     {
         $api = new API;
+        if (strlen(request()->msg) > 200) {
+            return back()->with("error", "Tin nhắn quá dài!");
+        }
         $api->worldChat(Auth::user()->main_id, "[Gửi từ Web]: ".request()->msg, 1);
         return back()->with("success", "Tin nhắn đã được gởi thành công");
     }
