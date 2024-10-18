@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Tru Tien Hon The Skill</title>
-    <link rel="shortcut icon" href="https://jd.pwdatabase.com/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/fe/img/logo.png" type="image/x-icon">
 
 
     <meta http-equiv="content-language" content="en">
