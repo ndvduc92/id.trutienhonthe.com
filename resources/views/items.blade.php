@@ -70,14 +70,6 @@
             </tbody>
         </table>
     </div>
-    <style>
-        .desc {
-  width: 300px; 
-  word-wrap: break-word;
-    overflow: hidden;
-}
-
-    </style>
     <script type="text/javascript">
         var ddmx = new DropDownMenuX('menu1');
         ddmx.init();
