@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 
 class FameController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+    private const BOSSES = [
+        "25949" => "Tần Quảng"
+    ];
+
     public function index()
     {
         $response = $this->callGameApi("get", "/api/refine.php", []);
@@ -34,18 +36,26 @@ class FameController extends Controller
     {
         $response = $this->callGameApi("get", "/api/boss.php", []);
         $data = $response["data"];
-        foreach($data as &$item) {
-            $item["msg"] = "Người chơi [". getName($item['player']). "] đã tiêu diệt Boss ".$item["bossid"];
+        
+
+        $filtered = collect($data)->filter(function ($value, int $key) {
+            return in_array($value["bossid"], $this->isBoss());
+        });
+        $boss = $filtered->values()->all();
+
+        foreach($boss as &$item) {
+            $item["msg"] = "Người chơi [". getName($item['player']). "] đã tiêu diệt Boss [".self::BOSSES[$item["bossid"]]."]";
         }
-        return $data;
+        return $boss;
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function isBoss()
     {
-        //
+        $allow = ["25949"];
+        return $allow;
     }
 
     /**

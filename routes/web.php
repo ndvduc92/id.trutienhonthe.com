@@ -13,6 +13,7 @@ use App\Http\Controllers\ManagerSpinController;
 use App\Http\Controllers\WheelController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\FameController;
+use App\Http\Controllers\SkillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,5 +94,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/logging', [FameController::class, 'logging'])->name("logging");
 
     Route::get('/boss', [FameController::class, 'boss'])->name("boss");
+
+    Route::get('/skills', [SkillController::class, 'index'])->name("skills");
 
 });
