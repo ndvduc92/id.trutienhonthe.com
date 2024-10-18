@@ -65,7 +65,7 @@ class WheelController extends Controller
     public function getAll($id)
     {
         $items = Wheel::find($id)->items()->pluck("id")->toArray();
-        return WheelUser::with("user")->where("user_id", Auth::user()->id)->whereIn("wheel_item_id", $items)->orderBy('created_at', 'desc');
+        return WheelUser::with("user", "wheel_item")->where("user_id", Auth::user()->id)->whereIn("wheel_item_id", $items)->orderBy('created_at', 'desc');
     }
 
     public function getSpin($id)
