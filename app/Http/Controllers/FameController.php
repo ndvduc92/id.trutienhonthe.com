@@ -15,10 +15,15 @@ class FameController extends Controller
     {
         $response = $this->callGameApi("get", "/api/refine.php", []);
         $data = $response["data"];
-        foreach($data as &$item) {
-            $item["msg"] = "Người chơi [". getName($item['player']). "] đã luyện thành công trang bị lên cấp ".$item["level_after"];
+
+        $filtered = collect($data)->filter(function ($value, int $key) {
+            return intval($value["level_after"]) > 11;
+        });
+        $filtered = $filtered->values()->all();
+        foreach($filtered as &$item) {
+            $item["msg"] = "Người chơi [". getName($item['player']). "] đã luyện thành công trang bị [". getItem($item['itemid']). "] lên cấp ".$item["level_after"];
         }
-        return $data;
+        return $filtered;
     }
 
     public function logging()

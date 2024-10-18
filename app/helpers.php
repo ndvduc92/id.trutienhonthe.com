@@ -79,6 +79,11 @@ function getOnlineList()
   
 }
 
+function getItem($itemid) {
+  $item = \App\Models\Item::where("itemid", $itemid)->first();
+  return $item ? $item->name : "Chưa cập nhật";
+}
+
 function getOnlines() {
   try {
     $api = new API;
