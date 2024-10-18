@@ -23,6 +23,10 @@ class ServiceController extends Controller
         if (strlen(request()->msg) > 200) {
             return back()->with("error", "Tin nhắn quá dài!");
         }
+
+        if (!youOnline()) {
+            return back()->with("error", "Người chơi đang không online!");
+        }
         $api->worldChat(Auth::user()->main_id, "[Gửi từ Web]: ".request()->msg, 1);
         return back()->with("success", "Tin nhắn đã được gởi thành công");
     }

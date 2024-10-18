@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManagerSpinController;
 use App\Http\Controllers\WheelController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\FameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,5 +87,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/message',[ServiceController::class,'message']);
     Route::get('/tro-chuyen', [GuildController::class, 'chats'])->name("chats");
+
+    Route::get('/danh-vong', [FameController::class, 'index'])->name("fame");
+
+    Route::get('/logging', [FameController::class, 'logging'])->name("logging");
+
+    Route::get('/boss', [FameController::class, 'boss'])->name("boss");
 
 });
