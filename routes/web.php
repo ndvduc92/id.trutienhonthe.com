@@ -14,6 +14,7 @@ use App\Http\Controllers\WheelController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\FameController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,5 +94,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/boss', [FameController::class, 'boss'])->name("boss");
 
     Route::get('/skills', [SkillController::class, 'index'])->name("skills");
+
+    Route::get('/items', [ItemController::class, 'index'])->name("items");
 
 });

@@ -62,6 +62,9 @@
                             <a class="item2" href="?c=sylia" id="menu1-1-17">Hoạ Ảnh</a>
                         </div>
                     </td>
+                    <td><a style="width:auto" class="item1" href="/items" id="menu1-1">Tra Cứu Vật Phẩm</a>
+                        
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -74,7 +77,7 @@
         <script type="text/javascript" src="/skill/data_pwi.js"></script>
         <script type="text/javascript" src="/skill/t{{ $faction }}_pwi.js"></script>
         <script type="text/javascript" src="/skill/lang_pwi.js"></script>
-        <div class="tableHeader tup">KỸ NĂNG MÔN PHÁI: <span id="class">{{ $classes[$faction]}}</span></div>
+        <div class="tableHeader tup">KỸ NĂNG MÔN PHÁI: <span id="class">{{ $classes[$faction] }}</span></div>
         <table class="calc">
             <tbody>
                 <tr>
@@ -83,7 +86,8 @@
                                 class="strong">Mặc định</a> - <a href="/skills?"
                                 onclick="return C.th(&#39;r&#39;)">Sau chuyển sinh</a></div>
                         <div id="chroma" class="menuitem" style="display: none;"><strong>Nguyên thần</strong>:
-                            <input type="text" id="chroma_s" oninput="C.gm();" style="width:50px;"></div>
+                            <input type="text" id="chroma_s" oninput="C.gm();" style="width:50px;">
+                        </div>
                         <div id="chroma_text" class="menuitem" style="display: none;"><strong>Additional
                                 skillpoints</strong>: 0
                         </div>
