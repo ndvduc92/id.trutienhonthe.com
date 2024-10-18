@@ -9,6 +9,8 @@ class Family extends Model
 {
     use HasFactory;
 
+    public $timestamps = true;
+
     public function chars() {
         return $this->hasMany(FamilyUser::class);
     }

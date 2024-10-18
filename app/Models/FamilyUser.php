@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FamilyUser extends Model
 {
     use HasFactory;
+    public $timestamps = true;
 
     public function family() {
         return $this->belongsTo(Family::class);

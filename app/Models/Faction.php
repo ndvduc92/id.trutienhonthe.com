@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Faction extends Model
 {
     use HasFactory;
-
+    public $timestamps = true;
+    
     public function families() {
         return $this->hasMany(Family::class);
     }
