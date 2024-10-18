@@ -16,23 +16,6 @@ class HomeController extends Controller
 
     public function home()
     {
-        // $connection = ssh2_connect('103.57.221.103', 24700);
-        // ssh2_auth_password($connection, 'root', 'Vduc1992@');
-
-        // $stream = ssh2_exec($connection, 'rm -rf /root/guild/* && bash /root/guild.sh');
-        //$stream = ssh2_exec($connection, 'bash /root/guild.sh');
-        //$stream = ssh2_exec($connection, 'bash /root/toplist.sh');
- 
-        //$response = $this->callGameApi("get", "/api/faction.php", []);
-        //mb_strtolower($str, 'UTF-8');
-        // $data = $response["data"];
-        // $res = [];
-        // foreach($data as $x) {
-        //     $x["name"] = mb_strtolower(json_decode($x["name"]), 'UTF-8');
-        //     array_push($res, $x);
-        // }
-        // return $res;
-        
         $user = Auth::user();
         return view('home', ["user" => $user]);
     }

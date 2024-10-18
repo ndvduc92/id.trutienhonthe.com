@@ -459,19 +459,6 @@ class AuthController extends Controller
         return back()->with("success", "Yêu cầu thành công!");
     }
 
-    public function updateNameApi()
-    {
-        $chars = Char::all();
-        $chars = collect($chars)->filter(function ($value) {
-            return $value->name2 == "" && $this->specialChars($value->name);
-        })->values();
-        if (count($chars) > 0) {
-            return 1;
-            $this->sendMessage("Có nhân vật cần update tên tiếng Việt ! https://admin.trutien.vn");
-        }
-        return $chars;
-    }
-
     public function bot()
     {
         return response()->json("ok", 409);
@@ -481,48 +468,6 @@ class AuthController extends Controller
     {
         \Artisan::call('clear-compiled');
         return "ok";
-    }
-
-    private function specialChars($str)
-    {
-        return preg_match('/[^a-zA-Z0-9\.]/', $str) > 0;
-    }
-
-    public function buyChat(Request $request)
-    {
-        $user = Auth::user();
-        $cash = $request->count * 100;
-        if ($user->balance < $cash) {
-            return back()->with("error", "Số xu trong tài khoản không đủ!");
-        }
-        $user->chat_count = $user->chat_count + $request->count;
-        $user->balance = $user->balance - $cash;
-        $user->save();
-        return back()->with("success", "Đã mua lượt chat thành công!");
-    }
-
-    public function postChat(Request $request)
-    {
-        $user = Auth::user();
-        if ($user->viplevel < 6) {
-            if ($user->chat_count == 0) {
-                return back()->with("error", "Đã hết số lượt chat, vui lòng mua thêm!");
-            }
-        }
-        if (!$user->is_online) {
-            return back()->with("error", "Chỉ tham gia vào cuộc trò chuyện được khi tài khoản đang online trong game!");
-        }
-        sleep(2);
-        $this->callGameApi("POST", "/html/admin/broadcast.php", [
-            "user" => Auth::user()->main_id,
-            "message" => $request->msg,
-            "chan" => 1,
-        ]);
-        if ($user->viplevel < 6) {
-            $user->chat_count = $user->chat_count - 1;
-            $user->save();
-        }
-        return back();
     }
 
     public function updateVip()

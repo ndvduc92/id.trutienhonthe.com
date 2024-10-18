@@ -13,7 +13,7 @@
                             <div class="flex flex-row justify-center justify-between">
                                 <div class="text-left">
                                     <img width="32"
-                                        src="{{$item->image}}"
+                                        src="{{$item->picture}}"
                                         alt="hfghfghfgh">
                                 </div>
                             </div>
@@ -28,9 +28,9 @@
                         </div>
                         <div class="flex justify-center items-center px-2 pb-2">
                             <div class="w-1/2 p-2">
-                                <form action="http://localhost:9000/dashboard/shop/purchase/1" method="post">
-                                    <input type="hidden" name="_method" value="POST"> <input type="hidden"
-                                        name="_token" value="yLYx0kRg9EsbNttJJRDa7f9wTtO4xdiD9qGSj582">
+                                <form action="" method="post">
+                                    <input type="hidden" name="_method" value="POST">
+
                                     <button type="submit"
                                         class="w-full px-4 py-2 font-medium text-center text-white transition-colors duration-200 rounded-md bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-darker mr-2">
                                         Mua ({{$item->price}} xu)

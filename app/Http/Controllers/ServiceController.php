@@ -27,7 +27,18 @@ class ServiceController extends Controller
         if (!youOnline()) {
             return back()->with("error", "Người chơi đang không online!");
         }
-        $api->worldChat(Auth::user()->main_id, "[Gửi từ Web]: ".request()->msg, 1);
+        $user = Auth::user();
+
+        if ($user->viplevel < 6 && $user->balance < 50) {
+            return back()->with("error", "Số xu không đủ để gởi tin nhắn");
+        }
+
+        $api->worldChat($user->main_id, "[Gửi từ Web]: ".request()->msg, 1);
+
+        if ($user->viplevel < 6) {
+            $user->balance = $user->balance - 50;
+            $user->save();
+        }
         return back()->with("success", "Tin nhắn đã được gởi thành công");
     }
 
