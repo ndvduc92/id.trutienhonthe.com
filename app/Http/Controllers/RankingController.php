@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use hrace009\PerfectWorldAPI\API;
 use hrace009\PerfectWorldAPI\Gamed;
-use App\Models\Player;
+use App\Models\Faction;
+use App\Models\Family;
+use App\Models\FamilyUser;
+use DB;
 
 class RankingController extends Controller
 {
@@ -25,114 +28,102 @@ class RankingController extends Controller
         $gamed = new Gamed();
         $api = new API();
         $handler = NULL;
-        $clans = [];
+        $factions = [];
         if ($api->online) {
-            set_time_limit(0);
-            do {
-                $raw_info = $api->getRaw('faction', $handler);
-                if (!isset($raw_info['Raw'])) {
-                    break; 
-                }
-                if ( isset($raw_info['Raw']) || count($raw_info['Raw']) > 1) {
-                   
-                    foreach ($raw_info['Raw'] as $i => $iValue) {
-                        if (empty($iValue['key']) || empty($iValue['value'])) {
-                            unset($raw_info['Raw'][$i]);
-                            continue;
-                        }
-                        $id = $gamed->getArrayValue(unpack("N", pack("H*", $iValue['key'])), 1);
-                        $pack = pack("H*", $iValue['value']);
-                        $faction = $gamed->unmarshal($pack, $api->data['FactionInfo']);
-                        if (!empty($faction['master']['roleid']) && $faction['master']['roleid'] > 0) {
-                            $user_faction = $api->getUserFaction($faction['master']['roleid']);
-                            $faction_info = [
-                                'id' => $faction['fid'],
-                                'name' => $faction['name'],
-                                'level' => $faction['level'] + 1,
-                                'master' => $faction['master']['roleid'],
-                                //'master_name' => $user_faction['name'],
-                                'master_name' => "fdsfdsf",
-                                'members' => count($faction['member']),
-                                // 'reputation' => ($this->getFactionStat($faction['fid'], 'reputation') > 0) ? $this->getFactionStat($faction['fid'], 'reputation') : 0,
-                                // 'time_used' => ($this->getFactionStat($faction['fid'], 'time_used') > 0) ? $this->getFactionStat($faction['fid'], 'time_used') : 0,
-                                // 'pk_count' => ($this->getFactionStat($faction['fid'], 'pk_count') > 0) ? $this->getFactionStat($faction['fid'], 'pk_count') : 0,
-                                'announce' => $faction['announce'],
-                                //'territories' => Territories::where('owner', $faction['fid'])->count(),
-                            ];
-
-                            array_push($clans, $faction_info);
-
-                            // if ($faction = Faction::find($faction_info['id'])) {
-                            //     $faction->update($faction_info);
-                            // } else {
-                            //     Faction::create($faction_info);
-                            // }
-                        }
-                        unset($id, $faction, $user_faction, $iValue['value']);
-                    }
-                    $raw_count = count($raw_info['Raw']) - 1;
-                    $last_raw = $raw_info['Raw'][$raw_count];
-                    $last_key = $last_raw['key'];
-                    $new_key = hexdec($last_key) + 1;
-                    $handler = bin2hex(pack("N*", $new_key));
-                };
-            } while (TRUE);
+            $raw_info = $api->getRaw('faction', $handler);
+            foreach ($raw_info['Raw'] as $i => $iValue) {
+                $id = $gamed->getArrayValue(unpack("N", pack("H*", $iValue['key'])), 1);
+                $pack = pack("H*", $iValue['value']);
+                $faction = $gamed->unmarshal($pack, $api->data['FactionInfo']);
+                array_push($factions, $faction);
+            }
         }
-        return $clans;
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+        try {
+            $response = $this->callGameApi("get", "/api/faction.php", []);
+            $data = $response["data"];
+            $faction_clean = [];
+            foreach($factions as $key => $faction) {
+                array_push($faction_clean, [
+                    "id" => $faction["fid"],
+                    "name" => $faction["name"],
+                    "level" => $faction["level"],
+                    "master" => $data[$key]["master"]
+                ]);
+            }
+
+            $guilds_res = [];
+            foreach ($faction_clean as $key) {
+                array_push($guilds_res, [
+                    "id" => $key["id"],
+                    "name" => $key["name"],
+                    "level" => $key["level"],
+                    "master_id" => $key["master"]
+                ]);
+            }
+            Faction::upsert($guilds_res, ['id'], ['name', "level", "master_id"]);
+            $this->family();
+            $this->familyuser();
+            return response()->json("success", 200);
+        } catch (\Throwable $th) {
+            return response()->json("error", 400);
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+
+    public function family()
     {
-        //
+        $gamed = new Gamed();
+        $api = new API();
+        $handler = NULL;
+        $factions = [];
+        if ($api->online) {
+            $raw_info = $api->getRaw('family', $handler);
+            foreach ($raw_info['Raw'] as $i => $iValue) {
+                $id = $gamed->getArrayValue(unpack("N", pack("H*", $iValue['key'])), 1);
+                $pack = pack("H*", $iValue['value']);
+                $faction = $gamed->unmarshal($pack, $api->data['FactionInfo']);
+                array_push($factions, $faction);
+            }
+        }
+        $response = $this->callGameApi("get", "/api/family.php", []);
+        $data = $response["data"];
+        $faction_clean = [];
+        foreach($factions as $key => $faction) {
+            array_push($faction_clean, [
+                "id" => $faction["fid"],
+                "name" => $faction["name"],
+                "faction_id" => $data[$key]["faction_id"],
+                "master" => $data[$key]["master"]
+            ]);
+        }
+
+        $families_res = [];
+        foreach ($faction_clean as $key) {
+            array_push($families_res, [
+                "id" => $key["id"],
+                "name" => $key["name"],
+                "faction_id" => $key["faction_id"],
+                "master_id" => $key["master"]
+            ]);
+        }
+        \DB::table("families")->truncate();
+        Family::insert($families_res);
+        return $faction_clean;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+    public function familyuser() {
+        $response = $this->callGameApi("get", "/api/familyuser.php", []);
+        $data = $response["data"];
+        $users_res = [];
+        foreach ($data as $key) {
+            array_push($users_res, [
+                "char_id" => $key["char_id"],
+                "family_id" => $key["family_id"]
+            ]);
+        }
+        \DB::table("family_users")->truncate();
+        FamilyUser::insert($users_res);
+        return $data;
     }
 }

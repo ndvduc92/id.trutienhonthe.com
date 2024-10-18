@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="p-2 mt-2 text-sm">
-                        <span>Phát thông báo trong game, bạn sẽ được lắng nghe!</span>
+                        <span>Phát thông báo trong game ở dạng [Quảng Bá]</span>
                         <span class="block" style="color:green">Yêu cầu: Nhân vật phải đang đăng nhập trong game</span>
                     </div>
                     <div class="p-2">
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div class="p-2 mt-2 text-sm">
-                        <span>Phát lời chúc mừng trong game!</span>
+                        <span>Phát lời chúc mừng trong game, hiển thị trên toàn bộ máy chủ</span>
                         <span class="block" style="color:green">Yêu cầu: Nhân vật phải đang đăng nhập trong game</span>
                     </div>
                     <div class="p-2">
@@ -79,6 +79,42 @@
                             {{ youOnline() ? "" : "disabled"}}
                             class="w-full px-4 py-2 font-medium text-center text-white transition-colors duration-200 rounded-md bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-darker">
                             {{ youOnline() ? "Mua" : "Người chơi không online"}}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <form action="/dich-vu-game/check-online" method="post">
+                @csrf
+                <div
+                    class="flex flex-col dark:bg-darker shadow-lg hover:shadow-xl rounded-lg mb-6 border dark:border-primary-light h-full">
+                    <div
+                        class="flex flex-row p-2 align-middle align-center dark:text-primary-light border-b dark:border-primary-light">
+                        <svg class="w-11 h-11 pr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm4.82-4.924a7 7 0 1 0-1.852 1.266l-.975-1.755A5 5 0 1 1 17 12h-3l2.82 5.076z"></path>
+                        </svg>
+                        <div class="flex flex-col">
+                            <h2 class="font-extrabold">
+                                Kiểm tra Online
+                            </h2>
+                            <span class="text-sm">
+                                Giá: Miễn phí
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-2 mt-2 text-sm">
+                        <span>Kiểm tra 1 nhân vật cụ thể có đang online hay không!</span>
+                        <span class="block" style="color:green">Yêu cầu: Không</span>
+                    </div>
+                    <div class="p-2">
+                        <input
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-cyan-500 focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
+                            name="char_id" type="number" placeholder="ID Nhân vật" required>
+                    </div>
+                    <div class="mt-auto items-center justify-between p-2">
+                        <button type="submit"
+                            class="w-full px-4 py-2 font-medium text-center text-white transition-colors duration-200 rounded-md bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-darker">
+                            Kiểm Tra
                         </button>
                     </div>
                 </div>

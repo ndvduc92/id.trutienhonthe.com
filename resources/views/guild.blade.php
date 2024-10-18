@@ -1,242 +1,157 @@
 @extends('layouts.master')
+@section('heading')
+    {{ $guild ? $guild->name : 'Chưa có bang hội' }}
+@endsection
 @section('content')
-<style>
-    .rounded {
-        border-radius: var(--bs-border-radius) !important;
-    }
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <style>
+        .gm-panel {
+            display: none;
+        }
+    </style>
+    <div class="col-span-3">
+        @if ($guild)
+            <div class="dark:bg-darker shadow-lg hover:shadow-xl rounded-lg mb-6 border dark:border-primary-light">
+                <div class="p-2 dark:text-primary-light border-b dark:border-primary-light">
+                    <h4 class="text-2xl font-semibold ">Thông Tin Bang Hội</h4>
+                </div>
+                <div class="p-2">
+                    <ul class="max-w-md space-y-1 list-inside">
+                        <li class="flex items-center">
+                            <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                            </svg>
+                            Tên bang hội: {{$guild->name}}
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                            </svg>
+                            Bang Chủ: {{$guild->master->name}}
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                            </svg>
+                            Số lượng gia tộc: {{count($guild->families)}}
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                            </svg>
+                            Tổng số thành viên: {{$guild->totalMember()}}
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                            </svg>
+                            Đang trực tuyến: {{$guild->totalOnline()}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="dark:bg-darker shadow-lg hover:shadow-xl rounded-lg mb-6 border dark:border-primary-light">
+                <div class="p-2 dark:text-primary-light border-b dark:border-primary-light">
+                    <h4 class="text-2xl font-semibold ">Danh Sách Thành Viên</h4>
+                </div>
+                <div class="p-2">
+                    <div class="md:flex">
+                        <ul class="flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0"
+                            id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content"
+                            data-tabs-active-classes="text-purple-600 hover:text-purple-600 dark:text-purple-500 dark:hover:text-purple-500 border-purple-600 dark:border-purple-500"
+                            data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300">
+                            @foreach ($guild->families as $item)
+                                <li role="presentation">
+                                    <button style="color: white" id="profile-styled-tab"
+                                        data-tabs-target="#styled-profile{{ $item->id }}" type="button" role="tab"
+                                        aria-controls="profile" aria-selected="false"
+                                        class="inline-flex items-center px-4 py-3 text-white bg-green-700 rounded-lg active w-full dark:bg-green-600"
+                                        aria-current="page">
+                                        <svg style="color: white" class="w-4 h-4 me-2 text-gray-500 dark:text-gray-400"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 18 18">
+                                            <path
+                                                d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+                                        </svg>
+                                        {{ $item->name }}
+                                    </button>
+                                </li>
+                            @endforeach
 
-    .bg-light {
-        --bs-bg-opacity: 1;
-        background-color: #f5f7fb !important;
-    }
+                        </ul>
+                        @foreach ($guild->families as $item)
+                            <div class="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full"
+                                id="styled-profile{{ $item->id }}" role="tabpanel" aria-labelledby="profile-tab">
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Thành viên gia tộc {{ $item->name }}</h3>
+                                <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
 
-    .py-2 {
-        padding-bottom: .5rem !important;
-        padding-top: .5rem !important;
-    }
+                                <div class="relative overflow-x-auto">
+                                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                        <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                                                    Nhân vật
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Môn Phái
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                                                    Trạng thái
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Chức vụ
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($item->chars as $char)
+                                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                                    <th scope="row"
+                                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                                        {{ getName($char->char_id) }}
+                                                    </th>
+                                                    <td class="px-6 py-4">
+                                                        {{ getNv($char->char_id)->getClass() }}
+                                                    </td>
+                                                    <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                                                        @if (roleOnline($char->char_id))
+                                                            <span
+                                                                class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Online</span>
+                                                        @else
+                                                            <span
+                                                                class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Offline</span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        {{ $char->char_id == $item->master_id ? 'Tộc Trưởng' : '---' }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
 
-    .px-3 {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-    }
-
-    .me-3 {
-        margin-right: 1rem !important;
-    }
-
-    .position-relative {
-        max-height: 500px;
-        overflow: auto;
-    }
-</style>
-<div class="container-xl">
-    <div class="row g-3 mb-4 align-items-center justify-content-between">
-        <div class="col-auto">
-            <h1 class="app-page-title mb-0">{{ $guild ? $guild->name2 : "Bạn chưa thuộc về Bang Hội nào" }}
-            </h1>
-        </div>
-        @if ($guild && $guild->char_id == Auth::user()->main_id)
-        <div class="col-auto">
-            <button class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Quà
-                war</button>
-        </div>
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Phát quà bang chiến</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="row p-4" action="/bang-hoi" method="POST">
-                            @csrf
-                            <div class="col-8">
-                                <input type="" required name="username" class="form-control quantity"
-                                    placeholder="Tài khoản thành viên">
                             </div>
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-mua btn-primary">Thêm</button>
-                            </div>
-                        </form>
+                        @endforeach
                     </div>
                 </div>
             </div>
-        </div>
         @endif
     </div>
-    @if($guild)
-    <div class="row g-3 mb-4 align-items-center justify-content-between">
-        <div class="col-12 col-lg-6">
-            <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
-                <div class="app-card-header p-3 border-bottom-0">
-                    <div class="row align-items-center gx-3">
-                        <div class="col-auto">
-                            <div class="app-icon-holder">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-shop" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5M4 15h3v-5H4zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zm3 0h-2v3h2z" />
-                                </svg>
-                            </div>
-                            <!--//icon-holder-->
-
-                        </div>
-                        <!--//col-->
-                        <div class="col-auto">
-                            <h4 class="app-card-title">Tài Nguyên Bang Hội</h4>
-                        </div>
-                        <!--//col-->
-                    </div>
-                    <!--//row-->
-                </div>
-                <!--//app-card-header-->
-                <div class="app-card-body px-4 w-100">
-                    <div class="item border-bottom py-3">
-                        <div class="row justify-content-between align-items-center">
-                            <div class="col-auto">
-                                <div class="item-label"><strong>Bang chủ</strong></div>
-                                <div class="item-data"><span style="">{{ getName($guild->char_id) }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item border-bottom py-3">
-                        <div class="row justify-content-between align-items-center">
-                            <div class="col-auto">
-                                <div class="item-label"><strong>Số dư xu bang hội</strong></div>
-                                <div class="item-data"><span style="">{{ $guild->balance }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!--//app-card-->
-        </div>
-    </div>
-    @endif
-</div>
-@if(Session::has('error'))
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <small>{{ Session::get('error') }}</small>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
-@if(Session::has('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <small>{{ Session::get('success') }}</small>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
-@if($guild)
-@php
-if (!function_exists('replaceSmile')){
-    function replaceSmile($smiles, $str) {
-        $xx = $str;
-        $msgx = [];
-        foreach (mb_str_split($xx) as $char) {
-            //if (mb_detect_encoding($char, 'auto') != "UTF-8") {
-                array_push($msgx, $char);
-            //}
-
-        }
-
-        $ac = implode('', ($msgx));
-        foreach ($smiles as $key) {
-            $ac = str_replace($key, ' *Biểu cảm* ', $ac);
-        }
-        return $ac;
-    }
-}
-@endphp
-@if(request()->show == "yes")
-<div class="container-xl">
-    <div class="card">
-        <div class="row g-0">
-            <div class="col-12 col-lg-12 col-xl-12">
-                <div class="py-2 px-4 border-bottom d-none d-lg-block">
-                    <div class="d-flex align-items-center py-1">
-                        <div class="flex-grow-1 ps-3">
-                            <strong>Kênh chat Bang Hội</strong>
-                        </div>
-                        <a href="/chat">
-                            <button class="btn btn-secondary btn-lg me-1 px-3"><svg xmlns="http://www.w3.org/2000/svg"
-                                    width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise"
-                                    viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
-                                    <path
-                                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
-                                </svg>Refresh</button>
-                        </a>
-                    </div>
-                </div>
-                <div class="position-relative">
-                    <div class="chat-messages p-4">
-                        @foreach (($chs) as $ch)
-                        <div class="chat-message-left pb-4">
-                            <div class="flex-shrink-1 bg-light rounded py-2 px-3 ms-3">
-                                <div class="font-weight-bold mb-1">
-                                    <span style="color:rgb(37, 26, 7)">[{{$ch["time"]}}]</span> <strong style="color:{{ $ch['channel'] == 'Family' ? '#2a2abf' : '#17ddd6'}}">{{$ch["name"]}}: {{ replaceSmile($smiles, $ch["mes"]) }}</strong>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-@endif
-
-<br>
-<div class="container-xl mt-1">
-        <div class="card">
-            <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs" role="tablist">
-                    @foreach ($guild->getFamilies() as $item)
-                    <li class="nav-item" role="presentation">
-                        <a href="#tabs-home-{{$item->id}}" class="nav-link {{ $loop->index == 0 ? 'active' : '' }}"
-                            data-bs-toggle="tab" aria-selected="true" role="tab">{{$item->name}}</a>
-                    </li>
-                    @endforeach
-                </ul>
-            </div>
-            <div class="card-body">
-                <div class="tab-content">
-                    @foreach ($guild->getFamilies() as $id)
-                    <div class="tab-pane {{ $loop->index == 0 ? 'active' : '' }}" id="tabs-home-{{$id->id}}"
-                        role="tabpanel">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nhân Vật</th>
-                                    <th scope="col">Môn Phái</th>
-                                    <th scope="col">Trạng thái</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($id->getMembers() as $item)
-                                <tr>
-                                <td>{{$item->char_id}}</td>
-                                    <td>{{getName($item->char_id)}}</td>
-                                    <td>{{ getNv($item->char_id)->getClass() }}</td>
-                                    <td>{!! getNv($item->char_id)->user->getOnline($item->char_id) !!}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-</div>
-@endif
 @endsection

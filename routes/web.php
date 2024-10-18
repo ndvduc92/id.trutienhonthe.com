@@ -82,4 +82,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dich-vu-game',[ServiceController::class,'index'])->name('services');
     Route::post('/dich-vu-game/quang-ba/{id}',[ServiceController::class,'quangBa']);
 
+    Route::post('/dich-vu-game/check-online',[ServiceController::class,'checkOnline']);
+
+    Route::post('/message',[ServiceController::class,'message']);
+    Route::get('/tro-chuyen', [GuildController::class, 'chats'])->name("chats");
+
 });

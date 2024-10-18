@@ -1,41 +1,35 @@
 <?php
 
-
-
-/*
- * @author Harris Marfel <hrace009@gmail.com>
- * @link https://youtube.com/c/hrace009
- * @copyright Copyright (c) 2022.
- */
-
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Faction extends Model
 {
+    use HasFactory;
 
-    /**
-     * @var string[]
-     */
-    protected $fillable = ['id', 'name', 'level', 'master', 'master_name', 'members', 'time_used', 'pk_count', 'announce', 'sys_info', 'last_op_time', 'territories', 'contribution'];
+    public function families() {
+        return $this->hasMany(Family::class);
+    }
 
-    /**
-     * @param $query
-     * @param $sub
-     * @return mixed
-     */
-    public function scopeSubType($query, $sub): mixed
-    {
-        $column = [
-            'level' => 'level',
-            'members' => 'members',
-            'territories' => 'territories',
-            'pvp' => 'pk_count',
-        ];
+    public function master() {
+        return $this->belongsTo(Char::class, "master_id", "char_id");
+    }
 
-        return $query
-            ->whereNotIn('id', explode(',', config('pw-config.ignoreFaction')))
-            ->orderBy($column[$sub] ?? 'level', 'desc');
+    public function totalMember() {
+        $sum = 0;
+        foreach($this->families as $item) {
+            $sum+= count($item->chars);
+        }
+        return $sum;
+    }
+
+    public function totalOnline() {
+        $sum = 0;
+        foreach($this->families as $item) {
+            $sum+= $item->totalOnline();
+        }
+        return $sum;
     }
 }

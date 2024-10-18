@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use hrace009\PerfectWorldAPI\API;
+use App\Models\Char;
 
 class ServiceController extends Controller
 {
@@ -14,6 +15,26 @@ class ServiceController extends Controller
     public function index()
     {
         return view("services");
+    }
+
+    public function message()
+    {
+        $api = new API;
+        $api->worldChat(Auth::user()->main_id, "[Gửi từ Web]: ".request()->msg, 1);
+        return back()->with("success", "Tin nhắn đã được gởi thành công");
+    }
+
+    public function checkOnline()
+    {
+        $char = Char::where("char_id", request()->char_id)->first();
+        if (!$char) {
+            return back()->with("error", "Nhân vật không tồn tại!");
+        }
+        $online = roleOnline(request()->char_id);
+        if (!$online) {
+            return back()->with("error", "Người chơi ".$char->name." đang không trực tuyến!");
+        }
+        return back()->with("success", "Người chơi ".$char->name." đang online!");
     }
 
     /**

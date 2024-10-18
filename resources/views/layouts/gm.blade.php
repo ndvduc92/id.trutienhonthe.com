@@ -1,4 +1,4 @@
-<div>
+<div class="gm-panel">
     <!-- GM's Widget -->
     <div class="w-64">
         <div class="flex-col bg-white rounded-md dark:bg-darker border dark:border-primary">

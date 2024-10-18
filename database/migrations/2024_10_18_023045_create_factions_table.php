@@ -11,29 +11,27 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clans', function (Blueprint $table) {
+        Schema::create('factions', function (Blueprint $table) {
             $table->id();
-            $table->string("guildid")->unique();
             $table->string("name");
-            $table->string("char_id");
-            $table->string("level");
-            $table->integer("size");
+            $table->string("master_id");
+            $table->integer("level");
+            $table->integer("balance")->default(0);
             $table->timestamps();
         });
 
         Schema::create('families', function (Blueprint $table) {
             $table->id();
-            $table->string("fid")->unique();
-            $table->string("guildid");
             $table->string("name");
-            $table->string("char_id");
+            $table->string("master_id");
+            $table->string("faction_id");
             $table->timestamps();
         });
 
         Schema::create('family_users', function (Blueprint $table) {
             $table->id();
-            $table->string("fid");
             $table->string("char_id");
+            $table->string("family_id");
             $table->timestamps();
         });
     }
@@ -43,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clans');
+        Schema::dropIfExists('factions');
     }
 };

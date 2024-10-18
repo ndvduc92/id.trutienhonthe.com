@@ -38,14 +38,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('wheel_user', function (Blueprint $table) {
+        Schema::create('wheel_users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
             $table->unsignedBigInteger('wheel_item_id');
-            $table->dateTime("datetime")->nullable();
             $table->string("msg")->nullable();
             $table->foreign('wheel_item_id')
                 ->references('id')

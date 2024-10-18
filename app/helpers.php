@@ -1,7 +1,8 @@
 <?php
 use hrace009\PerfectWorldAPI\API;
 
-function getAcc($userid) {
+function getAcc($userid) 
+{
     $user = \App\Models\User::where("userid", $userid)->first();
     $username = $user->username ?? "";
     if ($username == "") {
@@ -11,7 +12,8 @@ function getAcc($userid) {
 }
 
 
-function getChar($userid) {
+function getChar($userid) 
+{
   $user = \App\Models\User::where("userid", $userid)->first();
   $username = $user->username ?? "";
   if ($username) {
@@ -21,7 +23,8 @@ function getChar($userid) {
   }
 }
 
-function getName($char) {
+function getName($char) 
+{
   $char = \App\Models\Char::where("char_id", $char)->first();
   return $char ? $char->getName() : "Chưa cập nhật";
 }
@@ -31,7 +34,8 @@ function getNv($char) {
   return $char ?? null;
 }
 
-function gameApi($method, $path, $params=null) {
+function gameApi($method, $path, $params=null) 
+{
   $client = new \GuzzleHttp\Client();
   $gameApi = env('GAME_API_ENDPOINT', '');
   $response = $client->request($method, $gameApi . $path, ["form_params" => $params]);
@@ -39,33 +43,50 @@ function gameApi($method, $path, $params=null) {
   return $response;
 }
 
-function isOnline() {
+function isOnline() 
+{
   $api = new API;
   return $api->online;
 }
 
 
-function youOnline() {
+function youOnline() 
+{
   $api = new API;
   if (!Auth::user()->main_id) return false;
   return $api->checkRoleOnline(intval(Auth::user()->main_id));
 }
 
-function roleOnline($id) {
+function roleOnline($id) 
+{
   $api = new API;
-  return $api->checkRoleOnline(intval($id));
+  try {
+    return $api->checkRoleOnline(intval($id));
+  } catch (\Throwable $th) {
+    return false;
+  }
+  
 }
 
-function getOnlineList() {
+function getOnlineList() 
+{
   $api = new API;
-  return $api->getOnlineList();
+  try {
+    return $api->getOnlineList();
+  } catch (\Throwable $th) {
+    return [];
+  }
+  
 }
 
 function getOnlines() {
-  $api = new API;
-  $response = $api->getOnlineList();
-  $onlines = collect($response)->pluck('roleid')->all();
-  $chars = \App\Models\Char::whereIn("char_id", $onlines)->inRandomOrder()->limit(10)->get();
-  return $chars;
+  try {
+    $api = new API;
+    $response = $api->getOnlineList();
+    $onlines = collect($response)->pluck('roleid')->all();
+    $chars = \App\Models\Char::whereIn("char_id", $onlines)->inRandomOrder()->limit(10)->get();
+    return $chars;
+  } catch (\Throwable $th) {
+    return [];
+  }
 }
-

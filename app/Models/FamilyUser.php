@@ -10,10 +10,10 @@ class FamilyUser extends Model
     use HasFactory;
 
     public function family() {
-        return $this->belongsTo(Family::class, "id", "fid");
+        return $this->belongsTo(Family::class);
     }
 
     public function char() {
-        return $this->belongsTo(Char::class, "id", "char_id");
+        return $this->belongsTo(Char::class, "char_id", "char_id");
     }
 }

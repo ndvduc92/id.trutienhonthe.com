@@ -72,10 +72,13 @@
 
     <script src="/fe/js/kamona-wd.js"></script>
     <script>
+
         const setup = () => {
             const getTheme = () => {
                 if (window.localStorage.getItem('dark')) {
                     return JSON.parse(window.localStorage.getItem('dark'))
+                } else {
+                    window.localStorage.setItem('dark', true)
                 }
 
                 return !!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -108,7 +111,7 @@
 
             return {
                 loading: false,
-                isDark: getTheme(),
+                isDark: true,
                 toggleTheme() {
                     this.isDark = !this.isDark
                     setTheme(this.isDark)
