@@ -16,6 +16,13 @@ class HomeController extends Controller
 
     public function home()
     {
+        // $json = file_get_contents('fe/test.json');
+
+        // $data = json_decode($json, true);
+        // $xx = collect($data)->filter(function ($item) {
+        //     return strpos(mb_strtolower($item['name']), 'quy nguyên') !== false; // If strpos returns anything other than false, means 'test' exists somewhere in the string.
+        //   });
+        // return $xx->values()->all();
         $user = Auth::user();
         return view('home', ["user" => $user]);
     }
