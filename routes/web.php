@@ -78,9 +78,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/chars', [AuthController::class, 'chars'])->name("chars");
 
 
-    Route::resource('manager-spins', ManagerSpinController::class);
 
-    Route::post('/post-spin/{id}',[WheelController::class,'postSpin'])->name('post.spin');
+    Route::post('/post-wheel/{id}',[WheelController::class,'postWheelItem']);
     Route::get('/vong-quay-may-man',[WheelController::class,'index'])->name('spin');
     Route::get('/vong-quay-may-man/{id}',[WheelController::class,'show']);
 

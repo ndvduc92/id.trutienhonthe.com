@@ -13,16 +13,16 @@
                             <div class="flex flex-row justify-center justify-between">
                                 <div class="text-left">
                                     <img width="32"
-                                        src="{{$item->picture}}"
+                                        src="{{$item->item->image}}"
                                         alt="hfghfghfgh">
                                 </div>
                             </div>
                         </div>
                         <div class="flex justify-between items-start px-2 pt-2">
                             <div class="p-2 flex-1">
-                                <h1 class="font-extrabold text-xl font-poppins dark:text-cyan-400">{{ $item->name }}</h1>
+                                <h1 class="font-extrabold text-xl font-poppins dark:text-cyan-400">{{ $item->item->name }}</h1>
                                 <p class="text-gray-500 font-nunito"></p>
-                                <p>{!! $item->description !!}</p>
+                                <p>{!! $item->item->description !!}</p>
                                 <p></p>
                             </div>
                         </div>

@@ -54,12 +54,11 @@ class WheelController extends Controller
                 ->rawColumns(['msg'])
                 ->make(true);
         }
-        $spin_name = [];
-        $spins = $this->getSpin($id);
-        foreach ($spins as $spin) {
-            $spin_name[] = $spin->name;
+        $items = [];
+        foreach ($this->getWheelItem($id) as $item) {
+            $items[] = $item->item->name;
         }
-        return view('wheel', compact('spin_name', 'first_day', 'last_day', "wheel"));
+        return view('wheel', compact('items', 'first_day', 'last_day', "wheel"));
     }
 
     public function getAll($id)
@@ -68,7 +67,7 @@ class WheelController extends Controller
         return WheelUser::with("user", "wheel_item")->where("user_id", Auth::user()->id)->whereIn("wheel_item_id", $items)->orderBy('created_at', 'desc');
     }
 
-    public function getSpin($id)
+    public function getWheelItem($id)
     {
         return WheelItem::where("wheel_id", $id)->get();
     }
@@ -86,11 +85,11 @@ class WheelController extends Controller
 
     public function store($content, $id, $wheel_id)
     {
-        $spin_history = new WheelUser();
-        $spin_history->msg = $content;
-        $spin_history->user_id = \Auth::user()->id;
-        $spin_history->wheel_item_id = $id;
-        $spin_history->save();
+        $history = new WheelUser();
+        $history->msg = $content;
+        $history->user_id = \Auth::user()->id;
+        $history->wheel_item_id = $id;
+        $history->save();
 
         $wheel = Wheel::find($wheel_id);
         if ($wheel->coin_amount != 0) {
@@ -174,10 +173,10 @@ class WheelController extends Controller
         return Auth::user()->viplevel >= $wheel->viplevel;
     }
 
-    public function postSpin(Request $request, $id)
+    public function postWheelItem(Request $request, $id)
     {
-        $spins = $this->getSpin($id);
-        if (count($spins) == 0) {
+        $items = $this->getWheelItem($id);
+        if (count($items) == 0) {
             return response()->json([
                 'status' => 'error',
                 'msg' => 'Không tồn tại giải thưởng'
@@ -202,11 +201,11 @@ class WheelController extends Controller
         $rate = [];
         $reward = [];
         $wheel_item = [];
-        foreach ($spins as $spin) {
-            $wheel_item[] = $spin->id;
-            $label[] = $spin->name. " x".$spin->quantity;
-            $rate[] = $spin->ratio;
-            $reward[] = $spin->name;
+        foreach ($items as $item) {
+            $wheel_item[] = $item->id;
+            $label[] = $item->item->name. " x".$item->quantity;
+            $rate[] = $item->ratio;
+            $reward[] = $item->item->name;
         }
         $out = $this->getRandomWeightedElement($rate);
         $this->store($label[$out], $wheel_item[$out], $id);

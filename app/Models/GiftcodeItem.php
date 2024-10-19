@@ -20,4 +20,8 @@ class GiftcodeItem extends Model
     {
         return "https://id.trutienhonthe.com/icons/".$this->itemid.".png";
     }
+
+    public function item() {
+        return $this->belongsTo(Item::class, 'itemid', 'itemid')->withDefault(["name" => "Không xác định"]);;
+    }
 }

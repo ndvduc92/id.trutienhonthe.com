@@ -94,105 +94,105 @@
                                                 x="-400" y="-400"></image>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(-78)translate(290)">{{ isset($spin_name[0]) ? $spin_name[0] : '+ 0đ' }}
+                                                    transform="rotate(-78)translate(290)">{{ isset($items[0]) ? $items[0] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#1f77b4"
                                                         d="M1.8369701987210297e-14,-300A300,300 0 0,1 122.02099292274006,-274.06363729278024L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(-54)translate(290)">{{ isset($spin_name[1]) ? $spin_name[1] : '+ 0đ' }}
+                                                    transform="rotate(-54)translate(290)">{{ isset($items[1]) ? $items[1] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#aec7e8"
                                                         d="M122.02099292274006,-274.06363729278024A300,300 0 0,1 222.94344764321826,-200.73918190765747L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(-30.000000000000007)translate(290)">{{ isset($spin_name[2]) ? $spin_name[2] : '+ 0đ' }}
+                                                    transform="rotate(-30.000000000000007)translate(290)">{{ isset($items[2]) ? $items[2] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#ff7f0e"
                                                         d="M222.94344764321826,-200.73918190765747A300,300 0 0,1 285.31695488854604,-92.70509831248422L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(-6.000000000000014)translate(290)">{{ isset($spin_name[3]) ? $spin_name[3] : '+ 0đ' }}
+                                                    transform="rotate(-6.000000000000014)translate(290)">{{ isset($items[3]) ? $items[3] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#ffbb78"
                                                         d="M285.31695488854604,-92.70509831248422A300,300 0 0,1 298.356568610482,31.358538980296018L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(18)translate(290)">{{ isset($spin_name[4]) ? $spin_name[4] : '+ 0đ' }}
+                                                    transform="rotate(18)translate(290)">{{ isset($items[4]) ? $items[4] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#2ca02c"
                                                         d="M298.356568610482,31.358538980296018A300,300 0 0,1 259.8076211353316,149.99999999999994L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(42)translate(290)">{{ isset($spin_name[5]) ? $spin_name[5] : '+ 0đ' }}
+                                                    transform="rotate(42)translate(290)">{{ isset($items[5]) ? $items[5] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#98df8a"
                                                         d="M259.8076211353316,149.99999999999994A300,300 0 0,1 176.33557568774194,242.70509831248424L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(66)translate(290)">{{ isset($spin_name[6]) ? $spin_name[6] : '+ 0đ' }}
+                                                    transform="rotate(66)translate(290)">{{ isset($items[6]) ? $items[6] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#d62728"
                                                         d="M176.33557568774194,242.70509831248424A300,300 0 0,1 62.37350724532777,293.4442802201417L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(90)translate(290)">{{ isset($spin_name[7]) ? $spin_name[7] : '+ 0đ' }}
+                                                    transform="rotate(90)translate(290)">{{ isset($items[7]) ? $items[7] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#ff9896"
                                                         d="M62.37350724532777,293.4442802201417A300,300 0 0,1 -62.37350724532787,293.44428022014165L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(114.00000000000003)translate(290)">{{ isset($spin_name[8]) ? $spin_name[8] : '+ 0đ' }}
+                                                    transform="rotate(114.00000000000003)translate(290)">{{ isset($items[8]) ? $items[8] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#9467bd"
                                                         d="M-62.37350724532787,293.44428022014165A300,300 0 0,1 -176.335575687742,242.70509831248418L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(138.00000000000003)translate(290)">{{ isset($spin_name[9]) ? $spin_name[9] : '+ 0đ' }}
+                                                    transform="rotate(138.00000000000003)translate(290)">{{ isset($items[9]) ? $items[9] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#c5b0d5"
                                                         d="M-176.335575687742,242.70509831248418A300,300 0 0,1 -259.80762113533166,149.99999999999986L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(162)translate(290)">{{ isset($spin_name[10]) ? $spin_name[10] : '+ 0đ' }}
+                                                    transform="rotate(162)translate(290)">{{ isset($items[10]) ? $items[10] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#8c564b"
                                                         d="M-259.80762113533166,149.99999999999986A300,300 0 0,1 -298.35656861048204,31.358538980295986L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(186.00000000000006)translate(290)">{{ isset($spin_name[11]) ? $spin_name[11] : '+ 0đ' }}
+                                                    transform="rotate(186.00000000000006)translate(290)">{{ isset($items[11]) ? $items[11] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#c49c94"
                                                         d="M-298.35656861048204,31.358538980295986A300,300 0 0,1 -285.3169548885461,-92.70509831248418L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(209.99999999999994)translate(290)">{{ isset($spin_name[12]) ? $spin_name[12] : '+ 0đ' }}
+                                                    transform="rotate(209.99999999999994)translate(290)">{{ isset($items[12]) ? $items[12] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#e377c2"
                                                         d="M-285.3169548885461,-92.70509831248418A300,300 0 0,1 -222.94344764321835,-200.73918190765738L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(234)translate(290)">{{ isset($spin_name[13]) ? $spin_name[13] : '+ 0đ' }}
+                                                    transform="rotate(234)translate(290)">{{ isset($items[13]) ? $items[13] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#f7b6d2"
                                                         d="M-222.94344764321835,-200.73918190765738A300,300 0 0,1 -122.02099292274028,-274.0636372927802L0,0Z">
                                                     </path>
                                                 </text></g>
                                             <g><text x="-110" y="5" class="wheelText" text-anchor="middle"
                                                     text-rendering="optimizeLegibility"
-                                                    transform="rotate(257.9999999999999)translate(290)">{{ isset($spin_name[14]) ? $spin_name[14] : '+ 0đ' }}
+                                                    transform="rotate(257.9999999999999)translate(290)">{{ isset($items[14]) ? $items[14] : '+ 0đ' }}
                                                     <path fill-opacity="0.0" fill="#7f7f7f"
                                                         d="M-122.02099292274028,-274.0636372927802A300,300 0 0,1 -3.2156263187166844e-13,-300L0,0Z">
                                                     </path>
@@ -252,7 +252,7 @@
                                         <table id="spin_history_table" class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>Thành viên</th>
+                                                    <th>Hình Ảnh</th>
                                                     <th>Giải thưởng</th>
                                                     <th>Thời gian</th>
                                                 </tr>
@@ -386,16 +386,16 @@
         });
 
         $("#btnSpin").click(function() {
-            StartSpin();
+            StartWheel();
         });
 
         var quayCount = $(".wheelText").length;
         var vp = 360 / quayCount;
 
-        function StartSpin() {
+        function StartWheel() {
             $('#btnSpin').html('<i class="fa fa-spinner fa-spin"></i> Chờ kết quả...').prop('disabled', true);
             $.ajax({
-                url: "/post-spin/{{ request()->route('id') }}",
+                url: "/post-wheel/{{ request()->route('id') }}",
                 method: "POST",
                 dataType: 'json',
                 success: function(response) {

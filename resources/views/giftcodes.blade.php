@@ -44,8 +44,7 @@
                                 <div class="flex items-center">
                                     <ul>
                                         @foreach ($item->items as $it)
-                                            <li>{{ $it->quantity }} cái {{ $it->name }}
-                                                ({{ $it->bind == '19' ? 'Khóa' : 'Không khóa' }})</li>
+                                            <p><img style="display:inline" src="{{ $it->item->image }}">  {{ $it->item->name }} (x{{ $it->quantity }})</p>
                                         @endforeach
                                     </ul>
                                 </div>
