@@ -14,6 +14,12 @@
                     <div class="mt-5 md:mt-0 md:col-span-2 ">
                         <form action="" method="POST">
                             @csrf
+                            @if ($errors->any())
+                            <div class="alert p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                                    role="alert">
+                                    <span class="error font-medium">{{ $errors->first() }}</span>
+                                </div>
+                            @endif
                             <div class="px-4 py-5 bg-white sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md dark:bg-darker">
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-4">

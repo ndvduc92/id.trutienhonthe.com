@@ -44,6 +44,47 @@
             </div>
         </div>
 
+        <div class="dark:bg-darker shadow-lg hover:shadow-xl rounded-lg mb-6 border dark:border-primary-light">
+            <div class="p-2 dark:text-primary-light border-b dark:border-primary-light">
+                <h4 class="text-2xl font-semibold ">Bảng Cấp VIP</h4>
+            </div>
+            <div class="p-2">
+                <table class="w-full table-auto">
+                    <thead>
+                        <tr
+                            class="bg-gray-200 dark:bg-primary dark:text-light text-gray-600 uppercase text-xs leading-normal">
+                            <th class="py-3 px-6 text-left">Cấp VIP</th>
+                            <th class="py-3 px-6 text-left">Số KNB Cần</th>
+                            <th class="py-3 px-6 text-left">Số Xu Cần</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-xs dark:text-light">
+                        @foreach($vips as $vip)
+                        <tr
+                            class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100 dark:border-primary dark:bg-darker dark:hover:bg-primary-dark">
+                            <td class="py-3 px-6 text-left">
+                                <div class="flex items-center">
+                                    {{ $vip["level"] }}
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                                <div class="flex items-center">
+                                    {{ $vip["knb"] }}
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                                <div class="flex items-center">
+                                    {{ $vip["xu"] }}
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="

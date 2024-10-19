@@ -28,14 +28,19 @@ use App\Http\Controllers\ItemController;
  */
 
 Route::get('/dang-ky', [AuthController::class, 'signup']);
+Route::post('/dang-ky', [AuthController::class, 'signupPost']);
+
+Route::post('/dang-nhap', [AuthController::class, 'signinPost']);
 Route::get('/dang-nhap', [AuthController::class, 'signin'])->name("login");
 
-Route::post('/dang-ky', [AuthController::class, 'signupPost']);
-Route::post('/dang-nhap', [AuthController::class, 'signinPost']);
+Route::get('/quen-mat-khau', [AuthController::class, 'passwordGet']);
+Route::post('/quen-mat-khau', [AuthController::class, 'passwordPost']);
+
+Route::get('/quen-mat-khau/otp', [AuthController::class, 'changeGet']);
+Route::post('/quen-mat-khau/otp', [AuthController::class, 'changePost']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [HomeController::class, 'home'])->name("home");
-    Route::get('/update_char', [AuthController::class, 'updateChar'])->name("update_char");
     Route::post('/set_main_char', [AuthController::class, 'setMainChar']);
     Route::get('/set_main_char/{id}', [AuthController::class, 'setMainCharHome']);
     Route::get('/doi-mon-phai/{id}', [AuthController::class, 'changeClassGet']);

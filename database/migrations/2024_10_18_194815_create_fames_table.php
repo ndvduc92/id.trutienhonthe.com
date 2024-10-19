@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('fames', function (Blueprint $table) {
             $table->id();
-            $table->string("char_id");
-            $table->string("type");
-            $table->string("value");
+            $table->string("char_id")->nullalble();
+            $table->string("type")->nullalble();
+            //login, logout for type = login
+            $table->string("value")->nullalble();
+            $table->string("itemid")->nullalble();
+            $table->string("bossid")->nullalble();
+            $table->dateTime("date")->nullalble();
             $table->timestamps();
         });
     }

@@ -31,5 +31,7 @@ Route::post('/payment/success', [ApiController::class, 'paymentSuccess'])->name(
 Route::get('/bot', [AuthController::class, 'bot'])->name("bot");
 Route::get('/cache', [AuthController::class, 'cache'])->name("cache");
 
+Route::get('/trades', [ApiController::class, 'trades'])->name("trades");
+
 
 

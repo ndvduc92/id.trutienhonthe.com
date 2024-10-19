@@ -13,7 +13,49 @@ class KnbController extends Controller
 
     public function getKnb()
     {
-        return view("knb");
+        $vips = [
+            [
+                "level" => 1,
+                "knb" => 100,
+                "xu" => 1
+            ],
+            [
+                "level" => 2,
+                "knb" => 400,
+                "xu" => 1
+            ],
+            [
+                "level" => 3,
+                "knb" => 800,
+                "xu" => 1
+            ],
+            [
+                "level" => 4,
+                "knb" => 1500,
+                "xu" => 1
+            ],
+            [
+                "level" => 5,
+                "knb" => 2500,
+                "xu" => 1
+            ],
+            [
+                "level" => 6,
+                "knb" => 6000,
+                "xu" => 1
+            ],
+            [
+                "level" => 7,
+                "knb" => 8000,
+                "xu" => 1
+            ],
+            [
+                "level" => 8,
+                "knb" => 15000,
+                "xu" => 1
+            ]
+        ];
+        return view("knb", ["vips" => $vips]);
     }
 
     public function postKnb()

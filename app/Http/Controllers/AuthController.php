@@ -10,6 +10,7 @@ use Auth;
 use DB;
 use Illuminate\Http\Request;
 use App\Mail\ChangePassword;
+use App\Mail\ForgotPassword;
 use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
@@ -28,6 +29,102 @@ class AuthController extends Controller
             return redirect("/");
         }
         return view('signin');
+    }
+
+    public function passwordGet()
+    {
+        if (Auth::check()) {
+            return redirect("/");
+        }
+        return view('forgot-password');
+    }
+
+    public function changeGet()
+    {
+        if (Auth::check()) {
+            return redirect("/");
+        }
+        if (!request()->token) return view("forgot-password")->with("error", "Yêu cầu không hợp lệ");
+        return view('forgot-password-change');
+    }
+
+    public function passwordPost()
+    {
+        if (Auth::check()) {
+            return redirect("/");
+        }
+        $user = User::where("username", request()->login)->where("email2", request()->email)->first();
+        if (!$user) return back()->with("error", "Tài khoản không tồn tại!");
+
+        $pass = Password::where("user_id", $user->id)->where("type", "forgot-password")->first();
+        $token = $this->getRandomStringRandomInt(32);
+        if ($pass) {
+            $pass->otp = $this->getOtp(8);
+            $pass->token = $token;
+            $pass->expired = \Carbon\Carbon::now()->addMinutes(5)->format("Y-m-d H:i:s");
+            $pass->save();
+        } else {
+            $pass = new Password;
+            $pass->otp = $this->getOtp(8);
+            $pass->type = "forgot-password";
+            $pass->token = $token;
+            $pass->user_id = $user->id;
+            $pass->expired = \Carbon\Carbon::now()->addMinutes(5)->format("Y-m-d H:i:s");
+            $pass->save();
+        }
+        Mail::to($user->email2)->send(new ForgotPassword($pass, $user));
+        $link = "/quen-mat-khau/otp?token=".$token;
+        return redirect($link)->with("success", "Vui lòng kiểm trả mail để lấy mã OTP");
+    }
+
+    public function changePost(Request $request)
+    {
+        $validated = $request->validate([
+            'new' => 'bail|required|min:4|max:10|alpha_num',
+            'newcf' => 'bail|required|same:new',
+            'otp' => 'bail|required',
+        ], [
+            "new.min" => "Mật khẩu chỉ được chứa từ 3 - 10 kí tự",
+            "new.max" => "Mật khẩu chỉ được chứa từ 3 - 10 kí tự",
+            "new.alpha_num" => "Mật khẩu chỉ được chứa chữ và số",
+            "newcf.same" => "Mật khẩu xác thực không giống nhau"
+        ]);
+
+        $pass = Password::where("type", "forgot-password")->where("token", $request->token)->first();
+        if ($pass) {
+            $user = User::find($pass->user_id);
+            if ($pass->otp != $request->otp || \Carbon\Carbon::now()->greaterThan($pass->expired)) {
+                return back()->with("error", "Mã OTP không đúng hoặc hết hạn!");
+            }
+            try {
+                DB::beginTransaction();
+                $this->callGameApi("POST", "/api/passwd.php", [
+                    "login" => $user->username,
+                    "passwd" => $request->new,
+                ]);
+                $user->password2 = $request->new;
+                $user->password = \Hash::make($request->new);
+                $user->change_pass = $user->change_pass + 1;
+                $user->save();
+                DB::commit();
+                return back()->with("success", "Đổi mật khẩu thành công!");
+            } catch (\Throwable $th) {
+                DB::rollback();
+                return back()->with("error", "Đã có lỗi xảy ra, vui lòng liên hệ với GM!");
+            }
+        }
+        return back()->with("error", "Yêu cầu không hợp lệ!");
+    }
+
+    private function getRandomStringRandomInt($length = 32)
+    {
+        $stringSpace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $pieces = [];
+        $max = mb_strlen($stringSpace, '8bit') - 1;
+        for ($i = 0; $i < $length; ++ $i) {
+            $pieces[] = $stringSpace[random_int(0, $max)];
+        }
+        return implode('', $pieces);
     }
 
     public function chars()
@@ -307,41 +404,6 @@ class AuthController extends Controller
         return back();
     }
 
-    public function updateChar()
-    {
-        $this->charUpdate();
-        $this->setOnline();
-        return back();
-    }
-
-    private function charUpdate()
-    {
-        $response = $this->callGameApi("get", "/api/update_chars.php", []);
-        $data = $response["data"];
-        $chars = [];
-        foreach ($data as $user) {
-            $item = User::where("userid", $user["akkid"])->first();
-            if ($item) {
-                if (!$item->main_id) {
-                    $item->main_id = $user["id"];
-                    $item->save();
-                }
-                array_push($chars, [
-                    "userid" => $user["akkid"],
-                    "char_id" => $user["id"],
-                    "name" => $user["name"],
-                    "gender" => $user["gender"] == "0" ? "Nam" : "Nữ",
-                    "pk_value" => $user["pkvalue"],
-                    "class" => $user["occupation"],
-                    "level" => $user["level"],
-                    "reputation" => $user["reputation"],
-                    "pre_name" => $user["name"],
-                ]);
-            }
-        }
-        Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level", "reputation"]);
-        return $data;
-    }
 
     private function getOtp($n) { 
         $generator = "0123456789"; 
@@ -362,15 +424,6 @@ class AuthController extends Controller
         return response()->json($data);
     }
 
-    private function setOnline()
-    {
-        $response = $this->callGameApi("get", "/html/online1.php", []);
-        $data = $response["data"];
-        $onlines = collect($data)->pluck('ID')->all();
-        User::whereIn('userid', $onlines)->update(['is_online' => true]);
-        User::whereNotIn('userid', $onlines)->update(['is_online' => false]);
-    }
-
     public function getPassword()
     {
         return view("password");
@@ -378,7 +431,7 @@ class AuthController extends Controller
 
     public function sendOtp()
     {
-        $pass = Password::where("user_id", Auth::user()->id)->first();
+        $pass = Password::where("user_id", Auth::user()->id)->where("type", "change-password")->first();
         if ($pass) {
             $pass->otp = $this->getOtp(8);
             $pass->expired = \Carbon\Carbon::now()->addMinutes(5)->format("Y-m-d H:i:s");
@@ -386,6 +439,7 @@ class AuthController extends Controller
         } else {
             $pass = new Password;
             $pass->otp = $this->getOtp(8);
+            $pass->type = "change-password";
             $pass->user_id = Auth::user()->id;
             $pass->expired = \Carbon\Carbon::now()->addMinutes(5)->format("Y-m-d H:i:s");
             $pass->save();

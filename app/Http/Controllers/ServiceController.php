@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use hrace009\PerfectWorldAPI\API;
 use App\Models\Char;
+use App\Models\Chat;
 
 class ServiceController extends Controller
 {
@@ -39,6 +40,18 @@ class ServiceController extends Controller
             $user->balance = $user->balance - 50;
             $user->save();
         }
+
+        $chat = new Chat;
+        $chat->date = date("Y-m-d H:i:s");
+        $chat->type = "Chat";
+        $chat->uid = Auth::user()->main_id;
+        $chat->channel = "World";
+        $chat->dest = "1";
+        $chat->msg = request()->msg;
+        $chat->from = "Thế Giới";
+        $chat->color = "yellow";
+        $chat->save();
+
         return back()->with("success", "Tin nhắn đã được gởi thành công");
     }
 

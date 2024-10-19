@@ -8,12 +8,19 @@ use Illuminate\Http\Request;
 use App\Models\Faction;
 use App\Models\Family;
 use App\Models\FamilyUser;
+use App\Models\Chat;
 
 class GuildController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function replaceSmile($msg) {
+        $msg = trim($msg);
+        $msg = str_replace(["","",""], "", $msg);
+        return str_replace($this->smiles(), "*Biểu cảm* ", $msg);
+    }
+
     public function chats() {
         $familyUser = FamilyUser::where("char_id", Auth::user()->main_id)->first();
         $users = [];
@@ -47,7 +54,7 @@ class GuildController extends Controller
                 if ($item["channel"] == "Whisper" && $item["type"] == "Guild") {
                     $item["channel"] = "Faction";
                 }
-                $item["msg"] = mb_substr($item["msg"], 0, -1);
+                $item["msg"] = $this->replaceSmile($item["msg"]);
             }
             
             $filtered = collect($chat)->filter(function ($value, int $key) {
@@ -101,7 +108,12 @@ class GuildController extends Controller
                 }
             }
         }
-        return view("chats", ["chs" => $chs]);
+        $chats = Chat::all()->toArray();
+        $all = array_merge($chats,$chs);
+        $sorted = collect($all)->sortByDesc('date');
+ 
+        $sorted->values()->all();
+        return view("chats", ["chs" => $sorted->values()->all()]);
 
     }
     public function getGuild()

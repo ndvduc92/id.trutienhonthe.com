@@ -11,11 +11,44 @@ use App\Models\Clan;
 use App\Models\Char;
 use App\Models\Family;
 use App\Models\FamilyUser;
+use App\Models\Trade;
+use App\Models\TradeItem;
 use DB;
 use Log;
 
 class ApiController extends Controller
 {
+
+    public function trades() 
+    {
+        try {
+            $response = $this->callGameApi("get", "/api/trades.php", []);
+            $data = $response["data"];
+
+
+            $trades = [];
+            foreach ($data as $trade) {
+                $params = [
+                    "date" => $trade["time"], 
+                    "from_char_id" => $trade["from"], 
+                    "to_char_id" => $trade["to"],
+                ];
+                $item = Trade::where($params)->first();
+                if (!$item) {
+                    $newItemId = Trade::insertGetId($params);
+                    foreach($trade["items"] as &$m) {
+                        $m["trade_id"] = $newItemId;
+                    }
+                    TradeItem::insert($trade["items"]);
+                }
+            }
+            return "success";
+        } catch (\Throwable $th) {
+            return "error";
+        }
+        
+    }
+
     public function paymentSuccess(Request $request)
     {
         try {

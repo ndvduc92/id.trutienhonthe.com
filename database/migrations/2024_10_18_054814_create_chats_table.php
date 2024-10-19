@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
+            $table->dateTime("date")->nullalble();
+            $table->string("uid")->nullalble();
+            $table->string("type")->default("Chat");
+            $table->string("channel")->default("World");
+            $table->string("dest")->default(1);
+            $table->text("msg")->nullalble();
+            $table->string("from")->default("Thế Giới");
+            $table->string("color")->default("yellow");
             $table->timestamps();
         });
     }
