@@ -1,5 +1,6 @@
 <?php
 use hrace009\PerfectWorldAPI\API;
+use DB;
 
 function getAcc($userid)
 {
@@ -92,6 +93,9 @@ function gameApi($method, $path, $params = null)
 function isOnline()
 {
     $api = new API;
+    if (!$api->online) {
+      DB::table("chats")->truncate();
+    }
     return $api->online;
 }
 

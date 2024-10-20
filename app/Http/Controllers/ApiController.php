@@ -25,7 +25,6 @@ class ApiController extends Controller
         try {
             $response = $this->callGameApi("get", "/api/trades.php", []);
             $data = $response["data"];
-            return $data;
             $trades = [];
             foreach ($data as $trade) {
                 $params = [
