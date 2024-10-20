@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Char;
 use App\Models\Deposit;
 use App\Models\Promotion;
 use App\Models\Transaction;
 use App\Models\User;
-use App\Models\Char;
 use Auth;
-use \Carbon\Carbon;
 use hrace009\PerfectWorldAPI\API;
+use \Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -43,7 +43,6 @@ class HomeController extends Controller
         $chars = Char::whereIn("char_id", $onlines)->get();
         return $chars;
     }
-    
 
     public function vip()
     {
@@ -59,7 +58,7 @@ class HomeController extends Controller
                 }
             }
             $sorted = collect($data)->sortByDesc([
-                ['viplevel', 'desc']
+                ['viplevel', 'desc'],
             ]);
 
             $sorted->values()->all();
@@ -73,7 +72,7 @@ class HomeController extends Controller
     {
         try {
             $smiles = $this->smiles();
-            
+
             $response = $this->callGameApi("get", "/html/chats.php", []);
             $data = $response["data"];
             return view("chat", ["chat" => $data, "smiles" => $smiles]);

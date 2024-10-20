@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Auth;
-use hrace009\PerfectWorldAPI\API;
 use App\Models\Char;
 use App\Models\Chat;
+use Auth;
+use hrace009\PerfectWorldAPI\API;
+use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
@@ -34,7 +34,7 @@ class ServiceController extends Controller
             return back()->with("error", "Số xu không đủ để gởi tin nhắn");
         }
 
-        $api->worldChat($user->main_id, "[Gửi từ Web]: ".request()->msg, 1);
+        $api->worldChat($user->main_id, "[Gửi từ Web]: " . request()->msg, 1);
 
         if ($user->viplevel < 6) {
             $user->balance = $user->balance - 50;
@@ -63,9 +63,9 @@ class ServiceController extends Controller
         }
         $online = roleOnline(request()->char_id);
         if (!$online) {
-            return back()->with("error", "Người chơi ".$char->name." đang không trực tuyến!");
+            return back()->with("error", "Người chơi " . $char->name . " đang không trực tuyến!");
         }
-        return back()->with("success", "Người chơi ".$char->name." đang online!");
+        return back()->with("success", "Người chơi " . $char->name . " đang online!");
     }
 
     /**

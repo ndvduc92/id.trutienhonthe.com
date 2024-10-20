@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Giftcode;
-use App\Models\GiftcodeUser;
-use App\Models\GiftcodeItem;
 use App\Models\GiftcodeOnlyUser;
+use App\Models\GiftcodeUser;
 use App\Models\User;
 use Auth;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class GiftcodeController extends Controller
 {
@@ -53,8 +52,8 @@ class GiftcodeController extends Controller
                     "receiver" => $user->main_id,
                     "itemid" => $item->itemid,
                     "count" => $item->quantity,
-                    "proctype"=> $item->bind,
-                    "msg" => "Giftcode ".$code->giftcode
+                    "proctype" => $item->bind,
+                    "msg" => "Giftcode " . $code->giftcode,
                 ]);
             }
 

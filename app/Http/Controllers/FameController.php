@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class FameController extends Controller
 {
-    
+
     private const BOSSES = [
-        "25949" => "Tần Quảng"
+        "25949" => "Tần Quảng",
     ];
 
     public function index()
@@ -20,8 +20,8 @@ class FameController extends Controller
             return intval($value["level_after"]) > 11;
         });
         $filtered = $filtered->values()->all();
-        foreach($filtered as &$item) {
-            $item["msg"] = "Người chơi [". getName($item['player']). "] đã luyện thành công trang bị [". getItem($item['itemid']). "] lên cấp ".$item["level_after"];
+        foreach ($filtered as &$item) {
+            $item["msg"] = "Người chơi [" . getName($item['player']) . "] đã luyện thành công trang bị [" . getItem($item['itemid']) . "] lên cấp " . $item["level_after"];
         }
         return $filtered;
     }
@@ -30,9 +30,9 @@ class FameController extends Controller
     {
         $response = $this->callGameApi("get", "/api/login.php", []);
         $data = $response["data"];
-        foreach($data as &$item) {
+        foreach ($data as &$item) {
             $type = $item["type"] == "rolelogin," ? "đăng nhập vào game" : "thoát khỏi trò chơi";
-            $item["msg"] = "Người chơi [". getName($item['player']). "] vừa mới " . $type;
+            $item["msg"] = "Người chơi [" . getName($item['player']) . "] vừa mới " . $type;
         }
         return $data;
     }
@@ -41,15 +41,14 @@ class FameController extends Controller
     {
         $response = $this->callGameApi("get", "/api/boss.php", []);
         $data = $response["data"];
-        
 
         $filtered = collect($data)->filter(function ($value, int $key) {
             return in_array($value["bossid"], $this->isBoss());
         });
         $boss = $filtered->values()->all();
 
-        foreach($boss as &$item) {
-            $item["msg"] = "Người chơi [". getName($item['player']). "] đã tiêu diệt Boss [".self::BOSSES[$item["bossid"]]."]";
+        foreach ($boss as &$item) {
+            $item["msg"] = "Người chơi [" . getName($item['player']) . "] đã tiêu diệt Boss [" . self::BOSSES[$item["bossid"]] . "]";
         }
         return $boss;
     }
@@ -61,45 +60,5 @@ class FameController extends Controller
     {
         $allow = ["25949"];
         return $allow;
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

@@ -17,49 +17,52 @@ class KnbController extends Controller
             [
                 "level" => 1,
                 "knb" => 100,
-                "xu" => 1
+                "xu" => 1,
             ],
             [
                 "level" => 2,
                 "knb" => 400,
-                "xu" => 1
+                "xu" => 1,
             ],
             [
                 "level" => 3,
                 "knb" => 800,
-                "xu" => 1
+                "xu" => 1,
             ],
             [
                 "level" => 4,
                 "knb" => 1500,
-                "xu" => 1
+                "xu" => 1,
             ],
             [
                 "level" => 5,
                 "knb" => 2500,
-                "xu" => 1
+                "xu" => 1,
             ],
             [
                 "level" => 6,
                 "knb" => 6000,
-                "xu" => 1
+                "xu" => 1,
             ],
             [
                 "level" => 7,
                 "knb" => 8000,
-                "xu" => 1
+                "xu" => 1,
             ],
             [
                 "level" => 8,
                 "knb" => 15000,
-                "xu" => 1
-            ]
+                "xu" => 1,
+            ],
         ];
         return view("knb", ["vips" => $vips]);
     }
 
     public function postKnb()
     {
+        if (!isOnline()) {
+            return back()->with("error", "Server chưa hoạt động. Vui lòng quay lại sau.");
+        }
         $ratio = 3;
         $user = Auth::user();
         $xu = request()->cash;

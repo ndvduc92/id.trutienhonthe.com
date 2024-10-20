@@ -3,40 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deposit;
-use App\Models\User;
-use App\Models\Promotion;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
-use App\Models\Clan;
-use App\Models\Char;
+use App\Models\Faction;
 use App\Models\Family;
 use App\Models\FamilyUser;
+use App\Models\Promotion;
 use App\Models\Trade;
 use App\Models\TradeItem;
-use DB;
-use Log;
+use App\Models\User;
+use App\Services\CharService;
+use Carbon\Carbon;
+use hrace009\PerfectWorldAPI\API;
+use hrace009\PerfectWorldAPI\Gamed;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
 
-    public function trades() 
+    public function trades()
     {
         try {
             $response = $this->callGameApi("get", "/api/trades.php", []);
             $data = $response["data"];
 
-
             $trades = [];
             foreach ($data as $trade) {
                 $params = [
-                    "date" => $trade["time"], 
-                    "from_char_id" => $trade["from"], 
+                    "date" => $trade["time"],
+                    "from_char_id" => $trade["from"],
                     "to_char_id" => $trade["to"],
                 ];
                 $item = Trade::where($params)->first();
                 if (!$item) {
                     $newItemId = Trade::insertGetId($params);
-                    foreach($trade["items"] as &$m) {
+                    foreach ($trade["items"] as &$m) {
                         $m["trade_id"] = $newItemId;
                     }
                     TradeItem::insert($trade["items"]);
@@ -46,7 +46,26 @@ class ApiController extends Controller
         } catch (\Throwable $th) {
             return "error";
         }
-        
+
+    }
+
+    public function updateVip()
+    {
+        try {
+            $response = $this->callGameApi("get", "/api/vip.php", []);
+            $data = $response["data"];
+            foreach ($data as $value) {
+                $user = User::where("userid", $value["userid"])->first();
+                if ($user) {
+                    $user->viplevel = $value["viplevel"];
+                    $user->save();
+                }
+            }
+            return $data;
+        } catch (\Throwable $th) {
+            throw $th;
+            return view("vip", ["vips" => []]);
+        }
     }
 
     public function paymentSuccess(Request $request)
@@ -95,184 +114,114 @@ class ApiController extends Controller
     }
 
     public function chars()
-    {		
-        $GameServer = '103.57.221.103';	
-        $GamedbPort = '29400';
-        $GdeliverydPort = '29100';
-        $GProviderPort = '29300';
-        $GFactionPort = '29500';
-        $UniquePort = '29401';
-        $LogclientPort = '11101';
-
-
-        function cuint($data)
-        {
-                if($data < 64)
-                        return strrev(pack("C", $data));
-                else if($data < 16384)
-                        return strrev(pack("S", ($data | 0x8000)));
-                else if($data < 536870912)
-                        return strrev(pack("I", ($data | 0xC0000000)));
-                return strrev(pack("c", -32) . pack("I", $data));
+    {
+        if (!isOnline()) {
+            return response()->json(["status" => "server-offline"], 400);
         }
 
-		$sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-		if(!$sock)
-		{
-				die(socket_strerror(socket_last_error()));
-		}
-		if(socket_connect($sock, $GameServer, $GamedbPort))
-		{
-			socket_set_block($sock);
+        (new CharService())->chars();
+        return response()->json(["status" => "success"], 200);
 
-            
-            $id_users = User::all();
-            
-            $players = [];
-            foreach ($id_users as $id_user)
-            {
-                $data = cuint(3401)."\x08\x80\x00\x00\x01".pack("N", $id_user['userid']);
-                $akkid = $id_user['userid'];
-                $sbytes = socket_send($sock, $data, 8192, 0);
-                $rbytes = socket_recv($sock, $buf, 8192, 0);
+    }
 
-                $strlarge = unpack( "H", substr( $buf, 2, 1 ) );
-                if(substr($strlarge[1], 0, 1) == "8")
-                {
-                    $start = 12;
-                }
-                else
-                {
-                    $start = 11;
-                }
-                $rolescount = unpack( "c", substr( $buf, $start, 1 ) );
-                $start = $start+1;
-                for($i = 0; $i<$rolescount[1]; $i++)
-                {
-                    $roleid = unpack( "N", substr( $buf, $start, 4 ) );
-                    $start = $start+4;
-                    $namelarge = unpack( "c*", substr( $buf, $start, 1 ) );
-                    $start = $start+1;
-                    $rolename = iconv( "UTF-16", "UTF-8", substr( $buf, $start, $namelarge[1] ) );
-                    $start = $start+$namelarge[1];
-
-                    //--RoleBase
-                    $sock2 = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-                    socket_connect($sock2, $GameServer, $GamedbPort);
-                    socket_set_block($sock2);
-                    $data2 = cuint(3013)."\x08\x80\x00\x00\x01".strrev(pack("I",$roleid[1]));
-                    socket_send($sock2, $data2, 8192, 0);
-                    socket_recv($sock2, $buf_base, 8192, 0);
-                    socket_set_nonblock($sock2);
-                    socket_close($sock2);
-
-                    $base_res = unpack("C12code/Cversion/Nid/Cname_len",$buf_base);
-                    $name = "";
-                    $buf_base = substr($buf_base,18);
-                    $name = iconv("UCS-2LE", "UTF-8", substr($buf_base,0,$base_res['name_len']));
-                    $buf_base = substr($buf_base,$base_res['name_len']);
-                    $base_res2 = unpack("Cfaceid/Chairid/Cgender/Cstatus",$buf_base);
-                    //--RoleBase
-
-                    //--RoleStatus
-                    $sock3 = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-                    socket_connect($sock3, $GameServer, $GamedbPort);
-                    socket_set_block($sock3);
-                    $data3 = cuint(3015)."\x08\x80\x00\x00\x01".strrev(pack("I",$roleid[1]));
-                    socket_send($sock3, $data3, 8192, 0);
-                    socket_recv($sock3, $buf_status, 8192, 0);
-                    socket_set_nonblock($sock3);
-                    socket_close($sock3);
-
-                    $base_status = unpack("Ncuint/Nlocalsid/Nretcode/Cversion/Nid/Coccupation/nlevel/ncur_title/Nexp1/Nexp2/Npp/Nhp/Nmp",$buf_status);
-                    $buf_status = substr($buf_status,42);
-                    $posx = unpack("fx",strrev(substr($buf_status,0,4)));
-                    $buf_status = substr($buf_status,4);
-                    $posy = unpack("fy",strrev(substr($buf_status,0,4)));
-                    $buf_status = substr($buf_status,4);
-                    $posz = unpack("fz",strrev(substr($buf_status,0,4)));
-                    $buf_status = substr($buf_status,4);
-                    $base_status2 = unpack("Npkvalue/Nworldtag/Ntime_used/Nreputation/Nproduceskill/Nproduceexp",$buf_status);
-                    //--RoleStatus
-
-                    $version = $base_res['version'];
-                    $id = $base_res['id'];
-                    $name = $name;
-                    $gender = $base_res2['gender'];
-                    $status = $base_res2['status'];
-                    $level = $base_status['level'];
-                    $exp = $base_status['exp1'];
-                    $occupation = $base_status['occupation'];
-                    $pp = $base_status['pp'];
-                    $hp = $base_status['hp'];
-                    $mp = $base_status['mp'];
-                    $posx = $posx['x'];
-                    $posy = $posy['y'];
-                    $posz = $posz['z'];
-                    $pkvalue = $base_status2['pkvalue'];
-                    $worldtag = $base_status2['worldtag'];
-                    $reputation = $base_status2['reputation'];
-
-                    $player;
-                    $player["version"] = $version;
-                    $player["akkid"] = $akkid;
-                    $player["id"] = $id;
-                    $player["name"] = $name;
-                    $player["gender"] = $gender;
-                    $player["occupation"] = $occupation;
-                    $player["status"] = $status;
-                    $player["level"] = $level;
-                    $player["exp"] = $exp;
-                    $player["pp"] = $pp;
-                    $player["hp"] = $hp;
-                    $player["mp"] = $mp;
-                    $player["posx"] = $posx;
-                    $player["posy"] = $posy;
-                    $player["posz"] = $posz;
-                    $player["pkvalue"] = $pkvalue;
-                    $player["worldtag"] = $worldtag;
-                    $player["reputation"] = $reputation;
-
-                    array_push($players, $player);
-                }
-
-            }
-			socket_set_nonblock($sock);
-			socket_close($sock);
-		}
-		else
-		{
-			die(socket_strerror(socket_last_error()));
-		}
-
-        $chars = [];
-
-        foreach ($players as $user) {
-            $item = User::where("userid", $user["akkid"])->first();
-            if ($item) {
-                if (!$item->main_id) {
-                    $item->main_id = $user["id"];
-                    $item->save();
-                }
-                array_push($chars, [
-                    "userid" => $user["akkid"],
-                    "char_id" => $user["id"],
-                    "name" => $user["name"],
-                    "gender" => $user["gender"] == "0" ? "Nam" : "Nữ",
-                    "pk_value" => $user["pkvalue"],
-                    "posx" => $user["posx"],
-                    "posy" => $user["posy"],
-                    "posz" => $user["posz"],
-                    "worldtag" => $user["worldtag"],
-                    "class" => $user["occupation"],
-                    "level" => $user["level"],
-                    "reputation" => $user["reputation"]
+    public function guilds()
+    {
+        if (!isOnline()) {
+            return response()->json(["status" => "server-offline"], 400);
+        }
+        $gamed = new Gamed();
+        $api = new API();
+        $handler = null;
+        $factions = [];
+        $raw_info = $api->getRaw('faction', $handler);
+        foreach ($raw_info['Raw'] as $i => $iValue) {
+            $pack = pack("H*", $iValue['value']);
+            $faction = $gamed->unmarshal($pack, $api->data['FactionInfo']);
+            array_push($factions, $faction);
+        }
+        try {
+            $response = $this->callGameApi("get", "/api/guild.php", []);
+            $data = $response["data"];
+            $faction_api = $data["faction"];
+            $family_api = $data["family"];
+            $familyuser_api = $data["familyuser"];
+            $faction_clean = [];
+            foreach ($factions as $key => $faction) {
+                array_push($faction_clean, [
+                    "id" => $faction["fid"],
+                    "name" => $faction["name"],
+                    "level" => $faction["level"],
+                    "master" => $faction_api[$key]["master"],
                 ]);
             }
-        }
-        Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level", "reputation", "posx", "posy", "posz", "worldtag"]);
-        return response()->json(200);
 
+            $guilds_res = [];
+            foreach ($faction_clean as $key) {
+                array_push($guilds_res, [
+                    "id" => $key["id"],
+                    "name" => $key["name"],
+                    "level" => $key["level"],
+                    "master_id" => $key["master"],
+                ]);
+            }
+            Faction::upsert($guilds_res, ['id'], ['name', "level", "master_id"]);
+            $this->family($family_api);
+            $this->familyuser($familyuser_api);
+            return response()->json(["status" => "success"], 200);
+        } catch (\Throwable $th) {
+            throw $th;
+            return response()->json(["status" => "error"], 400);
+        }
+    }
+
+    public function family($data)
+    {
+        $gamed = new Gamed();
+        $api = new API();
+        $handler = null;
+        $families = [];
+        $raw_info = $api->getRaw('family', $handler);
+        foreach ($raw_info['Raw'] as $i => $iValue) {
+            $pack = pack("H*", $iValue['value']);
+            $family = $gamed->unmarshal($pack, $api->data['FactionInfo']);
+            array_push($families, $family);
+        }
+        $family_clean = [];
+        foreach ($families as $key => $family) {
+            array_push($family_clean, [
+                "id" => $family["fid"],
+                "name" => $family["name"],
+                "faction_id" => $data[$key]["faction_id"],
+                "master" => $data[$key]["master"],
+            ]);
+        }
+
+        $families_res = [];
+        foreach ($family_clean as $key) {
+            array_push($families_res, [
+                "id" => $key["id"],
+                "name" => $key["name"],
+                "faction_id" => $key["faction_id"],
+                "master_id" => $key["master"],
+            ]);
+        }
+        DB::table("families")->truncate();
+        Family::insert($families_res);
+        return $families_res;
+    }
+
+    public function familyuser($data)
+    {
+        $users_res = [];
+        foreach ($data as $key) {
+            array_push($users_res, [
+                "char_id" => $key["char_id"],
+                "family_id" => $key["family_id"],
+            ]);
+        }
+        DB::table("family_users")->truncate();
+        FamilyUser::insert($users_res);
+        return $users_res;
     }
 
 }
