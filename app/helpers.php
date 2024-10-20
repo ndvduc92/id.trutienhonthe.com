@@ -34,6 +34,52 @@ function getNv($char)
     return $char ?? null;
 }
 
+function timeAgo($time_ago)
+{
+    $time_ago = strtotime($time_ago);
+    $cur_time = \Carbon\Carbon::now()->timestamp;
+    $time_elapsed = $cur_time - $time_ago;
+    $seconds = $time_elapsed;
+    $minutes = round($time_elapsed / 60);
+    $hours = round($time_elapsed / 3600);
+    $days = round($time_elapsed / 86400);
+    $weeks = round($time_elapsed / 604800);
+    $months = round($time_elapsed / 2600640);
+    $years = round($time_elapsed / 31207680);
+    // Seconds
+    if ($seconds <= 60) {
+        return "$seconds " . 'giây trước';
+    }
+    //Minutes
+    elseif ($minutes <= 60) {
+        return "$minutes " . 'phút trước';
+    }
+    //Hours
+    elseif ($hours <= 24) {
+        return "$hours " . 'giờ trước';
+    }
+    //Days
+    elseif ($days <= 7) {
+        if ($days == 1) {
+            return 'Hôm qua';
+        } else {
+            return "$days " . 'ngày trước';
+        }
+    }
+    //Weeks
+    elseif ($weeks <= 4.3) {
+        return "$weeks " . 'tuần trước';
+    }
+    //Months
+    elseif ($months <= 12) {
+        return "$months " . 'tháng trước';
+    }
+    //Years
+    else {
+        return "$years " . 'năm trước';
+    }
+}
+
 function gameApi($method, $path, $params = null)
 {
     $client = new \GuzzleHttp\Client();

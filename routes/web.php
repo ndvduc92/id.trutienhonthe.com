@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/set_main_char', [AuthController::class, 'setMainChar']);
     Route::get('/set_main_char/{id}', [AuthController::class, 'setMainCharHome']);
 
+    Route::get('/ca-nhan', [AuthController::class, 'profile'])->name("profile");
+
     Route::group(['prefix' => 'doi-mon-phai'], function () {
         Route::get('/{id}', [AuthController::class, 'changeClassGet']);
         Route::post('/{id}', [AuthController::class, 'changeClassPost']);

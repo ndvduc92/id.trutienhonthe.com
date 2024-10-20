@@ -3,17 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Char;
-use App\Models\User;
-use Auth;
+use App\Models\Logging;
 use hrace009\PerfectWorldAPI\API;
 
 class HomeController extends Controller
 {
-
     public function home()
     {
-        $user = Auth::user();
-        return view('home', ["user" => $user]);
+        $loggings = Logging::orderByDesc("date")->limit(100)->get();
+        return view('home', ["loggings" => $loggings]);
     }
 
     public function online()

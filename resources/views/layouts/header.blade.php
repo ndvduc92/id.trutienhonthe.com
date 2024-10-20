@@ -1,6 +1,6 @@
 <header class="flex-shrink-0 sticky top-0 z-10 bg-white dark:bg-darker">
     @php
-        $currentRoute = Route::currentRouteName();
+    $currentRoute = Route::currentRouteName();
     @endphp
     <div class="flex items-center justify-between p-2 border-b dark:border-primary-darker">
         <!-- Mobile menu button -->
@@ -15,8 +15,7 @@
             </span>
         </button>
         <!-- Brand -->
-        <a href="/"
-            class="inline-block text-2xl font-bold tracking-wider uppercase text-primary-dark dark:text-light">
+        <a href="/" class="inline-block text-2xl font-bold tracking-wider uppercase text-primary-dark dark:text-light">
             Age of Chaos
         </a>
         <!-- Mobile sub menu button -->
@@ -39,28 +38,6 @@
                     {{ youOnline() ? 'Online' : 'Offline' }}
                 </span>
             </button>
-            <!-- Toggle dark theme button -->
-            {{-- <button aria-hidden="true" class="relative focus:outline-none" x-cloak @click="toggleTheme">
-                <div class="w-12 h-6 transition rounded-full outline-none bg-primary-100 dark:bg-primary-lighter">
-                </div>
-                <div class="absolute top-0 left-0 inline-flex items-center justify-center w-6 h-6 transition-all duration-150 transform scale-110 rounded-full shadow-sm"
-                    :class="{
-                        'translate-x-0 -translate-y-px  bg-white text-primary-dark': !
-                            isDark,
-                        'translate-x-6 text-primary-100 bg-primary-darker': isDark
-                    }">
-                    <svg x-show="!isDark" class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                    <svg x-show="isDark" class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                    </svg>
-                </div>
-            </button> --}}
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open; $nextTick(() => { if(open){ $refs.characterMenu.focus() } })"
                     type="button" aria-haspopup="true" :aria-expanded="open ? 'true' : 'false'"
@@ -83,25 +60,25 @@
                     class="absolute w-64 py-1 bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none"
                     tabindex="-1" role="menu" aria-orientation="vertical" aria-label="Character menu">
                     @if (isOnline())
-                            @foreach (Auth::user()->chars() as $item)
-                                <a role="menuitem" href="/set_main_char/{{ $item->char_id }}"
-                                    class="block {{Auth::user()->main_id == $item->char_id ? 'bg-primary' : ''}} px-4 active py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
-                                    {{ $item->getName() }} ({{ $item->char_id }} - {{ $item->class_name }}) 
-                                </span>
-                                </a>
-                            @endforeach
-                            <div
-                            class="inline-block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
-                            Không thấy nhân vật? <a href="/chars"
-                        class="inline-block px-2 py-px text-xs text-green-500 bg-green-100 font-semibold rounded-md">
-                        Cập nhật
-                            </a>
-                        </div>
+                    @foreach (Auth::user()->chars() as $item)
+                    <a role="menuitem" href="/set_main_char/{{ $item->char_id }}"
+                        class="block {{Auth::user()->main_id == $item->char_id ? 'bg-primary' : ''}} px-4 active py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                        {{ $item->getName() }} ({{ $item->char_id }} - {{ $item->class_name }})
+                        </span>
+                    </a>
+                    @endforeach
+                    <div
+                        class="inline-block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                        Không thấy nhân vật? <a href="/chars"
+                            class="inline-block px-2 py-px text-xs text-green-500 bg-green-100 font-semibold rounded-md">
+                            Cập nhật
+                        </a>
+                    </div>
                     @else
-                        <div
-                            class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
-                            Server chưa hoạt động
-                        </div>
+                    <div
+                        class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                        Server chưa hoạt động
+                    </div>
                     @endif
                 </div>
             </div>
@@ -134,9 +111,7 @@
                 <button @click="open = !open; $nextTick(() => { if(open){ $refs.userMenu.focus() } })" type="button"
                     aria-haspopup="true" :aria-expanded="open ? 'true' : 'false'"
                     class="transition-opacity duration-200 rounded-full dark:opacity-75 dark:hover:opacity-100 focus:outline-none focus:ring dark:focus:opacity-100">
-                    <img class="w-10 h-10 rounded-full"
-                        src="/fe/img/logo.png"
-                        alt="aoc" />
+                    <img class="w-10 h-10 rounded-full" src="/fe/img/logo.png" alt="aoc" />
                 </button>
 
                 <div x-show="open" x-ref="userMenu" x-transition:enter="transition-all transform ease-out"
@@ -148,8 +123,10 @@
                     @keydown.escape="open = false"
                     class="absolute right-0 w-48 py-1 bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none"
                     tabindex="-1" role="menu" aria-orientation="vertical" aria-label="User menu">
-                    <a class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
-                        role="menuitem" href="/doi-mat-khau">Đổi mật khẩu</a>
+                    <div>
+                        <a class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
+                            role="menuitem" href="/ca-nhan">Cá nhân</a>
+                    </div>
                     <div>
                         <a class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
                             role="menuitem" href="/logout">Thoát</a>
@@ -242,18 +219,18 @@
                     class="absolute w-64 py-1 bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none"
                     tabindex="-1" role="menu" aria-orientation="vertical" aria-label="Character menu">
                     @if (isOnline())
-                        @foreach (Auth::user()->chars() as $item)
-                            <a role="menuitem" href="/set_main_char/{{ $item->char_id }}"
-                                class="block {{Auth::user()->main_id == $item->char_id ? 'bg-primary' : ''}} px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
-                                {{ $item->getName() }} ({{ $item->char_id }} - {{ $item->class_name }}) 
-                            </span>
-                            </a>
-                        @endforeach
+                    @foreach (Auth::user()->chars() as $item)
+                    <a role="menuitem" href="/set_main_char/{{ $item->char_id }}"
+                        class="block {{Auth::user()->main_id == $item->char_id ? 'bg-primary' : ''}} px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                        {{ $item->getName() }} ({{ $item->char_id }} - {{ $item->class_name }})
+                        </span>
+                    </a>
+                    @endforeach
                     @else
-                        <div
-                            class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
-                            Server chưa hoạt động
-                        </div>
+                    <div
+                        class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                        Server chưa hoạt động
+                    </div>
                     @endif
                 </div>
             </div>
@@ -276,8 +253,7 @@
                     class="block transition-opacity duration-200 rounded-full dark:opacity-75 dark:hover:opacity-100 focus:outline-none focus:ring dark:focus:opacity-100">
                     <span class="sr-only">User menu</span>
                     <img class="w-10 h-10 rounded-full"
-                        src="https://ui-avatars.com/api/?name=h&amp;color=7F9CF5&amp;background=EBF4FF"
-                        alt="haz1" />
+                        src="https://ui-avatars.com/api/?name=h&amp;color=7F9CF5&amp;background=EBF4FF" alt="haz1" />
 
                 </button>
 
@@ -378,8 +354,8 @@
                 <a href="/knb"
                     class="{{ $currentRoute == 'knb' ? 'bg-primary-100 dark:bg-primary' : null }} flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
                     role="button" aria-haspopup="true" aria-expanded="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-gem" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gem"
+                        viewBox="0 0 16 16">
                         <path
                             d="M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6zm11.386 3.785-1.806-2.41-.776 2.413zm-3.633.004.961-2.989H4.186l.963 2.995zM5.47 5.495 8 13.366l2.532-7.876zm-1.371-.999-.78-2.422-1.818 2.425zM1.499 5.5l5.113 6.817-2.192-6.82zm7.889 6.817 5.123-6.83-2.928.002z" />
                     </svg>
@@ -420,8 +396,8 @@
             <div x-data="{ isActive: false, open: false }">
                 <a href="/dashboard/services"
                     class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
-                    :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button"
-                    aria-haspopup="true" aria-expanded="false">
+                    :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button" aria-haspopup="true"
+                    aria-expanded="false">
                     <span aria-hidden="true">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -436,8 +412,8 @@
             <div x-data="{ isActive: false, open: false }">
                 <a href="#" @click="$event.preventDefault(); open = !open"
                     class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
-                    :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button"
-                    aria-haspopup="true" aria-expanded="false">
+                    :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }" role="button" aria-haspopup="true"
+                    aria-expanded="false">
                     <span aria-hidden="true">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -449,10 +425,8 @@
                     <span class="ml-auto" aria-hidden="true">
                         <!-- active class 'rotate-180' -->
                         <svg class="w-4 h-4 transition-transform transform" :class="{ 'rotate-180': open }"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 9l-7 7-7-7" />
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </span>
                 </a>

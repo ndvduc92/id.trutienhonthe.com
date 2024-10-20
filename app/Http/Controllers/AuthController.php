@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+
+    public function profile()
+    {
+        return view('profile');
+    }
+
     public function signup()
     {
         if (Auth::check()) {
