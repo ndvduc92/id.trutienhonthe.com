@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
-use App\Http\Controllers\FameController;
+use App\Http\Controllers\LoggingController;
 use App\Http\Controllers\GiftcodeController;
 use App\Http\Controllers\GuildController;
 use App\Http\Controllers\HomeController;
@@ -87,11 +87,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/message', [ServiceController::class, 'message']);
     Route::get('/tro-chuyen', [ChatController::class, 'chats'])->name("chats");
 
-    Route::get('/danh-vong', [FameController::class, 'index'])->name("fame");
+    Route::get('/refines', [LoggingController::class, 'refines'])->name("refines");
 
-    Route::get('/logging', [FameController::class, 'logging'])->name("logging");
+    Route::get('/logins', [LoggingController::class, 'logins'])->name("logins");
 
-    Route::get('/boss', [FameController::class, 'boss'])->name("boss");
+    Route::get('/boss', [LoggingController::class, 'boss'])->name("boss");
 
     Route::get('/skills', [SkillController::class, 'index'])->name("skills");
 

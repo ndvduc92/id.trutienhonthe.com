@@ -19,13 +19,12 @@ use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
-
     public function trades()
     {
         try {
             $response = $this->callGameApi("get", "/api/trades.php", []);
             $data = $response["data"];
-
+            return $data;
             $trades = [];
             foreach ($data as $trade) {
                 $params = [
@@ -47,6 +46,10 @@ class ApiController extends Controller
             return "error";
         }
 
+    }
+
+    public function loggings()
+    {
     }
 
     public function updateVip()

@@ -98,10 +98,6 @@ class AuthController extends Controller
             'password' => $request->password,
         ];
         if (\Auth::attempt($login)) {
-            if (\Auth::user()->role != "member") {
-                \Auth::logout();
-                return redirect()->back()->with('error', 'Thông tin đăng nhập không chính xác');
-            }
             try {
                 $user = Auth::user();
                 $response = $this->callGameApi("get", "/api/vip.php", []);

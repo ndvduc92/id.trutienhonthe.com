@@ -18,6 +18,15 @@ return new class extends Migration
             $table->dateTime("date");
             $table->timestamps();
         });
+
+        Schema::create('trade_items', function (Blueprint $table) {
+            $table->id();
+            $table->integer('trade_id');
+            $table->foreign('trade_id')->references('id')->on('trades')->onDelete("cascade");
+            $table->string('itemid');
+            $table->integer('quantity');
+            $table->timestamps();
+        });
     }
 
     /**

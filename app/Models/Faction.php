@@ -9,27 +9,31 @@ class Faction extends Model
 {
     use HasFactory;
     public $timestamps = true;
-    
-    public function families() {
+
+    public function families()
+    {
         return $this->hasMany(Family::class);
     }
 
-    public function master() {
+    public function master()
+    {
         return $this->belongsTo(Char::class, "master_id", "char_id");
     }
 
-    public function totalMember() {
+    public function totalMember()
+    {
         $sum = 0;
-        foreach($this->families as $item) {
-            $sum+= count($item->chars);
+        foreach ($this->families as $item) {
+            $sum += count($item->chars);
         }
         return $sum;
     }
 
-    public function totalOnline() {
+    public function totalOnline()
+    {
         $sum = 0;
-        foreach($this->families as $item) {
-            $sum+= $item->totalOnline();
+        foreach ($this->families as $item) {
+            $sum += $item->totalOnline();
         }
         return $sum;
     }

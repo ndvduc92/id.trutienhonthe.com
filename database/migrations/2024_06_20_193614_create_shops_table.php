@@ -21,6 +21,17 @@ return new class extends Migration
             $table->string("status")->default("active");
             $table->timestamps();
         });
+
+        Schema::create('shop_users', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete("cascade");
+            $table->integer("quantity")->default(1);
+            $table->integer('shop_id');
+            $table->string("char_id");
+            $table->foreign('shop_id')->references('id')->on('shops')->onDelete("cascade");
+            $table->timestamps();
+        });
     }
 
     /**
