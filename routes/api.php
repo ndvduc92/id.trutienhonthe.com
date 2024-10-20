@@ -27,4 +27,7 @@ Route::get('/chars', [ApiController::class, 'chars'])->name("chars");
 Route::post('/payment/success', [ApiController::class, 'paymentSuccess'])->name("paymentSuccess");
 
 Route::get('/trades', [ApiController::class, 'trades'])->name("trades");
+Route::get('/boss', [ApiController::class, 'boss'])->name("boss");
+Route::get('/logins', [ApiController::class, 'logins'])->name("logins");
+Route::get('/refines', [ApiController::class, 'refines'])->name("refines");
 Route::get('/loggings', [ApiController::class, 'loggings'])->name("loggings");

@@ -11,6 +11,7 @@ use App\Models\Trade;
 use App\Models\TradeItem;
 use App\Models\User;
 use App\Services\CharService;
+use App\Services\LoggingService;
 use Carbon\Carbon;
 use hrace009\PerfectWorldAPI\API;
 use hrace009\PerfectWorldAPI\Gamed;
@@ -225,6 +226,30 @@ class ApiController extends Controller
         DB::table("family_users")->truncate();
         FamilyUser::insert($users_res);
         return $users_res;
+    }
+
+    public function refines()
+    {
+        $response = $this->callGameApi("get", "/api/refine.php", []);
+        $data = $response["data"];
+        (new LoggingService())->refine_logs($data);
+        return "success";
+    }
+
+    public function logins()
+    {
+        $response = $this->callGameApi("get", "/api/login.php", []);
+        $data = $response["data"];
+        (new LoggingService())->login_logs($data);
+        return "success";
+    }
+
+    public function boss()
+    {
+        $response = $this->callGameApi("get", "/api/boss.php", []);
+        $data = $response["data"];
+        (new LoggingService())->boss_logs($data);
+        return "success";
     }
 
 }

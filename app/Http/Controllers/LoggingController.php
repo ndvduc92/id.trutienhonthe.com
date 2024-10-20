@@ -7,11 +7,6 @@ use App\Services\LoggingService;
 class LoggingController extends Controller
 {
 
-    private const BOSSES = [
-        "25949" => "Tần Quảng",
-        "10671" => "Quỷ Điệp Vương"
-    ];
-
     public function refines()
     {
         $response = $this->callGameApi("get", "/api/refine.php", []);
