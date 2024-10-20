@@ -11,6 +11,7 @@ class HomeController extends Controller
     public function home()
     {
         $loggings = Logging::orderByDesc("date")->limit(100)->get();
+        
         return view('home', ["loggings" => $loggings]);
     }
 

@@ -127,14 +127,6 @@ class AuthController extends Controller
         return back();
     }
 
-    public function setMainCharHome($id)
-    {
-        $user = Auth::user();
-        $user->main_id = $id;
-        $user->save();
-        return back();
-    }
-
     public function changeClassGet($id)
     {
         $char = Char::where("char_id", $id)->first();
@@ -151,7 +143,7 @@ class AuthController extends Controller
             return back()->with("error", "Số xu trong tài khoản không đủ!");
         }
         $char = Char::where("char_id", $id)->first();
-        $this->callGameApi("post", "/html/send2.php", [
+        $this->callGameApi("post", "/api/mail.php", [
             "receiver" => $id,
             "itemid" => request()->class,
             "count" => 1,

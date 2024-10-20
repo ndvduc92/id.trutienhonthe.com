@@ -13,10 +13,11 @@ Chào mừng bạn đến với Tru Tiên Hỗn Thế
                 @foreach ($loggings as $item)
                 <div class="post">
                     <div class="user-block" style="display:inline">
-                        <img class="img-circle img-bordered-sm" width="50" src="/fe/img/logo.png" alt="user image"> 
+                        <img class="img-circle img-bordered-sm" width="50" src="/fe/img/logo.png" alt="user image">
                     </div>
                     <p>
-                        {!! $item->msg !!} <span class="description" style="color: gray"> - {{ timeAgo($item->date) }}</span>
+                        {!! $item->msg !!} <span class="description" style="color: gray"> - {{ timeAgo($item->date)
+                            }}</span>
                     </p>
                 </div>
                 @endforeach
@@ -25,10 +26,11 @@ Chào mừng bạn đến với Tru Tiên Hỗn Thế
     </div>
 
 </div>
-<style>    
+<style>
     .highlight {
         color: #dc3741;
     }
+
     .post {
         border-bottom: 1px solid gray;
         margin-bottom: 15px;
