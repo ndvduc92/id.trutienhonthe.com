@@ -1,6 +1,5 @@
 <?php
 use hrace009\PerfectWorldAPI\API;
-use DB;
 
 function getAcc($userid)
 {
@@ -48,37 +47,47 @@ function timeAgo($time_ago)
     $months = round($time_elapsed / 2600640);
     $years = round($time_elapsed / 31207680);
     // Seconds
+    $showDate = false;
     if ($seconds <= 60) {
-        return "$seconds " . 'giây trước';
+        $msg = "$seconds " . 'giây trước';
     }
     //Minutes
     elseif ($minutes <= 60) {
-        return "$minutes " . 'phút trước';
+        $msg = "$minutes " . 'phút trước';
     }
     //Hours
     elseif ($hours <= 24) {
-        return "$hours " . 'giờ trước';
+        $msg = "$hours " . 'giờ trước';
     }
     //Days
     elseif ($days <= 7) {
         if ($days == 1) {
-            return 'Hôm qua';
+            $msg = 'Hôm qua';
         } else {
-            return "$days " . 'ngày trước';
+            $showDate = true;
+            $msg = "$days " . 'ngày trước';
         }
     }
     //Weeks
     elseif ($weeks <= 4.3) {
-        return "$weeks " . 'tuần trước';
+        $showDate = true;
+        $msg = "$weeks " . 'tuần trước';
     }
     //Months
     elseif ($months <= 12) {
-        return "$months " . 'tháng trước';
+        $showDate = true;
+        $msg = "$months " . 'tháng trước';
     }
     //Years
     else {
-        return "$years " . 'năm trước';
+        $showDate = true;
+        $msg = "$years " . 'năm trước';
     }
+
+    return [
+        "showDate" => $showDate,
+        "time" => $msg
+    ];
 }
 
 function gameApi($method, $path, $params = null)
@@ -94,7 +103,7 @@ function isOnline()
 {
     $api = new API;
     if (!$api->online) {
-      DB::table("chats")->truncate();
+      \DB::table("chats")->truncate();
     }
     return $api->online;
 }

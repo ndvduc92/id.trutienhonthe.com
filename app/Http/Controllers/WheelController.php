@@ -204,6 +204,14 @@ class WheelController extends Controller
         return true;
     }
 
+    public function checkBalance($id) {
+        $wheel = Wheel::find($id);
+        if ($wheel->type == "coin") {
+            return Auth::user()->balance >= $wheel->coin_amount;
+        }
+        return true;
+    }
+
     public function postWheelItem(Request $request, $id)
     {
         $items = $this->getWheelItem($id);
@@ -224,8 +232,14 @@ class WheelController extends Controller
         if (!$limit = $this->checkVip($id)) {
             return response()->json([
                 'status' => 'error',
-                'limit' => $limit,
                 'msg' => 'Yêu cầu phải VIP 5 trở lên!',
+            ]);
+        }
+
+        if (!$limit = $this->checkBalance($id)) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Số xu còn lại không đủ!',
             ]);
         }
 

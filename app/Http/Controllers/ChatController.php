@@ -56,6 +56,9 @@ class ChatController extends Controller
                 if ($item["channel"] == "Whisper" && $item["type"] == "Guild") {
                     $item["channel"] = "Faction";
                 }
+                if ($item["channel"] == "Trade" && $item["type"] == "Guild") {
+                    $item["channel"] = "Faction";
+                }
                 $item["msg"] = $this->replaceSmile($item["msg"]);
             }
 
