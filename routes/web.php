@@ -42,7 +42,7 @@ Route::post('/quen-mat-khau/otp', [PasswordController::class, 'forgotPasswordCha
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [HomeController::class, 'home'])->name("home");
-    Route::post('/set_main_char', [AuthController::class, 'setMainChar']);
+    Route::get('/set_main_char/{id}', [AuthController::class, 'setMainChar']);
 
     Route::get('/ca-nhan', [AuthController::class, 'profile'])->name("profile");
 

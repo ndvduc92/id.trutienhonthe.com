@@ -15,10 +15,23 @@ class WheelController extends Controller
 {
     public function index()
     {
+        $wheel = Wheel::where("type", "coin")->first();
+        $viplevel = $wheel->viplevel;
+        $mx = explode(",", $viplevel);
+
+        $vips = new \stdClass();
+        $i = 1;
+        foreach ($mx as $value) {
+            $vips->$i = $value;
+            $i++;
+        }
+
+        $vips = (array) $vips;
         return view("wheels", [
             "daily" => Wheel::find(1),
             "vip" => Wheel::find(2),
             "coin" => Wheel::find(3),
+            "vips" => $vips,
         ]);
 
     }
@@ -26,7 +39,7 @@ class WheelController extends Controller
     public function show(Request $request, $id)
     {
         $wheel = Wheel::findOrFail($id);
-        if ($wheel->viplevel && Auth::user()->viplevel < $wheel->viplevel) {
+        if ($wheel->type == "vip" && Auth::user()->viplevel < $wheel->viplevel) {
             return redirect("/vong-quay-may-man")->with('error', 'Yêu cầu phải VIP 5 trở lên để tham gia vòng quay này!');
         }
         $date = date('Y-m-d');
@@ -51,7 +64,12 @@ class WheelController extends Controller
         foreach ($this->getWheelItem($id) as $item) {
             $items[] = $item->item->name;
         }
-        return view('wheel', compact('items', 'first_day', 'last_day', "wheel"));
+
+        $times = $wheel->num_of_times - $wheel->usedTimes();
+        if ($wheel->type == "coin") {
+            $times = $this->getLuotQuayCoinByVip() - $wheel->usedTimes();
+        }
+        return view('wheel', compact('items', 'first_day', 'last_day', "wheel", "times"));
     }
 
     public function getAll($id)
@@ -153,16 +171,37 @@ class WheelController extends Controller
         $wheel = Wheel::find($id);
         $items = $wheel->items()->pluck("id")->toArray();
         $times = WheelUser::where("user_id", Auth::user()->id)->whereIn("wheel_item_id", $items)->whereDate('created_at', Carbon::today())->get();
+
+        if ($wheel->type == "coin") {
+            return count($times) >= $this->getLuotQuayCoinByVip();
+        }
         return count($times) >= $wheel->num_of_times;
+    }
+
+    private function getLuotQuayCoinByVip()
+    {
+        $wheel = Wheel::where("type", "coin")->first();
+        $viplevel = $wheel->viplevel;
+        $mx = explode(",", $viplevel);
+
+        $vips = new \stdClass();
+        $i = 1;
+        foreach ($mx as $value) {
+            $vips->$i = $value;
+            $i++;
+        }
+
+        $vips = (array) $vips;
+        return intval($vips[Auth::user()->viplevel]);
     }
 
     public function checkVip($id)
     {
         $wheel = Wheel::find($id);
-        if (!$wheel->viplevel) {
-            return true;
+        if ($wheel->type == "vip") {
+            return Auth::user()->viplevel >= $wheel->viplevel;
         }
-        return Auth::user()->viplevel >= $wheel->viplevel;
+        return true;
     }
 
     public function postWheelItem(Request $request, $id)
@@ -182,9 +221,10 @@ class WheelController extends Controller
             ]);
         }
 
-        if (!$this->checkVip($id)) {
+        if (!$limit = $this->checkVip($id)) {
             return response()->json([
                 'status' => 'error',
+                'limit' => $limit,
                 'msg' => 'Yêu cầu phải VIP 5 trở lên!',
             ]);
         }

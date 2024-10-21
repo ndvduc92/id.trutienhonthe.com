@@ -33,8 +33,8 @@ class Logging extends Model
                 $msg = "Người chơi <span class='highlight'>[" . ($this->char->name) . "]</span> đã luyện thành công trang bị <span class='highlight'>[" . $this->item->name . "]</span> lên cấp " . $this->refine_level_after;
                 break;
             case 'login':
-                $type = $type == "login" ? "đăng nhập vào game" : "thoát khỏi trò chơi";
-                $msg = "Người chơi <span class='highlight'>[" . $this->char->name . "]</span> vừa mới " . $type;
+                $typex = $type == "login" ? "đăng nhập vào game" : "thoát khỏi trò chơi";
+                $msg = "Người chơi <span class='highlight'>[" . $this->char->name . "]</span> vừa mới " . $typex;
                 break;
             case 'boss':
                 $msg = "Người chơi <span class='highlight'>[" . ($this->char->name) . "]</span> đã tiêu diệt Boss </span>[" . $this->getBoss($this->bossid) . "]</span>";
@@ -58,6 +58,6 @@ class Logging extends Model
 
     public function char()
     {
-        return $this->belongsTo(Char::class, 'char_id', 'char_id');
+        return $this->belongsTo(Char::class, 'char_id', 'char_id')->withDefault(["name" => "Chưa cập nhật"]);
     }
 }

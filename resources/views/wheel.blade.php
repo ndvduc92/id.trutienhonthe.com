@@ -217,7 +217,7 @@
                                 <div class="group-btn text-right">
                                     <a href="/" class="btn btn-success btn-block"><i
                                             class="fas fa-diamond"></i> {{ $wheel->name }} (Lượt quay còn lại : <span
-                                            id="times">{{ $wheel->num_of_times - $wheel->usedTimes() }}</span>
+                                            id="times">{{ $times }}</span>
                                         lượt)</a>
                                 </div>
                                 <div class="card">

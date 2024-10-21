@@ -119,12 +119,12 @@ class AuthController extends Controller
         }
     }
 
-    public function setMainChar()
+    public function setMainChar($id)
     {
         $user = Auth::user();
-        $user->main_id = request()->main_id;
+        $user->main_id = $id;
         $user->save();
-        return back();
+        return back()->with("success", "Cập nhật thành công");
     }
 
     public function changeClassGet($id)
