@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('heading')
-    {{ $guild ? $guild->name : 'Chưa có bang hội' }}
+    {{ $guild ? "Khu vực Bang Hội" : 'Chưa có bang hội' }}
 @endsection
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
@@ -14,7 +14,7 @@
         @if ($guild)
             <div class="dark:bg-darker shadow-lg hover:shadow-xl rounded-lg mb-6 border dark:border-primary-light">
                 <div class="p-2 dark:text-primary-light border-b dark:border-primary-light">
-                    <h4 class="text-2xl font-semibold ">Thông Tin Bang Hội</h4>
+                    <h4 class="text-2xl font-semibold ">Thông Tin Bang Hội [{{ $guild->name }}]</h4>
                 </div>
                 <div class="p-2">
                     <ul class="max-w-md space-y-1 list-inside">
@@ -98,7 +98,7 @@
                         @foreach ($guild->families as $item)
                             <div class="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full"
                                 id="styled-profile{{ $item->id }}" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Thành viên gia tộc {{ $item->name }}</h3>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Thành viên gia tộc [{{ $item->name }}]</h3>
                                 <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
 
                                 <div class="relative overflow-x-auto">
@@ -110,6 +110,9 @@
                                                 </th>
                                                 <th scope="col" class="px-6 py-3">
                                                     Môn Phái
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Level
                                                 </th>
                                                 <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                                                     Trạng thái
@@ -128,6 +131,9 @@
                                                     </th>
                                                     <td class="px-6 py-4">
                                                         {{ getNv($char->char_id)->getClass() }}
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        {{ ($char->char->level) }}
                                                     </td>
                                                     <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
                                                         @if (roleOnline($char->char_id))
