@@ -37,10 +37,10 @@
                         @endforeach
                     </div>
                     <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
-                        <form class="relative flex" action="/message" method="POST" style="">
+                        <form class="relative flex" action="" method="POST" style="">
                             @csrf
                             <input style=" padding: 12px 20px" required name="msg"
-                                placeholder=" Gửi tin nhắn vào game kênh [Thế Giới]! Mỗi lần tốn 50 xu (miễn phí với VIP 6). Yêu cầu nhân vật phải online"
+                                placeholder=" Gửi tin nhắn vào game kênh [Thế Giới]! Mỗi lần tốn 50 xu (miễn phí với VIP 7-8). Yêu cầu nhân vật phải online"
                                 class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3">
                             <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
 

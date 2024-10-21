@@ -105,8 +105,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/check-online', [ServiceController::class, 'checkOnline']);
     });
 
-    Route::post('/message', [ServiceController::class, 'message']);
-    Route::get('/tro-chuyen', [ChatController::class, 'chats'])->name("chats");
+    Route::get('/tro-chuyen', [ChatController::class, 'chats']);
+    Route::post('/tro-chuyen', [ChatController::class, 'message']);
 
     Route::get('/skills', [SkillController::class, 'index'])->name("skills");
 

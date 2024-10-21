@@ -53,7 +53,7 @@
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-                <a href="/" class="navbar-brand">
+                <a href="/vong-quay-may-man" class="navbar-brand">
                     <img src="/fe/img/logo.png" alt="AoC Logo" width="50px" class="brand-image img-circle elevation-3"
                         style="opacity: .8">
                 </a>

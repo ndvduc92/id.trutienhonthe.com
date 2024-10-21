@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Char;
-use App\Models\Chat;
 use Auth;
 use hrace009\PerfectWorldAPI\API;
 use Illuminate\Http\Request;
@@ -16,43 +15,6 @@ class ServiceController extends Controller
     public function index()
     {
         return view("services");
-    }
-
-    public function message()
-    {
-        $api = new API;
-        if (strlen(request()->msg) > 200) {
-            return back()->with("error", "Tin nhắn quá dài!");
-        }
-
-        if (!youOnline()) {
-            return back()->with("error", "Người chơi đang không online!");
-        }
-        $user = Auth::user();
-
-        if ($user->viplevel < 6 && $user->balance < 50) {
-            return back()->with("error", "Số xu không đủ để gởi tin nhắn");
-        }
-
-        $api->worldChat($user->main_id, "[Gửi từ Web]: " . request()->msg, 1);
-
-        if ($user->viplevel < 6) {
-            $user->balance = $user->balance - 50;
-            $user->save();
-        }
-
-        $chat = new Chat;
-        $chat->date = date("Y-m-d H:i:s");
-        $chat->type = "Chat";
-        $chat->uid = Auth::user()->main_id;
-        $chat->channel = "World";
-        $chat->dest = "1";
-        $chat->msg = request()->msg;
-        $chat->from = "Thế Giới";
-        $chat->color = "yellow";
-        $chat->save();
-
-        return back()->with("success", "Tin nhắn đã được gởi thành công");
     }
 
     public function checkOnline()
