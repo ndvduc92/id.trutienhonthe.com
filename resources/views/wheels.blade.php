@@ -46,7 +46,7 @@ Vòng Quay May Mắn
                     </h1>
                     <div class="flex-grow border-t dark:border-primary-light mt-1"></div>
                     <div class="flex mt-4 align-middle items-center">
-                        Tất cả thành viên đều có thể tham gia, mỗi ngày 3 lần, item sẽ gởi trực tiếp vào tín sứ.
+                        Tất cả thành viên đều có thể tham gia, mỗi ngày 3 lần, item sẽ gởi trực tiếp vào tín sứ. Tất cả đều là item khoá.
                     </div>
                     <div class="flex mt-4 align-middle items-center">
                         <!-- Submit Button -->
@@ -65,7 +65,7 @@ Vòng Quay May Mắn
                     </h1>
                     <div class="flex-grow border-t dark:border-primary-light mt-1"></div>
                     <div class="flex mt-4 align-middle items-center">
-                        Vòng quay dành cho VIP từ cấp 5 trở lên, mỗi ngày 3 lần, item sẽ gởi trực tiếp vào tín sứ.
+                        Vòng quay dành cho VIP từ cấp 5 trở lên, mỗi ngày 3 lần, item sẽ gởi trực tiếp vào tín sứ. Tất cả đều là item khoá.
                     </div>
                     <div class="flex mt-4 align-middle items-center">
                         <!-- Submit Button -->
@@ -84,7 +84,7 @@ Vòng Quay May Mắn
                     </h1>
                     <div class="flex-grow border-t dark:border-primary-light mt-1"></div>
                     <div class="flex mt-4 align-middle items-center">
-                        Vòng quay tiêu tốn xu. Bạn sẽ nhận được những vật phẩm có giá trị cao. Giới hạn 50 lần/ngày
+                        Vòng quay tiêu tốn xu. Giới hạn sẽ tuỳ thuộc vào cấp VIP của bạn, VIP càng cao số lượt càng nhiều. Tất cả đều là item KHÔNG khoá.
                     </div>
                     <div class="flex mt-4 align-middle items-center">
                         <!-- Submit Button -->
