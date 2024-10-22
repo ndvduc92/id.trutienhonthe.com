@@ -118,16 +118,13 @@
                     @endif
                 </div>
             </div>
-            @php
-                $response = gameApi('GET', '/api/online.php');
-            @endphp
             <div class="flex align-middle items-center justify-between p-2">
                 <div>
                     <h6
                         class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                         Người chơi online
                     </h6>
-                    <span class="text-xl font-semibold">{{ $response['online'] }}</span>
+                    <span class="text-xl font-semibold">{{ count(getOnlineList()) }}</span>
 
                 </div>
                 <div>
@@ -146,7 +143,7 @@
                         class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                         Tài khoản đăng ký
                     </h6>
-                    <span class="text-xl font-semibold">{{ $response['account'] }}</span>
+                    <span class="text-xl font-semibold">{{ App\Models\User::where("role", "member")->count(); }}</span>
                 </div>
                 <div>
                     <span>

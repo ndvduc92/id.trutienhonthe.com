@@ -45,7 +45,7 @@ dark:hover:bg-gray-700";
                             class="bg-gray-200 dark:bg-dark dark:text-light text-gray-600 uppercase text-xs leading-normal">
                             <th class="py-3 px-6 text-left"></th>
                             @foreach ($vips as $key => $value)
-                            <th class="py-3 px-6 text-left">VIP {{ $key}}</th>
+                            <th class="py-3 px-6 text-left">VIP{{ $key}}</th>
                             @endforeach
                         </tr>
                     </thead>

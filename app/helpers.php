@@ -131,6 +131,7 @@ function roleOnline($id)
 
 function getOnlineList()
 {
+    if (!isOnline()) return [];
     $api = new API;
     try {
         return $api->getOnlineList();
