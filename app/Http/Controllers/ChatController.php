@@ -38,6 +38,7 @@ class ChatController extends Controller
             $family_ids = Family::where("faction_id", $faction_id)->pluck("id");
             $users = FamilyUser::whereIn("family_id", $family_ids)->get();
             $char_ids = $users->pluck("char_id")->toArray();
+            $family_user_ids = $family_users->pluck("char_id")->toArray();
         }
         try {
 
@@ -95,7 +96,7 @@ class ChatController extends Controller
             ]);
         }
 
-        foreach (array_reverse($chats) as $ch) {
+        foreach (array_reverse($chats) as $key => $ch) {
             if ($ch["channel"] == "World") {
                 array_push($chs, $ch);
             } else {
@@ -109,8 +110,13 @@ class ChatController extends Controller
         $all = array_merge($chats, $chs);
         $sorted = collect($all)->sortByDesc('date');
 
-        $sorted->values()->all();
-        return view("chats", ["chs" => $sorted->values()->all()]);
+        $res = $sorted->values()->all();
+        foreach ($res as $key => $ch) {
+            if ($ch["channel"] == "Family" && !in_array($ch["uid"], $family_user_ids)) {
+                unset($sorted[$key]);
+            }
+        }
+        return view("chats", ["chs" => $res]);
 
     }
 

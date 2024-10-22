@@ -11,15 +11,15 @@ class HomeController extends Controller
     public function home()
     {
         $loggings = Logging::whereNot("type", "login")->orderByDesc("date")->limit(100)->get();
-        
-        foreach($loggings as $key => $value) {
+
+        foreach ($loggings as $key => $value) {
             if ($value["type"] == "refine" && intval($value["refine_level_after"]) < 11) {
                 unset($loggings[$key]);
-            } 
+            }
 
             if ($value["type"] == "boss" && !in_array(($value["bossid"]), array_keys(Logging::BOSSES))) {
                 unset($loggings[$key]);
-            }  
+            }
         }
         return view('home', ["loggings" => $loggings]);
     }

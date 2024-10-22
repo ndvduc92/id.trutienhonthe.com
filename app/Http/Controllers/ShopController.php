@@ -26,6 +26,9 @@ class ShopController extends Controller
 
     public function postShop(Request $request)
     {
+        if (!isOnline()) {
+            return redirect()->back()->with('error', 'Hãy quay lại khi server hoạt động.');
+        }
         $user = Auth::user();
         if ($user->main_id == "") {
             return redirect()->back()->with('error', 'Chưa chọn nhân vật để mua vật phẩm.');
@@ -46,10 +49,11 @@ class ShopController extends Controller
         }
         try {
             DB::beginTransaction();
-            $this->callGameApi("post", "/html/send2.php", [
+            $this->callGameApi("post", "/api/mail.php", [
                 "receiver" => $user->main_id,
                 "itemid" => $shop->itemid,
                 "count" => $request->quantity,
+                "msg" => "Vật phẩm mua từ Web Shop"
             ]);
             $user->balance = $balance - $cash;
             $user->save();

@@ -163,4 +163,17 @@ class Char extends Model
         return $this->belongsTo(User::class, "userid", "userid");
     }
 
+    public function guildLevel()
+    {
+        $level = 0;
+        $family = FamilyUser::where("char_id", $this->char_id)->first();
+        if ($family) {
+            $level = $family->family;
+            if ($level) {
+                $level = $level->faction->level;
+            }
+        }
+        return $level;
+    }
+
 }
