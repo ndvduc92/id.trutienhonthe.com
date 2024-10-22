@@ -46,7 +46,7 @@ class AuthController extends Controller
     public function signupPost(Request $request)
     {
         $validated = $request->validate([
-            'login' => 'bail|required|min:4|max:10|alpha_num|unique:users,username',
+            'login' => 'bail|required|min:3|max:10|alpha_num|unique:users,username',
             'passwd' => 'bail|required|min:4|max:10|alpha_num',
             'passwdConfirm' => 'bail|required|same:passwd',
             'email' => 'bail|required|email|unique:users,email',
