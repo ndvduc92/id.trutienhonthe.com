@@ -58,7 +58,7 @@ class Logging extends Model
                 $msg = "Người chơi <span class='highlight'>[" . $this->char->name . "]</span> vừa mới " . $typex;
                 break;
             case 'boss':
-                $msg = "Người chơi <span class='highlight'>[" . ($this->char->name) . "]</span> đã tiêu diệt Boss </span>[" . $this->getBoss($this->bossid) . "]</span>";
+                $msg = "Người chơi <span class='highlight'>[" . ($this->char->name) . "]</span> đã tiêu diệt Boss <span class='highlight'>[" . $this->getBoss($this->bossid) . "]</span>";
                 break;
             default:
                 $msg = "....";
