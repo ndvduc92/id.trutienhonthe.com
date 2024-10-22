@@ -13,7 +13,7 @@ class HomeController extends Controller
         $loggings = Logging::whereNot("type", "login")->orderByDesc("date")->limit(100)->get();
 
         foreach ($loggings as $key => $value) {
-            if ($value["type"] == "refine" && intval($value["refine_level_after"]) < 11) {
+            if ($value["type"] == "refine" && intval($value["refine_level_after"]) < 14) {
                 unset($loggings[$key]);
             }
 
