@@ -79,7 +79,7 @@ dark:hover:bg-gray-700";
             <h2 class="text-2xl font-semibold ">Hướng dẫn</h2>
         </div>
         <div class="p-2">
-            <div class="grid grid-cols-3 gap-8 p-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-8 p-4">
                 <div class="flex-col p-4 bg-white rounded-md dark:bg-darker wheel">
                     <h1
                         class="text-sm font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
