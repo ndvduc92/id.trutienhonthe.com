@@ -37,7 +37,7 @@ class CharService
         if (socket_connect($sock, $GameServer, $GamedbPort)) {
             socket_set_block($sock);
 
-            $id_users = User::all();
+            $id_users = User::where("role", "member")->get();
 
             $players = [];
             foreach ($id_users as $id_user) {
