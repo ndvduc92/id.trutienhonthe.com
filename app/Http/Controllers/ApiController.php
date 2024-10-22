@@ -155,6 +155,7 @@ class ApiController extends Controller
                     "name" => $faction["name"],
                     "level" => $faction["level"],
                     "master" => $faction_api[$key]["master"],
+                    "level" => $faction_api[$key]["level"],
                 ]);
             }
 
@@ -163,7 +164,7 @@ class ApiController extends Controller
                 array_push($guilds_res, [
                     "id" => $key["id"],
                     "name" => $key["name"],
-                    "level" => $key["level"],
+                    "level" => intval($key["level"]) + 1,
                     "master_id" => $key["master"],
                 ]);
             }
