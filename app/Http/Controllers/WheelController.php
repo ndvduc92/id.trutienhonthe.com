@@ -20,6 +20,8 @@ class WheelController extends Controller
         $mx = explode(",", $viplevel);
 
         $vips = new \stdClass();
+        $zero = 0;
+        $vips->$zero = "0";
         $i = 1;
         foreach ($mx as $value) {
             $vips->$i = $value;
@@ -39,6 +41,9 @@ class WheelController extends Controller
     public function show(Request $request, $id)
     {
         $wheel = Wheel::findOrFail($id);
+        if (!Auth::user()->main_id) {
+            return redirect("/vong-quay-may-man")->with('error', 'Vui lòng chọn nhân vật trước khi tham gia!');
+        }
         if ($wheel->type == "vip" && Auth::user()->viplevel < $wheel->viplevel) {
             return redirect("/vong-quay-may-man")->with('error', 'Yêu cầu phải VIP 5 trở lên để tham gia vòng quay này!');
         }

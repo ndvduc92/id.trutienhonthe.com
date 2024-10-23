@@ -18,7 +18,6 @@
             <table class="w-full table-auto">
                 <thead>
                     <tr class="bg-gray-200 dark:bg-primary dark:text-light text-gray-600 uppercase text-xs leading-normal">
-                        <th class="py-3 px-6 text-left">#</th>
                         <th class="py-3 px-6 text-left">Giftcode</th>
                         <th class="py-3 px-6 text-left">Vật phẩm</th>
                         <th class="py-3 px-6 text-left">Trạng thái</th>
@@ -30,11 +29,6 @@
                     @foreach ($giftcodes as $item)
                         <tr
                             class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100 dark:border-primary dark:bg-darker dark:hover:bg-primary-dark">
-                            <td class="py-3 px-6 text-left">
-                                <div class="flex items-center">
-                                    {{ $loop->index + 1 }}
-                                </div>
-                            </td>
                             <td class="py-3 px-6 text-left">
                                 <div class="flex items-center">
                                     {{ $item->giftcode }}

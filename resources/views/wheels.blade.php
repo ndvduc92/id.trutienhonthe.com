@@ -114,8 +114,8 @@ dark:hover:bg-gray-700";
                         <!-- Submit Button -->
                         <a href="/vong-quay-may-man/2" method="get">
                             <button type="button"
-                                class="{{ $vip->num_of_times - $vip->usedTimes() == 0 ? $disableClass : $enableClass }}">
-                                Tham Gia (còn {{ $vip->num_of_times - $vip->usedTimes() }} lần)
+                                class="{{ Auth::user()->viplevel < 5 || ($vip->num_of_times - $vip->usedTimes()) == 0 ? $disableClass : $enableClass }}">
+                                Tham Gia (còn {{ Auth::user()->viplevel < 5 ? 0 : $vip->num_of_times - $vip->usedTimes() }} lần)
                             </button>
                         </a>
                     </div>
