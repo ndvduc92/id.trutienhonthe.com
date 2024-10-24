@@ -188,5 +188,5 @@ function meta() {
         }
     }
     array_push($metas, Auth::user()->id);
-    return \App\Models\User::whereIn("id", $metas)->orderBy("username")->get();
+    return \App\Models\User::whereIn("id", $metas)->orderBy("userid")->get();
 }
