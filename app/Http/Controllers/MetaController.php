@@ -55,10 +55,10 @@ class MetaController extends Controller
         }
         $m4 = Meta::where("meta_user_id", Auth::user()->id)->first();
         if ($m4) {
-            if (!Meta::where("meta_user_id", Auth::user()->id)->where("user_id", $m4->user_id)->first()) {
+            if (!Meta::where("meta_user_id", $newAccount->id)->where("user_id", $m4->user_id)->first()) {
                 $meta = new Meta;
                 $meta->user_id = $m4->user_id;
-                $meta->meta_user_id = Auth::user()->id;
+                $meta->meta_user_id = $newAccount->id;
                 $meta->save();
             }
         }
