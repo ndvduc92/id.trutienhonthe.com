@@ -9,6 +9,7 @@ use App\Models\FamilyUser;
 use App\Models\User;
 use Auth;
 use hrace009\PerfectWorldAPI\API;
+use Carbon\Carbon;
 
 class ChatController extends Controller
 {
@@ -134,6 +135,11 @@ class ChatController extends Controller
 
         if ($user->viplevel < 6 && $user->balance < 50) {
             return back()->with("error", "Số xu không đủ để gởi tin nhắn");
+        }
+
+        $last = Chat::where("uid", Auth::user()->main_id)->latest()->first();
+        if (Carbon::now()->diffInSeconds($last->created_at) < 5) {
+            return back()->with("error", "Thao tác quá nhanh, vui lòng thử lại");
         }
 
         $api->worldChat($user->main_id, "[Gửi từ Web]: " . request()->msg, 1);
