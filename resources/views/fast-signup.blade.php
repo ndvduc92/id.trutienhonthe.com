@@ -40,23 +40,23 @@
 
         <input
             class="w-full px-4 py-2 border rounded-md dark:bg-darker dark:border-gray-700 focus:outline-none focus:ring focus:ring-primary-100 dark:focus:ring-primary-darker"
-            id="password" type="password" value="123456" name="passwd" placeholder="Mật khẩu" autofocus="autofocus"
+            id="password" type="password" value="" name="passwd" placeholder="Mật khẩu" autofocus="autofocus"
             required="required">
 
         <input
             class="w-full px-4 py-2 border rounded-md dark:bg-darker dark:border-gray-700 focus:outline-none focus:ring focus:ring-primary-100 dark:focus:ring-primary-darker"
             id="password_confirmation" type="password" name="passwdConfirm" placeholder="Nhập lại mật khẩu"
-            autofocus="autofocus" value="123456" required="required">
+            autofocus="autofocus" value="" required="required">
 
         <input
             class="w-full px-4 py-2 border rounded-md dark:bg-darker dark:border-gray-700 focus:outline-none focus:ring focus:ring-primary-100 dark:focus:ring-primary-darker"
-            id="email" type="email" value="ndvduc92@gmail.com" name="email" placeholder="Địa chỉ email"
+            id="email" type="email" value="" name="email" placeholder="Địa chỉ email"
             autofocus="autofocus" required="required">
 
 
         <input
             class="w-full px-4 py-2 border rounded-md dark:bg-darker dark:border-gray-700 focus:outline-none focus:ring focus:ring-primary-100 dark:focus:ring-primary-darker"
-            id="phonenumber" type="phonenumber" value="1234567" name="phone" placeholder="Số điện thoại"
+            id="phonenumber" type="phonenumber" value="" name="phone" placeholder="Số điện thoại"
             autofocus="autofocus" required="required">
         <button type="submit"
             class="w-full px-4 py-2 font-medium text-center text-white transition-colors duration-200 rounded-md bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-darker">
