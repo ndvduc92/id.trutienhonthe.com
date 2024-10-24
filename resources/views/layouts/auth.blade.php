@@ -23,8 +23,6 @@
         .alert .success {
             color: rgb(34 173 87);
         }
-
-        
     </style>
 </head>
 

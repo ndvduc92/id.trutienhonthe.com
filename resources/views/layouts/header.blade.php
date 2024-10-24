@@ -38,6 +38,7 @@
                     {{ youOnline() ? 'Online' : 'Offline' }}
                 </span>
             </button>
+            @include('layouts.meta')
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open; $nextTick(() => { if(open){ $refs.characterMenu.focus() } })"
                     type="button" aria-haspopup="true" :aria-expanded="open ? 'true' : 'false'"
@@ -117,7 +118,7 @@
             x-show="isMobileSubMenuOpen" @click.away="isMobileSubMenuOpen = false"
             class="absolute flex items-center p-4 bg-white rounded-md shadow-lg dark:bg-darker top-16 inset-x-4 md:hidden"
             aria-label="Secondary">
-
+            @include('layouts.meta')
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open; $nextTick(() => { if(open){ $refs.characterMenu.focus() } })"
                     type="button" aria-haspopup="true" :aria-expanded="open ? 'true' : 'false'"

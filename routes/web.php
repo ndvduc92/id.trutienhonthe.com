@@ -14,6 +14,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\WheelController;
+use App\Http\Controllers\MetaController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dang-ky', [AuthController::class, 'signup']);
 Route::post('/dang-ky', [AuthController::class, 'signupPost']);
+
+Route::get('/dang-ky-nhanh', [AuthController::class, 'fastSignup']);
+Route::post('/dang-ky-nhanh', [AuthController::class, 'fastSignupPost']);
 
 Route::post('/dang-nhap', [AuthController::class, 'signinPost']);
 Route::get('/dang-nhap', [AuthController::class, 'signin'])->name("login");
@@ -59,6 +63,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'knb'], function () {
         Route::get('/', [KnbController::class, 'getKnb'])->name("knb");
         Route::post('/', [KnbController::class, 'postKnb']);
+    });
+
+    Route::group(['prefix' => 'meta'], function () {
+        Route::get('/', [MetaController::class, 'create']);
+        Route::get('/login/{id}', [MetaController::class, 'login']);
+        Route::post('/', [MetaController::class, 'store']);
     });
 
     Route::get('/nap-tien', [DepositController::class, 'getNapTien'])->name("payment");

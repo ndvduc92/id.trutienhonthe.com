@@ -51,14 +51,14 @@ class Logging extends Model
         $type = $this->type;
         switch ($type) {
             case 'refine':
-                $msg = "Người chơi <span class='highlight'>[" . ($this->char->name) . "]</span> đã luyện thành công trang bị <span class='highlight'>[" . $this->item->name . "]</span> lên cấp " . $this->refine_level_after;
+                $msg = "<span class='highlight'>[" . ($this->char->name) . "]</span> đã luyện thành công trang bị <span class='highlight'>[" . $this->item->name . "]</span> +" . $this->refine_level_after. " bằng <span class='highlight'>[".$this->stone->name."]</span>";
                 break;
             case 'login':
                 $typex = $type == "login" ? "đăng nhập vào game" : "thoát khỏi trò chơi";
                 $msg = "Người chơi <span class='highlight'>[" . $this->char->name . "]</span> vừa mới " . $typex;
                 break;
             case 'boss':
-                $msg = "Người chơi <span class='highlight'>[" . ($this->char->name) . "]</span> đã tiêu diệt Boss <span class='highlight'>[" . $this->getBoss($this->bossid) . "]</span>";
+                $msg = "<span class='highlight'>[" . ($this->char->name) . "]</span> đã tiêu diệt Boss <span class='highlight'>[" . $this->getBoss($this->bossid) . "]</span>";
                 break;
             default:
                 $msg = "....";

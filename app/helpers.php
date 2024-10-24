@@ -86,7 +86,7 @@ function timeAgo($time_ago)
 
     return [
         "showDate" => $showDate,
-        "time" => $msg
+        "time" => $msg,
     ];
 }
 
@@ -103,7 +103,7 @@ function isOnline()
 {
     $api = new API;
     if (!$api->online) {
-      \DB::table("chats")->truncate();
+        \DB::table("chats")->truncate();
     }
     return $api->online;
 }
@@ -131,7 +131,10 @@ function roleOnline($id)
 
 function getOnlineList()
 {
-    if (!isOnline()) return [];
+    if (!isOnline()) {
+        return [];
+    }
+
     $api = new API;
     try {
         return $api->getOnlineList();
@@ -158,4 +161,32 @@ function getOnlines()
     } catch (\Throwable $th) {
         return [];
     }
+}
+
+function getRandomStringRandomInt($length = 32)
+{
+    $stringSpace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $pieces = [];
+    $max = mb_strlen($stringSpace, '8bit') - 1;
+    for ($i = 0; $i < $length; ++$i) {
+        $pieces[] = $stringSpace[random_int(0, $max)];
+    }
+    return implode('', $pieces);
+}
+
+function meta() {
+    $main = \App\Models\Meta::where("user_id", Auth::user()->id)->pluck("meta_user_id")->toArray();
+    $metas = [];
+    if (count($main)) {
+        $metas = $main;
+    } else {
+        $main1 = \App\Models\Meta::where("meta_user_id", Auth::user()->id)->first();
+        if ($main1) {
+            $main2 = \App\Models\Meta::where("user_id", $main1->user_id)->pluck("meta_user_id")->toArray();
+            $metas = $main2;
+            array_push($metas, $main1->user_id);
+        }
+    }
+    array_push($metas, Auth::user()->id);
+    return \App\Models\User::whereIn("id", $metas)->get();
 }
