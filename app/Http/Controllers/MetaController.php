@@ -32,34 +32,32 @@ class MetaController extends Controller
                 $meta->meta_user_id = Auth::user()->id;
                 $meta->save();
             }
-        } else {
-            $m2 = Meta::where("meta_user_id", $exist->id)->first();
-            if ($m2) {
-                if (!Meta::where("meta_user_id", $exist->id)->where("user_id", $m2->user_id)->first()) {
-                    $meta = new Meta;
-                    $meta->user_id = $m2->user_id;
-                    $meta->meta_user_id = $exist->id;
-                    $meta->save();
-                }
-            }
         }
-        $main = Meta::where("user_id", Auth::user()->id)->first();
-        if ($main) {
-            if (!Meta::where("meta_user_id", $exist->id)->where("user_id", Auth::user()->id)->first()) {
+        $m2 = Meta::where("meta_user_id", $exist->id)->first();
+        if ($m2) {
+            if (!Meta::where("meta_user_id", $exist->id)->where("user_id", $m2->user_id)->first()) {
                 $meta = new Meta;
-                $meta->user_id = Auth::user()->id;
+                $meta->user_id = $m2->user_id;
                 $meta->meta_user_id = $exist->id;
                 $meta->save();
             }
-        } else {
-            $main1 = Meta::where("meta_user_id", Auth::user()->id)->first();
-            if ($main1) {
-                if (!Meta::where("meta_user_id", $exist->id)->where("user_id", $main1->user_id)->first()) {
-                    $meta = new Meta;
-                    $meta->user_id = $main1->user_id;
-                    $meta->meta_user_id = $exist->id;
-                    $meta->save();
-                }
+        }
+        $m3 = Meta::where("user_id", Auth::user()->id)->first();
+        if ($m3) {
+            if (!Meta::where("meta_user_id", $exist->id)->where("user_id", $m3->user_id)->first()) {
+                $meta = new Meta;
+                $meta->user_id = $m3->user_id;
+                $meta->meta_user_id = $exist->id;
+                $meta->save();
+            }
+        }
+        $m4 = Meta::where("meta_user_id", Auth::user()->id)->first();
+        if ($m4) {
+            if (!Meta::where("meta_user_id", $exist->id)->where("user_id", $m4->user_id)->first()) {
+                $meta = new Meta;
+                $meta->user_id = $m4->user_id;
+                $meta->meta_user_id = $exist->id;
+                $meta->save();
             }
         }
         return back()->with("success", "Cập nhật thành công");
